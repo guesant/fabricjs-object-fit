@@ -10,6 +10,7 @@ module.exports = {
     nav: [
       { text: "Guide", link: "/guide/" },
       { text: "API", link: "/api/" },
+      { text: "Examples", link: "/examples/" },
       {
         text: "GitHub",
         link: "https://github.com/guesant/fabricjs-object-fit"

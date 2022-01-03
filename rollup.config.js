@@ -1,9 +1,11 @@
+import { babel } from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import dts from "rollup-plugin-dts";
+import { terser } from "rollup-plugin-terser";
 
-const sharedPlugins = [nodeResolve()];
+const sharedPluginsPre = [nodeResolve()];
 
 export default defineConfig([
   {
@@ -17,10 +19,26 @@ export default defineConfig([
       {
         sourcemap: true,
         file: "lib/index.mjs",
-        format: "es"
+        format: "esm",
+        plugins: [terser()]
+      },
+      {
+        sourcemap: true,
+        name: "FabricJSObjectFit",
+        file: "lib/index.umd.js",
+        format: "umd",
+        plugins: [terser()]
       }
     ],
-    plugins: [...sharedPlugins, typescript({ tsconfig: "./tsconfig.json" })]
+    plugins: [
+      ...sharedPluginsPre,
+      typescript({ tsconfig: "./tsconfig.json" }),
+      babel({
+        babelHelpers: "bundled",
+        extensions: [".ts"],
+        include: "src/**/*.ts"
+      })
+    ]
   },
   {
     input: "./src/index.ts",
@@ -30,6 +48,6 @@ export default defineConfig([
         format: "es"
       }
     ],
-    plugins: [...sharedPlugins, dts()]
+    plugins: [...sharedPluginsPre, dts()]
   }
 ]);
