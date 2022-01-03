@@ -12,11 +12,11 @@ module.exports = {
       { text: "API", link: "/api/" },
       {
         text: "GitHub",
-        link: "https://github.com/guesant/fabricjs-object-fit",
-      },
+        link: "https://github.com/guesant/fabricjs-object-fit"
+      }
     ],
     sidebar: "auto",
-    searchPlaceholder: "Search...",
+    searchPlaceholder: "Search..."
   },
-  plugins: [["vuepress-plugin-typedoc"]],
+  plugins: [["vuepress-plugin-typedoc"]]
 };

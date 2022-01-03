@@ -12,24 +12,24 @@ export default defineConfig([
       {
         sourcemap: true,
         file: "lib/index.js",
-        format: "cjs",
+        format: "cjs"
       },
       {
         sourcemap: true,
         file: "lib/index.mjs",
-        format: "es",
-      },
+        format: "es"
+      }
     ],
-    plugins: [...sharedPlugins, typescript({ tsconfig: "./tsconfig.json" })],
+    plugins: [...sharedPlugins, typescript({ tsconfig: "./tsconfig.json" })]
   },
   {
     input: "./src/index.ts",
     output: [
       {
         file: "lib/index.d.ts",
-        format: "es",
-      },
+        format: "es"
+      }
     ],
-    plugins: [...sharedPlugins, dts()],
-  },
+    plugins: [...sharedPlugins, dts()]
+  }
 ]);
