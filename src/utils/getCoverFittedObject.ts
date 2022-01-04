@@ -26,34 +26,21 @@ export const getCoverFittedObject = (
   object.scaleX = targetScaleFactor;
   object.scaleY = targetScaleFactor;
 
-  const objWrapper = new ns.Group([object], {
+  const objectWrapper = new ns.Group([object], {
     ...fabricObjectDefaults
   });
 
-  const objWrapperWidth = objWrapper.width! * objWrapper.scaleX!;
-  const objWrapperHeight = objWrapper.height! * objWrapper.scaleY!;
-
-  const [maskX, maskY] = [
-    x.getAbsolute(objWrapperWidth, width),
-    y.getAbsolute(objWrapperHeight, height)
-  ];
-
-  const objMask = new ns.Rect({
-    ...fabricObjectDefaults,
-    width,
-    height,
-    top: -objWrapperHeight / 2 + maskY,
-    left: -objWrapperWidth / 2 + maskX
+  objectWrapper.set({
+    left: x.getAbsolute(objectWrapper.width!, width),
+    top: y.getAbsolute(objectWrapper.height!, height)
   });
 
-  objWrapper.clipPath = objMask;
+  objectWrapper.setCoords();
 
   const group = new ns.Group(undefined, {
     ...fabricObjectDefaults,
     width,
-    height,
-    top: maskY,
-    left: maskX
+    height
   });
 
   const groupMask = new ns.Rect({
@@ -64,7 +51,7 @@ export const getCoverFittedObject = (
     left: -width / 2
   });
 
-  group.add(objWrapper);
+  group.add(objectWrapper);
   group._updateObjectsCoords();
 
   group.clipPath = groupMask;

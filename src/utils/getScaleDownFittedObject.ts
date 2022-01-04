@@ -11,7 +11,9 @@ export const getScaleDownFittedObject = (
 ) => {
   const { width, height } = options;
 
-  if (object.width! > width || object.height! > height) {
+  const { width: objWidth = 0, height: objHeight = 0 } = object;
+
+  if (objWidth > width || objHeight > height) {
     return getContainFittedObject(object, options, ns);
   }
 
