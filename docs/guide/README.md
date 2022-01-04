@@ -19,7 +19,7 @@ npm install fabricjs-object-fit
 import {} from "fabricjs-object-fit";
 ```
 
-### Browser
+### From a CDN
 
 #### UMD
 
@@ -48,20 +48,22 @@ import { setup } from "fabricjs-object-fit";
 
 const { ObjectFit } = setup(fabric);
 
-function doRender() {
+async function doRender() {
   const canvas = new fabric.Canvas("c");
 
-  fabric.Image.fromUrl("https://via.placeholder.com/640x360", (img) => {
-    const container = new ObjectFit(img, {
-      width: 400,
-      height: 400,
-      mode: "cover"
-    });
+  const img = await new Promise((resolve) =>
+    fabric.Image.fromURL("https://via.placeholder.com/640x360", resolve)
+  );
 
-    canvas.add(container);
-
-    canvas.renderAll();
+  const container = new ObjectFit(img, {
+    width: 400,
+    height: 400,
+    mode: "cover"
   });
+
+  canvas.add(container);
+
+  canvas.renderAll();
 }
 
 doRender();
@@ -88,17 +90,20 @@ canvas.requestRenderAll();
 
 - Setting the image position in the container
 
-> Behaviours like CSS's [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position).
+> Behaviors like CSS's [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position).
 
 ```ts
 import { fabric } from "fabric";
 import { setup, Point } from "fabricjs-object-fit";
-// const { setup, Point } = FabricJSObjectFit;
 
 const { ObjectFit } = setup(fabric);
 
-function doRender() {
+async function doRender() {
   const canvas = new fabric.Canvas("c");
+
+  const img = await new Promise((resolve) =>
+    fabric.Image.fromURL("...", resolve)
+  );
 
   const container = new ObjectFit(img, {
     width: 100,
@@ -120,19 +125,18 @@ doRender();
 
 ### Export/Import
 
-Lets create a function that draws an fitted image and returns the canvas
-
 ```ts
 import { fabric } from "fabric";
 import { setup } from "fabricjs-object-fit";
-// const { setup } = FabricJSObjectFit;
 
 const { ObjectFit } = setup(fabric);
 
 async function draw() {
   const canvas = new fabric.Canvas("c");
 
-  const img = await Promise((resolve) => fabric.Image.fromURL("...", resolve));
+  const img = await new Promise((resolve) =>
+    fabric.Image.fromURL("...", resolve)
+  );
 
   const container = new ObjectFit(img, {
     width: 100,
