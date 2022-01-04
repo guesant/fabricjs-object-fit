@@ -16,6 +16,10 @@ export interface IObjectFit extends fabric.Group {
 
   useObjectTransform: boolean;
 
+  enableRecomputeOnScaled: boolean;
+
+  enableRecomputeOnScaling: boolean;
+
   object: fabric.Object | null;
 
   setObject(
