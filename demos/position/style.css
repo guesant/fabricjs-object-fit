@@ -1,0 +1,64 @@
+body {
+  margin: 12px;
+  line-height: 1.45;
+}
+
+canvas {
+  border: 2px solid;
+}
+
+ul,
+li {
+  list-style-position: inside;
+}
+
+li {
+  line-height: 2;
+}
+
+.block {
+  display: block;
+}
+
+.formula {
+  padding: 8px;
+  border: 1px solid;
+  display: inline-block;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  padding: 12px 8px;
+
+  font-style: italic;
+
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.note::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 1.1em;
+  margin-right: 8px;
+  background-color: black;
+  flex-shrink: 0;
+}
+
+.render {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.positionInfo > * {
+  padding: 4px 16px 4px 8px;
+  display: inline-block;
+  border: 2px solid rgba(0, 0, 0, 0.45);
+}
+
+section {
+  margin: 16px 0;
+}
