@@ -46,6 +46,12 @@ import {} from "fabricjs-object-fit";
 import { fabric } from "fabric";
 import { setup } from "fabricjs-object-fit";
 
+// if you are using the UMD version
+// const {
+//   fabric,
+//   FabricJSObjectFit: { setup }
+// } = window;
+
 const { ObjectFit } = setup(fabric);
 
 async function doRender() {
@@ -96,6 +102,12 @@ canvas.requestRenderAll();
 import { fabric } from "fabric";
 import { setup, Point } from "fabricjs-object-fit";
 
+// if you are using the UMD version
+// const {
+//   fabric,
+//   FabricJSObjectFit: { setup, Point }
+// } = window;
+
 const { ObjectFit } = setup(fabric);
 
 async function doRender() {
@@ -130,6 +142,12 @@ Lets suppose we have an async function called `draw` that loads an remote image,
 ```ts
 import { fabric } from "fabric";
 import { setup } from "fabricjs-object-fit";
+
+// if you are using the UMD version
+// const {
+//   fabric,
+//   FabricJSObjectFit: { setup }
+// } = window;
 
 const { ObjectFit } = setup(fabric);
 
