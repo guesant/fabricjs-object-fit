@@ -28,8 +28,7 @@
     "docs:serve": "vuepress serve docs",
     "dev": "rm -rf lib; rollup --config rollup.config.js --watch",
     "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.js",
-    "prepare": "husky install",
-    "prepublishOnly": "npm run build"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*": [
