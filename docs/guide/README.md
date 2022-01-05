@@ -24,7 +24,7 @@ import {} from "fabricjs-object-fit";
 #### UMD
 
 ```html
-<script src="https://unpkg.com/fabricjs-object-fit/lib/index.umd.js"></script>
+<script src="https://unpkg.com/fabricjs-object-fit@latest/lib/index.umd.js"></script>
 <script>
   const {} = FabricJSObjectFit;
 </script>
@@ -34,7 +34,7 @@ import {} from "fabricjs-object-fit";
 
 ```html
 <script type="module">
-  import {} from "https://unpkg.com/fabricjs-object-fit/lib/index.mjs";
+  import {} from "https://unpkg.com/fabricjs-object-fit@latest/lib/index.mjs";
 </script>
 ```
 
@@ -48,7 +48,6 @@ import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
 // const {
-//   fabric,
 //   FabricJSObjectFit: { setup }
 // } = window;
 
@@ -104,7 +103,6 @@ import { setup, Point } from "fabricjs-object-fit";
 
 // if you are using the UMD version
 // const {
-//   fabric,
 //   FabricJSObjectFit: { setup, Point }
 // } = window;
 
@@ -145,7 +143,6 @@ import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
 // const {
-//   fabric,
 //   FabricJSObjectFit: { setup }
 // } = window;
 
