@@ -6,11 +6,11 @@ const {
 const { ObjectFit } = setup(fabric);
 
 const CANVAS_WIDTH = 400;
-const CANVAS_HEIGHT = 400;
+const CANVAS_HEIGHT = 200;
 
 // padding of 30px
-const CONTAINER_WIDTH = 400 - 2 * 30;
-const CONTAINER_HEIGHT = 400 - 2 * 30;
+const CONTAINER_WIDTH = CANVAS_WIDTH - 2 * 30;
+const CONTAINER_HEIGHT = CANVAS_HEIGHT - 2 * 30;
 
 const FIT_MODE = "scale-down";
 
@@ -52,6 +52,8 @@ const MODES = [
   }
 ];
 
+const BORDER_WIDTH = 3;
+
 const loadImg = (src, options) =>
   new Promise((resolve) => fabric.Image.fromURL(src, resolve, options));
 
@@ -78,10 +80,21 @@ async function main() {
       height: CONTAINER_HEIGHT
     });
 
-    container.borderColor = "red";
-    container.borderScaleFactor = 3;
-
     canvas.add(container);
+
+    canvas.on("after:render", () => {
+      canvas.contextContainer.lineWidth = BORDER_WIDTH;
+      canvas.contextContainer.strokeStyle = "red";
+      canvas.forEachObject((obj) => {
+        const { left, top, width, height } = obj.getBoundingRect();
+        canvas.contextContainer.strokeRect(
+          left + 0.5,
+          top + 0.5,
+          width,
+          height
+        );
+      });
+    });
 
     canvas.renderAll();
   }
