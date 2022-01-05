@@ -30,6 +30,8 @@ export interface IObjectFit extends fabric.Group {
 
   detachObject(restorePreviousObjectTransform?: boolean): fabric.Object | null;
 
+  handleScaled(shouldRenderCanvas?: boolean): void;
+
   recompute(): void;
 
   toObject(): IObjectFitSerialized;

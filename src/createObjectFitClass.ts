@@ -117,6 +117,31 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.on("scaling", this.handleRecomputeOnScaling);
     }
 
+    handleRecomputeOnScaled() {
+      this.enableRecomputeOnScaled && this.handleScaled();
+    }
+
+    handleRecomputeOnScaling() {
+      this.enableRecomputeOnScaling && this.handleScaled();
+    }
+
+    handleScaled(shouldRenderCanvas = true) {
+      this.setCoords();
+
+      this.set({
+        scaleX: 1,
+        scaleY: 1,
+        width: this.getScaledWidth(),
+        height: this.getScaledHeight()
+      } as any);
+
+      this.setCoords();
+
+      this.recompute();
+
+      shouldRenderCanvas && this.canvas?.requestRenderAll();
+    }
+
     recompute() {
       const { width, height, mode, position } = this;
 
@@ -144,28 +169,6 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this._objectInitialOptions = {};
       this.dirty = true;
     }
-
-    handleRecomputeOnScaled() {
-      this.enableRecomputeOnScaled && this.handleScaled();
-    }
-
-    handleRecomputeOnScaling() {
-      this.enableRecomputeOnScaling && this.handleScaled();
-    }
-
-    handleScaled = (callCanvasRender = true) => {
-      this.set({
-        scaleX: 1,
-        scaleY: 1,
-        width: this.width! * this.scaleX!,
-        height: this.height! * this.scaleY!
-      } as any);
-
-      this.setCoords();
-      this.recompute();
-
-      callCanvasRender && this.canvas?.requestRenderAll();
-    };
 
     detachObject(restorePreviousObjectTransform = true) {
       const obj = this._object;

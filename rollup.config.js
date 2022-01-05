@@ -6,6 +6,7 @@ import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 
 const sharedPluginsPre = [nodeResolve()];
+const minifyPlugins = [terser()];
 
 export default defineConfig([
   {
@@ -19,15 +20,14 @@ export default defineConfig([
       {
         sourcemap: true,
         file: "lib/index.mjs",
-        format: "esm",
-        plugins: [terser()]
+        format: "esm"
       },
       {
         sourcemap: true,
         name: "FabricJSObjectFit",
         file: "lib/index.umd.js",
         format: "umd",
-        plugins: [terser()]
+        plugins: [...minifyPlugins]
       }
     ],
     plugins: [
