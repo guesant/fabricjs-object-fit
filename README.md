@@ -2,7 +2,7 @@
 
 ## Basic Usage
 
-Read more in the [Guide](https://guesant.github.io/fabricjs-object-fit/guide/).
+Read more in the [guide](https://guesant.github.io/fabricjs-object-fit/guide/).
 
 ## Documentation
 

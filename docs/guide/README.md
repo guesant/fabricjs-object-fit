@@ -19,7 +19,7 @@ npm install fabricjs-object-fit
 import {} from "fabricjs-object-fit";
 ```
 
-### From a CDN
+### Browser / CDN
 
 #### UMD
 
@@ -124,6 +124,8 @@ doRender();
 ```
 
 ### Export/Import
+
+Lets suppose we have an async function called `draw` that loads an remote image, applies then to a `contained` container with `100x100` and returns the canvas:
 
 ```ts
 import { fabric } from "fabric";
