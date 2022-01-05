@@ -31,8 +31,8 @@ export const getCoverFittedObject = (
   });
 
   objectWrapper.set({
-    left: x.getAbsolute(objectWrapper.width!, width),
-    top: y.getAbsolute(objectWrapper.height!, height)
+    left: x.getAbsolute(width, objectWrapper.width!),
+    top: y.getAbsolute(height, objectWrapper.height!)
   });
 
   objectWrapper.setCoords();

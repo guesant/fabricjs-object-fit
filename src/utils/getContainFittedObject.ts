@@ -37,8 +37,6 @@ export const getContainFittedObject = (
 
   const group = new ns.Group(undefined, {
     ...fabricObjectDefaults,
-    top,
-    left,
     width,
     height
   });
@@ -56,6 +54,7 @@ export const getContainFittedObject = (
 
   group.clipPath = groupMask;
 
+  group.set({ top, left });
   group.setCoords();
 
   return group;
