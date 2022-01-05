@@ -29,7 +29,7 @@
     "dev": "rm -rf lib; rollup --config rollup.config.js --watch",
     "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.js",
     "prepare": "husky install",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "lint-staged": {
     "**/*": [
