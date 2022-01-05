@@ -9,7 +9,7 @@ export const fromFactor = (factor: number): IPoint => ({
   getAbsolute: (containerSize, objectSize) =>
     (containerSize - objectSize) * factor,
 
-  toString: () => `#<Point.fromFactor(${factor})>`,
+  toString: () => `Point.fromFactor(${factor})`,
 
   toJSON: () => ({
     type: "fromFactor",

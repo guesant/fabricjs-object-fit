@@ -4,9 +4,7 @@ import { fromTag } from "./fromTag";
 
 const fromTagAliased = (tag: Tag, ns: string): IPoint => ({
   ...fromTag(tag),
-  toString() {
-    return `#<Point.${ns}>`;
-  }
+  toString: () => `Point.${ns}`
 });
 
 export const X = {

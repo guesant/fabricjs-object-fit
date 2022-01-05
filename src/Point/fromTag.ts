@@ -19,7 +19,7 @@ export const fromTag = (tag: Tag): IPoint => {
   const factor = factors[tag];
   return {
     ...fromFactor(factor),
-    toString: () => `#<Point.fromTag(${tagString[tag] ?? tag})>`,
+    toString: () => `Point.fromTag(${tagString[tag] ?? tag})`,
     toJSON: () => ({
       type: "fromTag",
       args: [tag]
