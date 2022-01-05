@@ -28,6 +28,13 @@ export const getContainFittedObject = (
 
   const objectWrapper = new ns.Group([object], { ...fabricObjectDefaults });
 
+  objectWrapper.set({
+    left: x.getAbsolute(width, objectWrapper.width!),
+    top: y.getAbsolute(height, objectWrapper.height!)
+  });
+
+  objectWrapper.setCoords();
+
   const group = new ns.Group(undefined, {
     ...fabricObjectDefaults,
     top,
@@ -36,11 +43,7 @@ export const getContainFittedObject = (
     height
   });
 
-  group.add(objectWrapper);
-  group._updateObjectsCoords();
-  group.setCoords();
-
-  const mask = new ns.Rect({
+  const groupMask = new ns.Rect({
     ...fabricObjectDefaults,
     width,
     height,
@@ -48,17 +51,12 @@ export const getContainFittedObject = (
     top: -height / 2
   });
 
-  group.clipPath = mask;
+  group.add(objectWrapper);
+  group._updateObjectsCoords();
 
-  const [posX, posY] = [
-    x.getAbsolute(width, objectWrapper.width!),
-    y.getAbsolute(height, objectWrapper.height!)
-  ];
+  group.clipPath = groupMask;
 
-  objectWrapper.set({
-    left: posX - width / 2,
-    top: posY - height / 2
-  });
+  group.setCoords();
 
   return group;
 };

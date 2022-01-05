@@ -10,7 +10,7 @@ export const fromPercentage = (percentage: number | string): IPoint => ({
   ...fromFactor(
     (typeof percentage === "string" ? parseInt(percentage) : percentage) / 100
   ),
-  toString: () => `#<Point.fromPercentage(${percentage})>`,
+  toString: () => `Point.fromPercentage(${percentage})`,
   toJSON: () => ({
     type: "fromPercentage",
     args: [percentage]

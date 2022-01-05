@@ -1,7 +1,7 @@
 {
   "name": "fabricjs-object-fit",
   "version": "0.0.0-beta.0",
-  "description": "CSS-like 'object-fit' behaviour for FabricJS.",
+  "description": "CSS-like 'object-fit' and 'object-position' behavior for FabricJS.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -28,7 +28,8 @@
     "docs:serve": "vuepress serve docs",
     "dev": "rm -rf lib; rollup --config rollup.config.js --watch",
     "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.js",
-    "prepare": "husky install; npm run build"
+    "prepare": "husky install",
+    "prepublish": "npm run build"
   },
   "lint-staged": {
     "**/*": [

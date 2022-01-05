@@ -1,19 +1,20 @@
 import { fabric } from "fabric";
-import { getFittedObject } from "./utils/getFittedObject";
 import { fabricObjectDefaults } from "./misc/fabricObjectDefaults";
 import { defaultPosition } from "./Position/defaultPosition";
 import { parsePositionSerialized } from "./Position/parsePositionSerialized";
 import { IFabricNS } from "./types/IFabricNS";
 import { IFitMode } from "./types/IFitMode";
+import { IObjectFit } from "./types/IObjectFit";
 import { IObjectFitConstructor } from "./types/IObjectFitConstructor";
 import { IObjectFitConstructorOptions } from "./types/IObjectFitConstructorOptions";
 import { IObjectFitSerialized } from "./types/IObjectFitSerialized";
 import { IPosition } from "./types/IPosition";
+import { getFittedObject } from "./utils/getFittedObject";
 
 export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
   const resetTransformOptions = ns.util.qrDecompose([1, 0, 0, 1, 0, 0]);
 
-  class ObjectFit extends ns.Group {
+  class ObjectFit extends ns.Group implements IObjectFit {
     type = "objectFit";
 
     mode: IFitMode;
@@ -23,6 +24,10 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     height: number;
 
     useObjectTransform: boolean;
+
+    enableRecomputeOnScaled: boolean;
+
+    enableRecomputeOnScaling: boolean;
 
     position: Partial<IPosition> = {};
 
@@ -84,7 +89,9 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         width,
         height,
         position: { x = defaultPosition.x, y = defaultPosition.y } = {},
-        useObjectTransform = true
+        useObjectTransform = true,
+        enableRecomputeOnScaled = true,
+        enableRecomputeOnScaling = false
       } = options;
 
       this.mode = mode;
@@ -96,9 +103,18 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.position.y = y;
 
       this.useObjectTransform = useObjectTransform;
+      this.enableRecomputeOnScaled = enableRecomputeOnScaled;
+      this.enableRecomputeOnScaling = enableRecomputeOnScaling;
+
       this.object = object;
 
       this.recompute();
+
+      this.handleRecomputeOnScaled = this.handleRecomputeOnScaled.bind(this);
+      this.handleRecomputeOnScaling = this.handleRecomputeOnScaling.bind(this);
+
+      this.on("scaled", this.handleRecomputeOnScaled);
+      this.on("scaling", this.handleRecomputeOnScaling);
     }
 
     recompute() {
@@ -128,6 +144,28 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this._objectInitialOptions = {};
       this.dirty = true;
     }
+
+    handleRecomputeOnScaled() {
+      this.enableRecomputeOnScaled && this.handleScaled();
+    }
+
+    handleRecomputeOnScaling() {
+      this.enableRecomputeOnScaling && this.handleScaled();
+    }
+
+    handleScaled = (callCanvasRender = true) => {
+      this.set({
+        scaleX: 1,
+        scaleY: 1,
+        width: this.width! * this.scaleX!,
+        height: this.height! * this.scaleY!
+      } as any);
+
+      this.setCoords();
+      this.recompute();
+
+      callCanvasRender && this.canvas?.requestRenderAll();
+    };
 
     detachObject(restorePreviousObjectTransform = true) {
       const obj = this._object;

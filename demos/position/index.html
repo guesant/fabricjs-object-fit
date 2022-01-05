@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positions</title>
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Positions</h1>
+
+    <p>
+      <a
+        href="https://github.com/guesant/fabricjs-object-fit/tree/dev/demos/position"
+        >Show me the Source Code</a
+      >
+    </p>
+
+    <section>
+      <h1>Absolute Point</h1>
+      <div class="render">
+        <canvas id="absolute"></canvas>
+
+        <div class="positionInfo">
+          <ul>
+            <li><code>x: Point.fromAbsolute(10)</code></li>
+            <li><code>y: Point.fromAbsolute(10)</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1>Percentage</h1>
+
+      <div class="render">
+        <canvas id="percentage"></canvas>
+        <div class="positionInfo">
+          <ul>
+            <li><code>x: Point.fromPercentage("50%")</code></li>
+            <li><code>y: Point.fromPercentage("75%")</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1>Aliased</h1>
+
+      <p class="note">It uses Point.fromTag() under the hood.</p>
+
+      <div class="render">
+        <canvas id="aliased"></canvas>
+        <div class="positionInfo">
+          <ul>
+            <li><code>x: Point.X.RIGHT</code></li>
+            <li><code>y: Point.Y.CENTER</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1>Tagged</h1>
+
+      <p class="note">
+        Point.Tag is an enum. The supported values are: Point.Tag.START,
+        Point.Tag.CENTER and Point.Tag.END.
+      </p>
+
+      <div class="render">
+        <canvas id="tagged"></canvas>
+        <div class="positionInfo">
+          <ul>
+            <li><code>x: Point.fromTag(TAG.START)</code></li>
+            <li><code>y: Point.fromTag(TAG.END)</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1>Factor</h1>
+
+      <p>Formula:</p>
+
+      <div>
+        <code class="formula block">
+          f(ContainerSize, ObjectSize, factor) = (ContainerSize - ObjectSize) *
+          factor
+        </code>
+      </div>
+
+      <p class="note">
+        It's like the percentage mode, but without the division by 100.
+      </p>
+
+      <div class="render">
+        <canvas id="factor"></canvas>
+        <div class="positionInfo">
+          <ul>
+            <li><code>x: Point.fromFactor(0.5)</code></li>
+            <li><code>y: Point.fromFactor(1)</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://unpkg.com/fabric@4.6.0/dist/fabric.js"></script>
+    <script src="https://unpkg.com/fabricjs-object-fit/lib/index.umd.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

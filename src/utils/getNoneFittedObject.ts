@@ -25,27 +25,17 @@ export const getNoneFittedObject = (
     ...fabricObjectDefaults
   });
 
-  const [maskX, maskY] = [
-    x.getAbsolute(object.width!, width),
-    y.getAbsolute(object.height!, height)
-  ];
-
-  const objectMask = new ns.Rect({
-    ...fabricObjectDefaults,
-    width,
-    height,
-    top: -object.height! / 2 + maskY,
-    left: -object.width! / 2 + maskX
+  objectWrapper.set({
+    left: x.getAbsolute(width, object.width!),
+    top: y.getAbsolute(height, object.height!)
   });
 
-  objectWrapper.clipPath = objectMask;
+  objectWrapper.setCoords();
 
   const group = new ns.Group(undefined, {
     ...fabricObjectDefaults,
     width,
-    height,
-    top: maskY,
-    left: maskX
+    height
   });
 
   const groupMask = new ns.Rect({
@@ -61,6 +51,7 @@ export const getNoneFittedObject = (
 
   group.clipPath = groupMask;
 
+  group.setCoords();
   group.set({ left, top });
   group.setCoords();
 
