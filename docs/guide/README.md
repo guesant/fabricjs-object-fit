@@ -179,6 +179,8 @@ draw().then((canvas) => {
 });
 ```
 
+> If you can't load the exported data, remember to call `setup(fabric)` before the `loadFromJSON` (on the same context) even if you dont use the returned `ObjectFit` class.
+
 ## Examples
 
 You can take a look at some of ours [examples](/examples/).
