@@ -7,5 +7,5 @@ export type IObjectFitSerialized = Partial<fabric.Group> & {
   height: number;
   mode: IFitMode;
   position: IPositionSerialized;
-  object: Partial<fabric.Object>;
+  object?: Partial<fabric.Object> | null | undefined;
 };

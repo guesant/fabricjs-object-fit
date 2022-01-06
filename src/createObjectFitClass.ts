@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import { getEnlivedObject } from "./misc/getEnlivedObject";
 import { fabricObjectDefaults } from "./misc/fabricObjectDefaults";
 import { defaultPosition } from "./Position/defaultPosition";
 import { parsePositionSerialized } from "./Position/parsePositionSerialized";
@@ -278,9 +279,9 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         ...options
       } = objectFitObject;
 
-      ns.util.enlivenObjects(
-        [object],
-        ([enlivedObject]: [fabric.Object]) => {
+      getEnlivedObject(
+        object,
+        (enlivedObject) => {
           const objectFit = new ObjectFit(enlivedObject, {
             mode,
             width,
@@ -293,7 +294,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
           callback?.(objectFit);
         },
-        undefined as any
+        ns
       );
     }
   }
