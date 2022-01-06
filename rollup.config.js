@@ -5,38 +5,38 @@ import { defineConfig } from "rollup";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 
-const sharedPluginsPre = [nodeResolve()];
-const minifyPlugins = [terser()];
+const sharedPluginsBefore = [nodeResolve()];
+const distMinifyPlugins = [terser()];
 
 export default defineConfig([
   {
     input: "./src/index.ts",
     output: [
       {
+        format: "cjs",
         sourcemap: true,
-        file: "lib/index.js",
-        format: "cjs"
+        file: "lib/index.js"
       },
       {
+        format: "esm",
         sourcemap: true,
-        file: "lib/index.mjs",
-        format: "esm"
+        file: "lib/index.mjs"
       },
       {
-        sourcemap: true,
-        name: "FabricJSObjectFit",
-        file: "lib/index.umd.js",
         format: "umd",
-        plugins: [...minifyPlugins]
+        sourcemap: true,
+        file: "lib/index.umd.js",
+        name: "FabricJSObjectFit",
+        plugins: [...distMinifyPlugins]
       }
     ],
     plugins: [
-      ...sharedPluginsPre,
+      ...sharedPluginsBefore,
       typescript({ tsconfig: "./tsconfig.json" }),
       babel({
-        babelHelpers: "bundled",
         extensions: [".ts"],
-        include: "src/**/*.ts"
+        include: "src/**/*.ts",
+        babelHelpers: "bundled"
       })
     ]
   },
@@ -44,10 +44,10 @@ export default defineConfig([
     input: "./src/index.ts",
     output: [
       {
-        file: "lib/index.d.ts",
-        format: "es"
+        format: "esm",
+        file: "lib/index.d.ts"
       }
     ],
-    plugins: [...sharedPluginsPre, dts()]
+    plugins: [...sharedPluginsBefore, dts()]
   }
 ]);
