@@ -5,7 +5,7 @@ import { IObjectFitSerialized } from "./IObjectFitSerialized";
 
 export interface IObjectFitConstructor {
   new (
-    object: fabric.Object,
+    object: fabric.Object | null | undefined,
     options: IObjectFitConstructorOptions
   ): IObjectFit;
 

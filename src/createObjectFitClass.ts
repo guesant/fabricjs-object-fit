@@ -33,16 +33,23 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
     private _object: fabric.Object | null = null;
 
-    private _objectInitialOptions: Partial<fabric.IObjectOptions> = {};
-
     private _objectGroup: fabric.Group | null = null;
+
+    // both will store the same shape of object transform info, but
+    // _loadedObjectTransform will be cleaned after `recompute` and
+    // _loadedObjectInitialTransform will be kept the same until the
+    // the object get replaced by setObject.
+
+    private _loadedObjectTransform: Partial<fabric.IObjectOptions> = {};
+
+    private _loadedObjectInitialTransform: Partial<fabric.IObjectOptions> = {};
 
     get object() {
       return this._object;
     }
 
     set object(object: fabric.Object | null) {
-      this.setObject(object, this.useObjectTransform);
+      this.setObject(object ?? null, this.useObjectTransform);
     }
 
     setObject(
@@ -53,19 +60,21 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.detachObject(restorePreviousObjectTransform);
 
       if (object) {
+        const transformMatrix = object.calcTransformMatrix();
+
+        this._loadedObjectInitialTransform.top = object.top;
+        this._loadedObjectInitialTransform.left = object.left;
+
+        this._loadedObjectInitialTransform.originX = object.originX;
+        this._loadedObjectInitialTransform.originY = object.originY;
+
+        Object.assign(
+          this._loadedObjectInitialTransform,
+          ns.util.qrDecompose(transformMatrix)
+        );
+
         if (useObjectTransform) {
-          const transformMatrix = object.calcTransformMatrix();
-
-          this._objectInitialOptions.top = object.top;
-          this._objectInitialOptions.left = object.left;
-
-          this._objectInitialOptions.originX = object.originX;
-          this._objectInitialOptions.originY = object.originY;
-
-          Object.assign(
-            this._objectInitialOptions,
-            ns.util.qrDecompose(transformMatrix)
-          );
+          this._loadedObjectTransform = this._loadedObjectInitialTransform;
         }
 
         object.set(resetTransformOptions);
@@ -75,23 +84,24 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
         this._object = object;
 
-        this._objectGroup = new ns.Group([object], {
-          ...fabricObjectDefaults
-        });
+        this._objectGroup = new ns.Group([object], { ...fabricObjectDefaults });
       }
     }
 
-    constructor(object: fabric.Object, options: IObjectFitConstructorOptions) {
+    constructor(
+      object: fabric.Object | null | undefined,
+      options: IObjectFitConstructorOptions
+    ) {
       super(undefined, { ...fabricObjectDefaults });
 
       const {
         mode,
         width,
         height,
-        position: { x = defaultPosition.x, y = defaultPosition.y } = {},
         useObjectTransform = true,
         enableRecomputeOnScaled = true,
-        enableRecomputeOnScaling = false
+        enableRecomputeOnScaling = false,
+        position: { x = defaultPosition.x, y = defaultPosition.y } = {}
       } = options;
 
       this.mode = mode;
@@ -106,9 +116,11 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.enableRecomputeOnScaled = enableRecomputeOnScaled;
       this.enableRecomputeOnScaling = enableRecomputeOnScaling;
 
-      this.object = object;
+      this.object = object ?? null;
 
-      this.recompute();
+      if (object) {
+        this.recompute();
+      }
 
       this.handleRecomputeOnScaled = this.handleRecomputeOnScaled.bind(this);
       this.handleRecomputeOnScaling = this.handleRecomputeOnScaling.bind(this);
@@ -166,32 +178,8 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.set(currentTransformOptions as any);
       this.setCoords();
 
-      this._objectInitialOptions = {};
+      this._loadedObjectTransform = {};
       this.dirty = true;
-    }
-
-    detachObject(restorePreviousObjectTransform = true) {
-      const obj = this._object;
-
-      if (this._objectGroup) {
-        this._objectGroup.group?.removeWithUpdate(this._objectGroup);
-        this._objectGroup = null;
-      }
-
-      if (this._object) {
-        this._object.group?.removeWithUpdate(this._object);
-
-        if (restorePreviousObjectTransform) {
-          this._object.set(this.getCurrentTransformOptions());
-          this._object.setCoords();
-        }
-
-        this._object = null;
-      }
-
-      this._objectInitialOptions = {};
-
-      return obj;
     }
 
     private resetContainer() {
@@ -214,18 +202,20 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
     private getCurrentTransformOptions() {
       const {
-        left,
-        top,
         angle,
-        originX,
-        originY,
+        skewX,
+        skewY,
         scaleX,
         scaleY,
-        skewX,
-        skewY
+        originX,
+        originY,
+        top = 0,
+        left = 0
       } = {
+        ...fabricObjectDefaults,
+        ...resetTransformOptions,
         ...this,
-        ...this._objectInitialOptions
+        ...this._loadedObjectTransform
       };
 
       return {
@@ -241,14 +231,40 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       };
     }
 
+    detachObject(restorePreviousObjectTransform = true) {
+      const currentObject = this._object;
+
+      if (this._objectGroup) {
+        this._objectGroup.group?.removeWithUpdate(this._objectGroup);
+        this._objectGroup = null;
+      }
+
+      if (this._object) {
+        this._object.group?.removeWithUpdate(this._object);
+
+        this._object.setCoords();
+
+        if (restorePreviousObjectTransform) {
+          this._object.set(this._loadedObjectInitialTransform);
+          this._object.setCoords();
+        }
+
+        this._object = null;
+      }
+
+      this._loadedObjectTransform = {};
+      this._loadedObjectInitialTransform = {};
+
+      return currentObject;
+    }
+
     toObject(): IObjectFitSerialized {
-      const obj = this.object;
       return ns.util.object.extend((this as any).callSuper("toObject"), {
         mode: this.mode,
         width: this.width,
         height: this.height,
         position: JSON.stringify(this.position),
-        object: obj?.toObject()
+        object: this.object?.toObject()
       });
     }
 
@@ -275,7 +291,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
           objectFit.set(options as any);
           objectFit.setCoords();
 
-          callback && callback(objectFit);
+          callback?.(objectFit);
         },
         undefined as any
       );
