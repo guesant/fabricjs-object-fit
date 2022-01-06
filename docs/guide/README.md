@@ -26,7 +26,7 @@ import {} from "fabricjs-object-fit";
 ```html
 <script src="https://unpkg.com/fabricjs-object-fit@latest/lib/index.umd.js"></script>
 <script>
-  const {} = FabricJSObjectFit;
+  const {} = window.FabricJSObjectFit;
 </script>
 ```
 
@@ -47,9 +47,7 @@ import { fabric } from "fabric";
 import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
-// const {
-//   FabricJSObjectFit: { setup }
-// } = window;
+// const { setup } = window.FabricJSObjectFit;
 
 const { ObjectFit } = setup(fabric);
 
@@ -102,9 +100,7 @@ import { fabric } from "fabric";
 import { setup, Point } from "fabricjs-object-fit";
 
 // if you are using the UMD version
-// const {
-//   FabricJSObjectFit: { setup, Point }
-// } = window;
+// const { setup, Point } = window.FabricJSObjectFit;
 
 const { ObjectFit } = setup(fabric);
 
@@ -142,9 +138,7 @@ import { fabric } from "fabric";
 import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
-// const {
-//   FabricJSObjectFit: { setup }
-// } = window;
+// const { setup } = window.FabricJSObjectFit;
 
 const { ObjectFit } = setup(fabric);
 
@@ -184,6 +178,8 @@ draw().then((canvas) => {
   });
 });
 ```
+
+> If you can't load the exported data, remember to call `setup(fabric)` before the `loadFromJSON` (on the same context) even if you dont use the returned `ObjectFit` class.
 
 ## Examples
 
