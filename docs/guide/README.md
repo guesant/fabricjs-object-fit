@@ -40,7 +40,17 @@ import {} from "fabricjs-object-fit";
 
 ## Usage
 
-- Cover Example
+Lets suppose that we have this is CSS:
+
+```css
+.container {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+```
+
+The above code produces the same result in FabricJS:
 
 ```ts
 import { fabric } from "fabric";
@@ -61,7 +71,7 @@ async function doRender() {
   const container = new ObjectFit(img, {
     width: 400,
     height: 400,
-    mode: "cover"
+    mode: "cover" // supported modes are: "cover" | "contain" | "fill" | "none" | "scale-down"
   });
 
   canvas.add(container);
@@ -82,6 +92,14 @@ fabric.Image.fromURL("...", (img2) => {
 });
 ```
 
+- Changing the container mode
+
+```ts
+container.mode = "contain";
+container.recompute();
+canvas.requestRenderAll();
+```
+
 - Changing the container dimensions
 
 ```ts
@@ -95,39 +113,45 @@ canvas.requestRenderAll();
 
 > Behaviors like CSS's [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position).
 
-```ts
-import { fabric } from "fabric";
-import { setup, Point } from "fabricjs-object-fit";
+In the CSS we have the syntax `object-position: size-for-x-axis size-for-y-axis`. In this library we are going to declare the `size-for-?-axis` with the [`Point`](/api/modules/Point.html) API.
 
-// if you are using the UMD version
-// const { setup, Point } = window.FabricJSObjectFit;
+So lets suppose we have this in the CSS:
 
-const { ObjectFit } = setup(fabric);
-
-async function doRender() {
-  const canvas = new fabric.Canvas("c");
-
-  const img = await new Promise((resolve) =>
-    fabric.Image.fromURL("...", resolve)
-  );
-
-  const container = new ObjectFit(img, {
-    width: 100,
-    height: 100,
-    mode: "none",
-    position: {
-      x: Point.X.RIGHT,
-      y: Point.fromPercentage(100)
-    }
-  });
-
-  canvas.add(container);
-
-  canvas.renderAll();
+```css
+.container {
+  object-position: 50px 10px;
 }
-
-doRender();
 ```
+
+This should produce same result as writing:
+
+```ts
+const container = new ObjectFit(img, {
+  // ...
+  position: {
+    x: Point.fromAbsolute(50),
+    y: Point.fromAbsolute(10)
+  }
+});
+```
+
+Some other supported units:
+
+```ts
+// object-fit: 10px ...;
+container.position.x = Point.fromAbsolute(10);
+
+// object-fit: 50% ...;
+container.position.x = Point.fromPercentage("50%");
+
+// object-fit: left ...;
+container.position.x = Point.X.LEFT; // Point.X.LEFT; Point.X.CENTER; Point.X.RIGHT;
+
+// object-fit: ... bottom;
+container.position.y = Point.Y.BOTTOM; // Point.Y.TOP; Point.Y.CENTER; Point.Y.BOTTOM;
+```
+
+Take a look at [`Point`](/api/modules/Point.html) on the API docs.
 
 ### Export/Import
 
