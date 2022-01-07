@@ -1,5 +1,5 @@
 import { fabric } from "fabric";
-import { IFabricNS } from "../types/IFabricNS";
+import { IFabricNS } from "../../types/IFabricNS";
 
 export const getEnlivedObject = (
   object: Partial<fabric.Object> | null | undefined,
