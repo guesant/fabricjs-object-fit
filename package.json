@@ -1,6 +1,6 @@
 {
   "name": "fabricjs-object-fit",
-  "version": "0.0.0-beta.2",
+  "version": "0.0.0-beta.3",
   "description": "CSS-like 'object-fit' and 'object-position' behavior for FabricJS.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -55,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
