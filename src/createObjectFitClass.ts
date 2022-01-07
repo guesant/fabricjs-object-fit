@@ -264,7 +264,10 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         mode: this.mode,
         width: this.width,
         height: this.height,
-        position: JSON.stringify(this.position),
+        position: {
+          x: this.position.x?.toJSON(),
+          y: this.position.y?.toJSON()
+        },
         object: this.object?.toObject()
       });
     }
