@@ -3,8 +3,16 @@ body {
   line-height: 1.45;
 }
 
+section {
+  margin: 16px 0;
+}
+
 canvas {
   border: 2px solid;
+}
+
+.block {
+  display: block;
 }
 
 ul,
@@ -14,10 +22,6 @@ li {
 
 li {
   line-height: 2;
-}
-
-.block {
-  display: block;
 }
 
 .formula {
@@ -30,9 +34,7 @@ li {
   display: flex;
   align-items: center;
   padding: 12px 8px;
-
   font-style: italic;
-
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -54,11 +56,7 @@ li {
 }
 
 .positionInfo > * {
-  padding: 4px 16px 4px 8px;
   display: inline-block;
+  padding: 4px 16px 4px 8px;
   border: 2px solid rgba(0, 0, 0, 0.45);
-}
-
-section {
-  margin: 16px 0;
 }
