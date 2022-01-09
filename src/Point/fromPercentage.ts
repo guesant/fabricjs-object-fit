@@ -3,12 +3,16 @@
  * @returns IPoint
  */
 
+import { divideBy } from "../misc/divideBy";
 import { IPoint } from "../types/IPoint";
 import { fromFactor } from "./fromFactor";
 
 export const fromPercentage = (percentage: number | string): IPoint => ({
   ...fromFactor(
-    (typeof percentage === "string" ? parseInt(percentage) : percentage) / 100
+    divideBy(
+      typeof percentage === "string" ? parseInt(percentage) : percentage,
+      100
+    )
   ),
   toString: () => `Point.fromPercentage(${percentage})`,
   toJSON: () => ({

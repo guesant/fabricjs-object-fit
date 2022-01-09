@@ -3,6 +3,12 @@ title: Examples
 sidebar: auto
 ---
 
+<style>
+  .theme-default-content:not(.custom) {
+    max-width: 1280px;
+  }
+</style>
+
 ## Fit Modes
 
 [Source Code](https://github.com/guesant/fabricjs-object-fit/tree/dev/demos/fit-modes).

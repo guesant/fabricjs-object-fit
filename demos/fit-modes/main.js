@@ -1,21 +1,22 @@
 {
-  const {
-    fabric,
-    FabricJSObjectFit: { setup }
-  } = window;
+  const { fabric } = window;
+  const { setup } = window.FabricJSObjectFit;
 
   const { ObjectFit } = setup(fabric);
 
-  // canvas size
-  const CANVAS_WIDTH = 400;
+  const CANVAS_WIDTH = 500;
   const CANVAS_HEIGHT = 200;
 
-  // container size (with a padding of 30px for both sides)
+  const CONTAINER_BORDER_WIDTH = 3;
+  const CONTAINER_BORDER_STYLE = "red";
   const CONTAINER_WIDTH = CANVAS_WIDTH - 2 * 30;
   const CONTAINER_HEIGHT = CANVAS_HEIGHT - 2 * 30;
 
+  const IMAGE_WIDTH = 640;
+  const IMAGE_HEIGHT = 160;
+  const IMAGE_SRC = `https://via.placeholder.com/${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
+
   const MODES = ["cover", "contain", "fill", "none", "scale-down"];
-  const BORDER_WIDTH = 3;
 
   const loadImg = (src, options) =>
     new Promise((resolve) => fabric.Image.fromURL(src, resolve, options));
@@ -29,7 +30,7 @@
 
       const canvas = new fabric.Canvas(canvasEl);
 
-      const img = await loadImg("https://via.placeholder.com/640x360", {
+      const img = await loadImg(IMAGE_SRC, {
         originX: "center",
         originY: "center",
         top: CANVAS_HEIGHT / 2,
@@ -44,9 +45,11 @@
 
       canvas.add(container);
 
+      // draw borders
       canvas.on("after:render", () => {
-        canvas.contextContainer.lineWidth = BORDER_WIDTH;
-        canvas.contextContainer.strokeStyle = "red";
+        canvas.contextContainer.lineWidth = CONTAINER_BORDER_WIDTH;
+        canvas.contextContainer.strokeStyle = CONTAINER_BORDER_STYLE;
+
         canvas.forEachObject((obj) => {
           const { left, top, width, height } = obj.getBoundingRect();
           canvas.contextContainer.strokeRect(

@@ -1,8 +1,10 @@
 import { fabric } from "fabric";
+import { divideBy } from "../misc/divideBy";
+import { fabricObjectDefaults } from "../misc/Fabric/fabricObjectDefaults";
+import { getObjectCoordsAndReset } from "../misc/Fabric/getObjectCoordsAndReset";
+import { getObjectMaskedByRectangle } from "../misc/getObjectMaskedByRectangle";
+import { defaultPosition } from "../misc/Position/defaultPosition";
 import { IFabricNS } from "../types/IFabricNS";
-import { defaultPosition } from "../Position/defaultPosition";
-import { fabricObjectDefaults } from "../misc/fabricObjectDefaults";
-import { getObjectCoordsAndReset } from "../misc/getObjectCoordsAndReset";
 import { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 
 export const getContainFittedObject = (
@@ -19,8 +21,8 @@ export const getContainFittedObject = (
   const { left, top } = getObjectCoordsAndReset(object);
 
   const targetScaleFactor = Math.min(
-    width / object.width!,
-    height / object.height!
+    divideBy(width, object.width!),
+    divideBy(height, object.height!)
   );
 
   object.scaleX = targetScaleFactor;
@@ -35,24 +37,14 @@ export const getContainFittedObject = (
 
   objectWrapper.setCoords();
 
-  const group = new ns.Group(undefined, {
-    ...fabricObjectDefaults,
-    width,
-    height
-  });
-
-  const groupMask = new ns.Rect({
-    ...fabricObjectDefaults,
-    width,
-    height,
-    left: -width / 2,
-    top: -height / 2
-  });
-
-  group.add(objectWrapper);
-  group._updateObjectsCoords();
-
-  group.clipPath = groupMask;
+  const group = getObjectMaskedByRectangle(
+    {
+      width,
+      height,
+      object: objectWrapper
+    },
+    ns
+  );
 
   group.set({ top, left });
   group.setCoords();

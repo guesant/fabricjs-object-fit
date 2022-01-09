@@ -25,7 +25,7 @@ export const getFittedObject = (
     }
 
     case FitMode.FILL: {
-      return getFillFittedObject(object, payload);
+      return getFillFittedObject(object, payload, ns);
     }
 
     case FitMode.NONE: {

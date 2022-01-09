@@ -3,7 +3,7 @@ title: Guide
 sidebar: auto
 ---
 
-## Installation
+## Install
 
 ### From NPM
 
@@ -40,7 +40,7 @@ import {} from "fabricjs-object-fit";
 
 ## Usage
 
-Lets suppose that we have this is CSS:
+Lets suppose that we have something like this in CSS:
 
 ```css
 .container {
@@ -50,7 +50,7 @@ Lets suppose that we have this is CSS:
 }
 ```
 
-The above code produces the same result in FabricJS:
+And here is the same behavior written in FabricJS:
 
 ```ts
 import { fabric } from "fabric";
@@ -123,7 +123,7 @@ So lets suppose we have this in the CSS:
 }
 ```
 
-This should produce same result as writing:
+Now with `ObjectFit`:
 
 ```ts
 const container = new ObjectFit(img, {
@@ -155,7 +155,7 @@ Take a look at [`Point`](/api/modules/Point.html) on the API docs.
 
 ### Export/Import
 
-Lets suppose we have an async function called `draw` that loads an remote image, applies then to a `contained` container with `100x100` and returns the canvas:
+Lets suppose we have an async function called `draw` that loads an remote image, applies then to a `contained` `100x100` container and returns the canvas:
 
 ```ts
 import { fabric } from "fabric";
