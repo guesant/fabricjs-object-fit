@@ -30,7 +30,7 @@ export const parsePoint = (
 
       default: {
         const type = (serializedPoint as IPointSerialized).type;
-        throw new Error(`The point type "${type}" are not implemented`);
+        throw new Error(`The point type "${type}" are not implemented.`);
       }
     }
   } catch (_err) {

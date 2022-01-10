@@ -1,4 +1,6 @@
 import { fabric } from "fabric";
+import { FitMode } from "./enums/FitMode";
+import { detachObjectFromGroup } from "./misc/Fabric/detachObjectFromGroup";
 import { fabricObjectDefaults } from "./misc/Fabric/fabricObjectDefaults";
 import { getEnlivedObject } from "./misc/Fabric/getEnlivedObject";
 import { defaultPosition } from "./misc/Position/defaultPosition";
@@ -81,7 +83,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         object.set(resetTransformOptions);
         object.setCoords();
 
-        object.group?.removeWithUpdate(object);
+        detachObjectFromGroup(object);
 
         this._object = object;
 
@@ -90,15 +92,15 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     }
 
     constructor(
-      object: fabric.Object | null | undefined,
-      options: IObjectFitConstructorOptions
+      object?: fabric.Object | null | undefined,
+      options: IObjectFitConstructorOptions = {}
     ) {
       super(undefined, { ...fabricObjectDefaults });
 
       const {
-        mode,
-        width,
-        height,
+        width = NaN,
+        height = NaN,
+        mode = FitMode.FILL,
         useObjectTransform = true,
         enableRecomputeOnScaled = true,
         enableRecomputeOnScaling = false,
@@ -156,13 +158,23 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     }
 
     recompute() {
+      if (this._objectGroup) {
+        if (Number.isNaN(this.width)) {
+          this.width = this._objectGroup.width!;
+        }
+
+        if (Number.isNaN(this.height)) {
+          this.height = this._objectGroup.height!;
+        }
+      }
+
       const { width, height, mode, position } = this;
 
       const currentTransformOptions = this.getCurrentTransformOptions();
 
       this.resetContainer();
 
-      if (this._objectGroup) {
+      if (this._objectGroup && !Number.isNaN(width) && !Number.isNaN(height)) {
         const fittedObject = getFittedObject(
           this._objectGroup,
           {
@@ -236,12 +248,12 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       const currentObject = this._object;
 
       if (this._objectGroup) {
-        this._objectGroup.group?.removeWithUpdate(this._objectGroup);
+        detachObjectFromGroup(this._objectGroup);
         this._objectGroup = null;
       }
 
       if (this._object) {
-        this._object.group?.removeWithUpdate(this._object);
+        detachObjectFromGroup(this._object);
 
         this._object.setCoords();
 
@@ -259,17 +271,20 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       return currentObject;
     }
 
-    toObject(): IObjectFitSerialized {
-      return ns.util.object.extend((this as any).callSuper("toObject"), {
-        mode: this.mode,
-        width: this.width,
-        height: this.height,
-        position: {
-          x: this.position.x?.toJSON(),
-          y: this.position.y?.toJSON()
-        },
-        object: this.object?.toObject()
-      });
+    toObject(propertiesToInclude?: string[]): IObjectFitSerialized {
+      return ns.util.object.extend(
+        (this as any).callSuper(
+          "toObject",
+          ["mode", "width", "height"].concat(propertiesToInclude ?? [])
+        ),
+        {
+          position: {
+            x: this.position.x?.toJSON(),
+            y: this.position.y?.toJSON()
+          },
+          object: this.object?.toObject()
+        }
+      );
     }
 
     static fromObject(objectFitObject: IObjectFitSerialized, callback?: any) {
