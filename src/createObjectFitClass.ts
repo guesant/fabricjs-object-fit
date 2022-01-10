@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { FitMode } from "./enums/FitMode";
+import { detachObjectFromGroup } from "./misc/Fabric/detachObjectFromGroup";
 import { fabricObjectDefaults } from "./misc/Fabric/fabricObjectDefaults";
 import { getEnlivedObject } from "./misc/Fabric/getEnlivedObject";
 import { defaultPosition } from "./misc/Position/defaultPosition";
@@ -82,7 +83,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         object.set(resetTransformOptions);
         object.setCoords();
 
-        object.group?.removeWithUpdate(object);
+        detachObjectFromGroup(object);
 
         this._object = object;
 
@@ -247,12 +248,12 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       const currentObject = this._object;
 
       if (this._objectGroup) {
-        this._objectGroup.group?.removeWithUpdate(this._objectGroup);
+        detachObjectFromGroup(this._objectGroup);
         this._objectGroup = null;
       }
 
       if (this._object) {
-        this._object.group?.removeWithUpdate(this._object);
+        detachObjectFromGroup(this._object);
 
         this._object.setCoords();
 

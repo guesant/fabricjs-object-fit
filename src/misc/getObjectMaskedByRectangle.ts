@@ -31,8 +31,10 @@ export const getObjectMaskedByRectangle = (
 
   group.add(object);
   group._updateObjectsCoords();
+
   group.clipPath = groupMask;
 
   group.setCoords();
+
   return group;
 };
