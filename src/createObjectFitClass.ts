@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import { FitMode } from "./enums/FitMode";
 import { fabricObjectDefaults } from "./misc/Fabric/fabricObjectDefaults";
 import { getEnlivedObject } from "./misc/Fabric/getEnlivedObject";
 import { defaultPosition } from "./misc/Position/defaultPosition";
@@ -90,15 +91,15 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     }
 
     constructor(
-      object: fabric.Object | null | undefined,
-      options: IObjectFitConstructorOptions
+      object?: fabric.Object | null | undefined,
+      options: IObjectFitConstructorOptions = {}
     ) {
       super(undefined, { ...fabricObjectDefaults });
 
       const {
-        mode,
-        width,
-        height,
+        width = NaN,
+        height = NaN,
+        mode = FitMode.FILL,
         useObjectTransform = true,
         enableRecomputeOnScaled = true,
         enableRecomputeOnScaling = false,
@@ -156,13 +157,23 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     }
 
     recompute() {
+      if (this._objectGroup) {
+        if (Number.isNaN(this.width)) {
+          this.width = this._objectGroup.width!;
+        }
+
+        if (Number.isNaN(this.height)) {
+          this.height = this._objectGroup.height!;
+        }
+      }
+
       const { width, height, mode, position } = this;
 
       const currentTransformOptions = this.getCurrentTransformOptions();
 
       this.resetContainer();
 
-      if (this._objectGroup) {
+      if (this._objectGroup && !Number.isNaN(width) && !Number.isNaN(height)) {
         const fittedObject = getFittedObject(
           this._objectGroup,
           {
