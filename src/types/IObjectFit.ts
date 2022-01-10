@@ -34,5 +34,5 @@ export interface IObjectFit extends fabric.Group {
 
   recompute(): void;
 
-  toObject(): IObjectFitSerialized;
+  toObject(propertiesToInclude?: string[]): IObjectFitSerialized;
 }

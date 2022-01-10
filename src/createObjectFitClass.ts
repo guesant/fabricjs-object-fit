@@ -259,17 +259,20 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       return currentObject;
     }
 
-    toObject(): IObjectFitSerialized {
-      return ns.util.object.extend((this as any).callSuper("toObject"), {
-        mode: this.mode,
-        width: this.width,
-        height: this.height,
-        position: {
-          x: this.position.x?.toJSON(),
-          y: this.position.y?.toJSON()
-        },
-        object: this.object?.toObject()
-      });
+    toObject(propertiesToInclude?: string[]): IObjectFitSerialized {
+      return ns.util.object.extend(
+        (this as any).callSuper(
+          "toObject",
+          ["mode", "width", "height"].concat(propertiesToInclude ?? [])
+        ),
+        {
+          position: {
+            x: this.position.x?.toJSON(),
+            y: this.position.y?.toJSON()
+          },
+          object: this.object?.toObject()
+        }
+      );
     }
 
     static fromObject(objectFitObject: IObjectFitSerialized, callback?: any) {
