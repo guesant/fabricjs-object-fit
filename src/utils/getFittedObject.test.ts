@@ -10,7 +10,7 @@ describe(getFittedObject.name, () => {
   const CONTAINER = { width: 100, height: 80 };
   const POSITION = {
     x: fromAbsolute(0),
-    y: fromAbsolute(0)
+    y: fromAbsolute(0),
   };
 
   const callWithMode = (mode: string) => {
@@ -18,7 +18,7 @@ describe(getFittedObject.name, () => {
     const result = getFittedObject(
       obj,
       { mode: mode as any, ...CONTAINER, position: POSITION },
-      fabric
+      fabric,
     );
     return { obj, result };
   };
@@ -33,7 +33,7 @@ describe(getFittedObject.name, () => {
     const { obj } = callWithMode(FitMode.CONTAIN);
     const scale = Math.min(
       divideBy(CONTAINER.width, OBJECT.width),
-      divideBy(CONTAINER.height, OBJECT.height)
+      divideBy(CONTAINER.height, OBJECT.height),
     );
     expect(obj.scaleX!).toBeCloseTo(scale);
     expect(obj.scaleY!).toBeCloseTo(scale);
@@ -43,7 +43,7 @@ describe(getFittedObject.name, () => {
     const { obj } = callWithMode(FitMode.COVER);
     const scale = Math.max(
       divideBy(CONTAINER.width, OBJECT.width),
-      divideBy(CONTAINER.height, OBJECT.height)
+      divideBy(CONTAINER.height, OBJECT.height),
     );
     expect(obj.scaleX!).toBeCloseTo(scale);
     expect(obj.scaleY!).toBeCloseTo(scale);
@@ -60,7 +60,7 @@ describe(getFittedObject.name, () => {
     const { obj } = callWithMode(FitMode.SCALE_DOWN);
     const scale = Math.min(
       divideBy(CONTAINER.width, OBJECT.width),
-      divideBy(CONTAINER.height, OBJECT.height)
+      divideBy(CONTAINER.height, OBJECT.height),
     );
     expect(obj.scaleX!).toBeCloseTo(scale);
     expect(obj.scaleY!).toBeCloseTo(scale);
@@ -72,8 +72,8 @@ describe(getFittedObject.name, () => {
       getFittedObject(
         obj,
         { mode: "banana" as any, ...CONTAINER, position: POSITION },
-        fabric
-      )
+        fabric,
+      ),
     ).toThrow('The fit mode "banana" are not implemented.');
   });
 });

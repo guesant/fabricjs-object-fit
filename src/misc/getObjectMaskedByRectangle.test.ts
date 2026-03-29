@@ -1,25 +1,25 @@
+import { fabric } from "fabric";
 import { getFakeObject } from "./Fabric/getFakeObject";
 import { getObjectMaskedByRectangle } from "./getObjectMaskedByRectangle";
-import { fabric } from "fabric";
 
 it(getObjectMaskedByRectangle.name, () => {
   const INITIAL_OBJECT = {
     top: 10,
     left: 10,
     width: 100,
-    height: 100
+    height: 100,
   };
 
   const INITIAL_MASK = {
     width: 40,
-    height: 50
+    height: 50,
   };
 
   const object = getFakeObject({ ...INITIAL_OBJECT }, fabric);
 
   const masked = getObjectMaskedByRectangle(
     { object, ...INITIAL_MASK },
-    fabric
+    fabric,
   );
 
   expect(masked.top).toBe(0);

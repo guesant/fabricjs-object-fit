@@ -1,4 +1,4 @@
-import { IPoint } from "../types/IPoint";
+import type { IPoint } from "../types/IPoint";
 
 export type IPosition = {
   x: IPoint;

@@ -31,12 +31,12 @@ describe(fromFactor.name, () => {
   it("toJSON should return correct serialization", () => {
     expect(fromFactor(0.5).toJSON()).toEqual({
       type: "fromFactor",
-      args: [0.5]
+      args: [0.5],
     });
   });
 
   it("toString should return readable representation", () => {
-    expect(fromFactor(0.5).toString!()).toBe("Point.fromFactor(0.5)");
-    expect(fromFactor(0).toString!()).toBe("Point.fromFactor(0)");
+    expect(fromFactor(0.5).toString?.()).toBe("Point.fromFactor(0.5)");
+    expect(fromFactor(0).toString?.()).toBe("Point.fromFactor(0)");
   });
 });

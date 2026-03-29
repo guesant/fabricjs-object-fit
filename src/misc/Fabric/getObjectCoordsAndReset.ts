@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import type { fabric } from "fabric";
 import { fabricObjectDefaults } from "./fabricObjectDefaults";
 
 export const getObjectCoordsAndReset = (object: fabric.Object) => {

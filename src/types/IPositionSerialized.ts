@@ -1,4 +1,4 @@
-import { IPointSerialized } from "./IPointSerialized";
+import type { IPointSerialized } from "./IPointSerialized";
 
 export type IPositionSerialized = Partial<{
   x: IPointSerialized;

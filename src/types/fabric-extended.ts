@@ -1,4 +1,4 @@
-import { IObjectFitConstructor } from "./IObjectFitConstructor";
+import type { IObjectFitConstructor } from "./IObjectFitConstructor";
 
 declare module "fabric" {
   namespace fabric {
@@ -6,5 +6,3 @@ declare module "fabric" {
     class ObjectFit {}
   }
 }
-
-export {};

@@ -9,28 +9,32 @@ describe(getScaleDownFittedObject.name, () => {
     width: number,
     height: number,
     absPosX: number,
-    absPosY: number
+    absPosY: number,
   ) => ({
     width,
     height,
     position: {
       x: fromAbsolute(absPosX),
-      y: fromAbsolute(absPosY)
-    }
+      y: fromAbsolute(absPosY),
+    },
   });
 
   it("should behave like contain when object is larger on both axes", () => {
-    const obj = getFakeObject({ top: 5, left: 3, width: 200, height: 150 }, fabric);
-    const container = getScaleDownFittedObject(obj, makeOptions(100, 80, 10, 5), fabric);
+    const obj = getFakeObject(
+      { top: 5, left: 3, width: 200, height: 150 },
+      fabric,
+    );
+    const container = getScaleDownFittedObject(
+      obj,
+      makeOptions(100, 80, 10, 5),
+      fabric,
+    );
     const objectWrapper = obj.group!;
 
     expect(container.top).toBe(5);
     expect(container.left).toBe(3);
 
-    const targetScaleFactor = Math.min(
-      divideBy(100, 200),
-      divideBy(80, 150)
-    );
+    const targetScaleFactor = Math.min(divideBy(100, 200), divideBy(80, 150));
 
     expect(obj.width! * obj.scaleX!).toBeCloseTo(200 * targetScaleFactor);
     expect(obj.height! * obj.scaleY!).toBeCloseTo(150 * targetScaleFactor);
@@ -40,34 +44,41 @@ describe(getScaleDownFittedObject.name, () => {
   });
 
   it("should behave like contain when object is larger only on width", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 200, height: 50 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 200, height: 50 },
+      fabric,
+    );
     getScaleDownFittedObject(obj, makeOptions(100, 80, 0, 0), fabric);
 
-    const targetScaleFactor = Math.min(
-      divideBy(100, 200),
-      divideBy(80, 50)
-    );
+    const targetScaleFactor = Math.min(divideBy(100, 200), divideBy(80, 50));
 
     expect(obj.width! * obj.scaleX!).toBeCloseTo(200 * targetScaleFactor);
     expect(obj.height! * obj.scaleY!).toBeCloseTo(50 * targetScaleFactor);
   });
 
   it("should behave like contain when object is larger only on height", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 50, height: 200 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 50, height: 200 },
+      fabric,
+    );
     getScaleDownFittedObject(obj, makeOptions(100, 80, 0, 0), fabric);
 
-    const targetScaleFactor = Math.min(
-      divideBy(100, 50),
-      divideBy(80, 200)
-    );
+    const targetScaleFactor = Math.min(divideBy(100, 50), divideBy(80, 200));
 
     expect(obj.width! * obj.scaleX!).toBeCloseTo(50 * targetScaleFactor);
     expect(obj.height! * obj.scaleY!).toBeCloseTo(200 * targetScaleFactor);
   });
 
   it("should behave like none when object is smaller than container", () => {
-    const obj = getFakeObject({ top: 2, left: 4, width: 50, height: 30 }, fabric);
-    const container = getScaleDownFittedObject(obj, makeOptions(100, 80, 7, 3), fabric);
+    const obj = getFakeObject(
+      { top: 2, left: 4, width: 50, height: 30 },
+      fabric,
+    );
+    const container = getScaleDownFittedObject(
+      obj,
+      makeOptions(100, 80, 7, 3),
+      fabric,
+    );
     const objectWrapper = obj.group!;
 
     expect(container.top).toBe(2);
@@ -81,7 +92,10 @@ describe(getScaleDownFittedObject.name, () => {
   });
 
   it("should behave like none when object exactly matches container (boundary: > not >=)", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 100, height: 80 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 100, height: 80 },
+      fabric,
+    );
     getScaleDownFittedObject(obj, makeOptions(100, 80, 0, 0), fabric);
 
     // scale should be 1 (none mode), not contain

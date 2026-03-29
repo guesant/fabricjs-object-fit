@@ -1,13 +1,13 @@
-import { fabric } from "fabric";
-import { IFabricNS } from "../types/IFabricNS";
-import { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
+import type { fabric } from "fabric";
+import type { IFabricNS } from "../types/IFabricNS";
+import type { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 import { getContainFittedObject } from "./getContainFittedObject";
 import { getNoneFittedObject } from "./getNoneFittedObject";
 
 export const getScaleDownFittedObject = (
   object: fabric.Object,
   options: IGetFittedObjectPayload,
-  ns: IFabricNS
+  ns: IFabricNS,
 ) => {
   const { width, height } = options;
 

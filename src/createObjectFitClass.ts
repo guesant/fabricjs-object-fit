@@ -1,17 +1,17 @@
-import { fabric } from "fabric";
+import type { fabric } from "fabric";
 import { FitMode } from "./enums/FitMode";
 import { detachObjectFromGroup } from "./misc/Fabric/detachObjectFromGroup";
 import { fabricObjectDefaults } from "./misc/Fabric/fabricObjectDefaults";
 import { getEnlivedObject } from "./misc/Fabric/getEnlivedObject";
 import { defaultPosition } from "./misc/Position/defaultPosition";
 import { parsePosition } from "./misc/Position/parsePosition";
-import { IFabricNS } from "./types/IFabricNS";
-import { IFitMode } from "./types/IFitMode";
-import { IObjectFit } from "./types/IObjectFit";
-import { IObjectFitConstructor } from "./types/IObjectFitConstructor";
-import { IObjectFitConstructorOptions } from "./types/IObjectFitConstructorOptions";
-import { IObjectFitSerialized } from "./types/IObjectFitSerialized";
-import { IPosition } from "./types/IPosition";
+import type { IFabricNS } from "./types/IFabricNS";
+import type { IFitMode } from "./types/IFitMode";
+import type { IObjectFit } from "./types/IObjectFit";
+import type { IObjectFitConstructor } from "./types/IObjectFitConstructor";
+import type { IObjectFitConstructorOptions } from "./types/IObjectFitConstructorOptions";
+import type { IObjectFitSerialized } from "./types/IObjectFitSerialized";
+import type { IPosition } from "./types/IPosition";
 import { getFittedObject } from "./utils/getFittedObject";
 
 export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
@@ -58,7 +58,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     setObject(
       object: fabric.Object | null,
       useObjectTransform = false,
-      restorePreviousObjectTransform = true
+      restorePreviousObjectTransform = true,
     ) {
       this.detachObject(restorePreviousObjectTransform);
 
@@ -73,7 +73,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
         Object.assign(
           this._loadedObjectInitialTransform,
-          ns.util.qrDecompose(transformMatrix)
+          ns.util.qrDecompose(transformMatrix),
         );
 
         if (useObjectTransform) {
@@ -93,7 +93,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
     constructor(
       object?: fabric.Object | null | undefined,
-      options: IObjectFitConstructorOptions = {}
+      options: IObjectFitConstructorOptions = {},
     ) {
       super(undefined, { ...fabricObjectDefaults });
 
@@ -104,7 +104,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         useObjectTransform = true,
         enableRecomputeOnScaled = true,
         enableRecomputeOnScaling = false,
-        position: { x = defaultPosition.x, y = defaultPosition.y } = {}
+        position: { x = defaultPosition.x, y = defaultPosition.y } = {},
       } = options;
 
       this.mode = mode;
@@ -147,7 +147,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         scaleX: 1,
         scaleY: 1,
         width: this.getScaledWidth(),
-        height: this.getScaledHeight()
+        height: this.getScaledHeight(),
       } as any);
 
       this.setCoords();
@@ -181,9 +181,9 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
             mode,
             width,
             height,
-            position
+            position,
           },
-          ns
+          ns,
         )!;
         this.addWithUpdate(fittedObject);
       }
@@ -203,7 +203,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         top: 0,
         left: 0,
         width: this.getScaledWidth(),
-        height: this.getScaledHeight()
+        height: this.getScaledHeight(),
       } as any);
 
       this.setCoords();
@@ -223,12 +223,12 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         originX,
         originY,
         top = 0,
-        left = 0
+        left = 0,
       } = {
         ...fabricObjectDefaults,
         ...resetTransformOptions,
         ...this,
-        ...this._loadedObjectTransform
+        ...this._loadedObjectTransform,
       };
 
       return {
@@ -240,7 +240,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         scaleX,
         scaleY,
         skewX,
-        skewY
+        skewY,
       };
     }
 
@@ -275,15 +275,15 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       return ns.util.object.extend(
         (this as any).callSuper(
           "toObject",
-          ["mode", "width", "height"].concat(propertiesToInclude ?? [])
+          ["mode", "width", "height"].concat(propertiesToInclude ?? []),
         ),
         {
           position: {
             x: this.position.x?.toJSON(),
-            y: this.position.y?.toJSON()
+            y: this.position.y?.toJSON(),
           },
-          object: this.object?.toObject()
-        }
+          object: this.object?.toObject(),
+        },
       );
     }
 
@@ -304,7 +304,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
             mode,
             width,
             height,
-            position: parsePosition(_position)
+            position: parsePosition(_position),
           });
 
           objectFit.set(options as any);
@@ -312,7 +312,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
           callback?.(objectFit);
         },
-        ns
+        ns,
       );
     }
   }

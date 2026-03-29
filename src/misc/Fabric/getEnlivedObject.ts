@@ -1,10 +1,10 @@
-import { fabric } from "fabric";
-import { IFabricNS } from "../../types/IFabricNS";
+import type { fabric } from "fabric";
+import type { IFabricNS } from "../../types/IFabricNS";
 
 export const getEnlivedObject = (
   object: Partial<fabric.Object> | null | undefined,
   callback: (enlivedObject: fabric.Object | null) => void,
-  ns: IFabricNS
+  ns: IFabricNS,
 ) => {
   if (object) {
     ns.util.enlivenObjects(
@@ -12,7 +12,7 @@ export const getEnlivedObject = (
       ([enlivedObject]: [fabric.Object]) => {
         callback(enlivedObject);
       },
-      undefined as any
+      undefined as any,
     );
   } else {
     callback(null);

@@ -34,21 +34,23 @@ describe(fromPercentage.name, () => {
   it("toJSON should preserve original input type", () => {
     expect(fromPercentage(50).toJSON()).toEqual({
       type: "fromPercentage",
-      args: [50]
+      args: [50],
     });
     expect(fromPercentage("50%").toJSON()).toEqual({
       type: "fromPercentage",
-      args: ["50%"]
+      args: ["50%"],
     });
     expect(fromPercentage("75").toJSON()).toEqual({
       type: "fromPercentage",
-      args: ["75"]
+      args: ["75"],
     });
   });
 
   it("toString should return readable representation", () => {
-    expect(fromPercentage(50).toString!()).toBe("Point.fromPercentage(50)");
-    expect(fromPercentage("50%").toString!()).toBe("Point.fromPercentage(50%)");
+    expect(fromPercentage(50).toString?.()).toBe("Point.fromPercentage(50)");
+    expect(fromPercentage("50%").toString?.()).toBe(
+      "Point.fromPercentage(50%)",
+    );
   });
 
   it("25% should produce factor 0.25 behavior", () => {

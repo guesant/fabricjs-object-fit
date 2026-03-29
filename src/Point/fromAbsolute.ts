@@ -1,4 +1,4 @@
-import { IPoint } from "../types/IPoint";
+import type { IPoint } from "../types/IPoint";
 
 /**
  * @param position absolute point
@@ -10,6 +10,6 @@ export const fromAbsolute = (position: number): IPoint => ({
   toString: () => `Point.fromAbsolute(${position})`,
   toJSON: () => ({
     type: "fromAbsolute",
-    args: [position]
-  })
+    args: [position],
+  }),
 });

@@ -2,13 +2,13 @@ import { fromAbsolute } from "../../Point/fromAbsolute";
 import { fromFactor } from "../../Point/fromFactor";
 import { fromPercentage } from "../../Point/fromPercentage";
 import { fromTag } from "../../Point/fromTag";
-import { IPoint } from "../../types/IPoint";
-import { IPointSerialized } from "../../types/IPointSerialized";
+import type { IPoint } from "../../types/IPoint";
+import type { IPointSerialized } from "../../types/IPointSerialized";
 import { defaultPoint } from "./defaultPoint";
 
 export const parsePoint = (
   serializedPoint: IPointSerialized,
-  shouldFallbackToDefault = true
+  shouldFallbackToDefault = true,
 ): IPoint => {
   try {
     switch (serializedPoint.type) {

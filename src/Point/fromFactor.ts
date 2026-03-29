@@ -1,4 +1,4 @@
-import { IPoint } from "../types/IPoint";
+import type { IPoint } from "../types/IPoint";
 
 /**
  * @param factor
@@ -13,6 +13,6 @@ export const fromFactor = (factor: number): IPoint => ({
 
   toJSON: () => ({
     type: "fromFactor",
-    args: [factor]
-  })
+    args: [factor],
+  }),
 });

@@ -1,4 +1,4 @@
-import { Tag } from "..";
+import type { Tag } from "..";
 
 export type IPointSerialized =
   | {

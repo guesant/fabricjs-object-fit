@@ -1,6 +1,6 @@
 import { createObjectFitClass } from "./createObjectFitClass";
-import { ISetupOptions } from "./types/ISetupOptions";
-import { IFabricNS } from "./types/IFabricNS";
+import type { IFabricNS } from "./types/IFabricNS";
+import type { ISetupOptions } from "./types/ISetupOptions";
 
 export const setup = (ns: IFabricNS, options: ISetupOptions = {}) => {
   const { assingClassesToNamespace = true } = options;

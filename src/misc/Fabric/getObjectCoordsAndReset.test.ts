@@ -4,7 +4,13 @@ import { getObjectCoordsAndReset } from "./getObjectCoordsAndReset";
 
 describe(getObjectCoordsAndReset.name, () => {
   it("should extract left and top", () => {
-    const obj = new fabric.Rect({ ...fabricObjectDefaults, left: 10, top: 20, width: 50, height: 50 });
+    const obj = new fabric.Rect({
+      ...fabricObjectDefaults,
+      left: 10,
+      top: 20,
+      width: 50,
+      height: 50,
+    });
 
     const coords = getObjectCoordsAndReset(obj);
 
@@ -13,7 +19,13 @@ describe(getObjectCoordsAndReset.name, () => {
   });
 
   it("should reset object position to 0,0", () => {
-    const obj = new fabric.Rect({ ...fabricObjectDefaults, left: 10, top: 20, width: 50, height: 50 });
+    const obj = new fabric.Rect({
+      ...fabricObjectDefaults,
+      left: 10,
+      top: 20,
+      width: 50,
+      height: 50,
+    });
 
     getObjectCoordsAndReset(obj);
 
@@ -22,7 +34,15 @@ describe(getObjectCoordsAndReset.name, () => {
   });
 
   it("should reset origin to left/top", () => {
-    const obj = new fabric.Rect({ ...fabricObjectDefaults, left: 5, top: 5, width: 50, height: 50, originX: "center", originY: "center" } as any);
+    const obj = new fabric.Rect({
+      ...fabricObjectDefaults,
+      left: 5,
+      top: 5,
+      width: 50,
+      height: 50,
+      originX: "center",
+      originY: "center",
+    } as any);
 
     getObjectCoordsAndReset(obj);
 
@@ -31,7 +51,11 @@ describe(getObjectCoordsAndReset.name, () => {
   });
 
   it("should default to 0 when left/top are undefined", () => {
-    const obj = new fabric.Rect({ ...fabricObjectDefaults, width: 50, height: 50 });
+    const obj = new fabric.Rect({
+      ...fabricObjectDefaults,
+      width: 50,
+      height: 50,
+    });
     delete (obj as any).left;
     delete (obj as any).top;
 

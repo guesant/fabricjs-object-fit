@@ -1,7 +1,7 @@
 import { fabric } from "fabric";
+import { Tag } from "../enums/Tag";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
 import { fromAbsolute, fromTag } from "../Point";
-import { Tag } from "../enums/Tag";
 import { getFillFittedObject } from "./getFillFittedObject";
 
 describe(getFillFittedObject.name, () => {
@@ -10,14 +10,14 @@ describe(getFillFittedObject.name, () => {
       top: 13,
       left: 3,
       width: 103,
-      height: 67
+      height: 67,
     };
 
     const INITIAL_CONTAINER = {
       width: 11,
       height: 109,
       absPosX: 11,
-      absPosY: 7
+      absPosY: 7,
     };
 
     const object = getFakeObject({ ...INITIAL_OBJECT }, fabric);
@@ -28,10 +28,10 @@ describe(getFillFittedObject.name, () => {
         ...INITIAL_CONTAINER,
         position: {
           x: fromAbsolute(INITIAL_CONTAINER.absPosX),
-          y: fromAbsolute(INITIAL_CONTAINER.absPosY)
-        }
+          y: fromAbsolute(INITIAL_CONTAINER.absPosY),
+        },
       },
-      fabric
+      fabric,
     );
 
     const objectWrapper = object.group!;
@@ -40,22 +40,31 @@ describe(getFillFittedObject.name, () => {
     expect(container.left).toBe(INITIAL_OBJECT.left);
 
     expect(object.width! * object.scaleX!).toBeCloseTo(INITIAL_CONTAINER.width);
-    expect(object.height! * object.scaleY!).toBeCloseTo(INITIAL_CONTAINER.height);
+    expect(object.height! * object.scaleY!).toBeCloseTo(
+      INITIAL_CONTAINER.height,
+    );
 
     expect(objectWrapper.top).toBe(
-      -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY
+      -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY,
     );
     expect(objectWrapper.left).toBe(
-      -INITIAL_CONTAINER.width / 2 + INITIAL_CONTAINER.absPosX
+      -INITIAL_CONTAINER.width / 2 + INITIAL_CONTAINER.absPosX,
     );
   });
 
   it("should handle square object in square container", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 100, height: 100 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 100, height: 100 },
+      fabric,
+    );
     getFillFittedObject(
       obj,
-      { width: 200, height: 200, position: { x: fromAbsolute(0), y: fromAbsolute(0) } },
-      fabric
+      {
+        width: 200,
+        height: 200,
+        position: { x: fromAbsolute(0), y: fromAbsolute(0) },
+      },
+      fabric,
     );
 
     expect(obj.scaleX!).toBeCloseTo(2);
@@ -63,11 +72,18 @@ describe(getFillFittedObject.name, () => {
   });
 
   it("should handle tag-based position", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 100, height: 50 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 100, height: 50 },
+      fabric,
+    );
     const container = getFillFittedObject(
       obj,
-      { width: 200, height: 100, position: { x: fromTag(Tag.CENTER), y: fromTag(Tag.CENTER) } },
-      fabric
+      {
+        width: 200,
+        height: 100,
+        position: { x: fromTag(Tag.CENTER), y: fromTag(Tag.CENTER) },
+      },
+      fabric,
     );
 
     // Container should be created without crashing
@@ -75,11 +91,14 @@ describe(getFillFittedObject.name, () => {
   });
 
   it("should use default center position when position is omitted", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 100, height: 50 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 100, height: 50 },
+      fabric,
+    );
     const container = getFillFittedObject(
       obj,
       { width: 200, height: 100 },
-      fabric
+      fabric,
     );
 
     // Should not crash, default position is center

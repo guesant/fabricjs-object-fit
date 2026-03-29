@@ -9,14 +9,14 @@ describe(getNoneFittedObject.name, () => {
       top: 3,
       left: 7,
       width: 103,
-      height: 107
+      height: 107,
     };
 
     const INITIAL_CONTAINER = {
       width: 207,
       height: 91,
       absPosX: 11,
-      absPosY: 19
+      absPosY: 19,
     };
 
     const obj = getFakeObject({ ...INITIAL_OBJECT }, fabric);
@@ -27,10 +27,10 @@ describe(getNoneFittedObject.name, () => {
         ...INITIAL_CONTAINER,
         position: {
           x: fromAbsolute(INITIAL_CONTAINER.absPosX),
-          y: fromAbsolute(INITIAL_CONTAINER.absPosY)
-        }
+          y: fromAbsolute(INITIAL_CONTAINER.absPosY),
+        },
       },
-      fabric
+      fabric,
     );
 
     const objectWrapper = obj.group!;
@@ -42,19 +42,26 @@ describe(getNoneFittedObject.name, () => {
     expect(obj.height! * obj.scaleY!).toBe(INITIAL_OBJECT.height);
 
     expect(objectWrapper.top).toBe(
-      -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY
+      -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY,
     );
     expect(objectWrapper.left).toBe(
-      -INITIAL_CONTAINER.width / 2 + INITIAL_CONTAINER.absPosX
+      -INITIAL_CONTAINER.width / 2 + INITIAL_CONTAINER.absPosX,
     );
   });
 
   it("should always set scale to 1", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 50, height: 30 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 50, height: 30 },
+      fabric,
+    );
     getNoneFittedObject(
       obj,
-      { width: 200, height: 200, position: { x: fromAbsolute(0), y: fromAbsolute(0) } },
-      fabric
+      {
+        width: 200,
+        height: 200,
+        position: { x: fromAbsolute(0), y: fromAbsolute(0) },
+      },
+      fabric,
     );
 
     expect(obj.scaleX!).toBe(1);
@@ -62,22 +69,32 @@ describe(getNoneFittedObject.name, () => {
   });
 
   it("should use default center position when position is omitted", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 100, height: 50 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 100, height: 50 },
+      fabric,
+    );
     const container = getNoneFittedObject(
       obj,
       { width: 200, height: 200 },
-      fabric
+      fabric,
     );
 
     expect(container).toBeDefined();
   });
 
   it("should handle object larger than container", () => {
-    const obj = getFakeObject({ top: 0, left: 0, width: 500, height: 500 }, fabric);
+    const obj = getFakeObject(
+      { top: 0, left: 0, width: 500, height: 500 },
+      fabric,
+    );
     getNoneFittedObject(
       obj,
-      { width: 100, height: 100, position: { x: fromAbsolute(0), y: fromAbsolute(0) } },
-      fabric
+      {
+        width: 100,
+        height: 100,
+        position: { x: fromAbsolute(0), y: fromAbsolute(0) },
+      },
+      fabric,
     );
 
     // Scale stays 1 regardless

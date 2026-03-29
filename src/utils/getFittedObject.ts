@@ -1,7 +1,7 @@
-import { fabric } from "fabric";
+import type { fabric } from "fabric";
 import { FitMode } from "../enums/FitMode";
-import { IFabricNS } from "../types/IFabricNS";
-import { IGetFittedObjectOptions } from "../types/IGetFittedObjectOptions";
+import type { IFabricNS } from "../types/IFabricNS";
+import type { IGetFittedObjectOptions } from "../types/IGetFittedObjectOptions";
 import { getContainFittedObject } from "./getContainFittedObject";
 import { getCoverFittedObject } from "./getCoverFittedObject";
 import { getFillFittedObject } from "./getFillFittedObject";
@@ -11,8 +11,8 @@ import { getScaleDownFittedObject } from "./getScaleDownFittedObject";
 export const getFittedObject = (
   object: fabric.Object,
   options: IGetFittedObjectOptions,
-  ns: IFabricNS
-): fabric.Object | void => {
+  ns: IFabricNS,
+): fabric.Object | undefined => {
   const { mode, ...payload } = options;
 
   switch (mode) {

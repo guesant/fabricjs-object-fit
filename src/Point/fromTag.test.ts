@@ -1,5 +1,5 @@
-import { fromTag } from "./fromTag";
 import { Tag } from "../enums/Tag";
+import { fromTag } from "./fromTag";
 
 describe(fromTag.name, () => {
   it("should compute correct positions", () => {
@@ -16,22 +16,22 @@ describe(fromTag.name, () => {
   it("toJSON should return tag value", () => {
     expect(fromTag(Tag.START).toJSON()).toEqual({
       type: "fromTag",
-      args: [Tag.START]
+      args: [Tag.START],
     });
     expect(fromTag(Tag.CENTER).toJSON()).toEqual({
       type: "fromTag",
-      args: [Tag.CENTER]
+      args: [Tag.CENTER],
     });
     expect(fromTag(Tag.END).toJSON()).toEqual({
       type: "fromTag",
-      args: [Tag.END]
+      args: [Tag.END],
     });
   });
 
   it("toString should include tag name", () => {
-    expect(fromTag(Tag.START).toString!()).toBe("Point.fromTag(Tag.START)");
-    expect(fromTag(Tag.CENTER).toString!()).toBe("Point.fromTag(Tag.CENTER)");
-    expect(fromTag(Tag.END).toString!()).toBe("Point.fromTag(Tag.END)");
+    expect(fromTag(Tag.START).toString?.()).toBe("Point.fromTag(Tag.START)");
+    expect(fromTag(Tag.CENTER).toString?.()).toBe("Point.fromTag(Tag.CENTER)");
+    expect(fromTag(Tag.END).toString?.()).toBe("Point.fromTag(Tag.END)");
   });
 
   it("equal sizes should return 0 for all tags", () => {

@@ -1,10 +1,10 @@
 import { Tag } from "../enums/Tag";
-import { IPoint } from "../types/IPoint";
+import type { IPoint } from "../types/IPoint";
 import { fromTag } from "./fromTag";
 
 const fromAliasedTag = (tag: Tag, ns: string): IPoint => ({
   ...fromTag(tag),
-  toString: () => `Point.${ns}`
+  toString: () => `Point.${ns}`,
 });
 
 export const X = {
@@ -21,7 +21,7 @@ export const X = {
   /**
    * alias for fromTag(Tag.END)
    */
-  RIGHT: fromAliasedTag(Tag.END, "X.RIGHT")
+  RIGHT: fromAliasedTag(Tag.END, "X.RIGHT"),
 };
 
 export const Y = {
@@ -38,5 +38,5 @@ export const Y = {
   /**
    * alias for fromTag(Tag.END)
    */
-  BOTTOM: fromAliasedTag(Tag.END, "Y.BOTTOM")
+  BOTTOM: fromAliasedTag(Tag.END, "Y.BOTTOM"),
 };

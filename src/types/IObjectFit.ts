@@ -1,7 +1,7 @@
-import { fabric } from "fabric";
-import { IFitMode } from "./IFitMode";
-import { IObjectFitSerialized } from "./IObjectFitSerialized";
-import { IPosition } from "./IPosition";
+import type { fabric } from "fabric";
+import type { IFitMode } from "./IFitMode";
+import type { IObjectFitSerialized } from "./IObjectFitSerialized";
+import type { IPosition } from "./IPosition";
 
 export interface IObjectFit extends fabric.Group {
   type: string;
@@ -25,7 +25,7 @@ export interface IObjectFit extends fabric.Group {
   setObject(
     object: fabric.Object | null,
     useObjectTransform?: boolean,
-    restorePreviousObjectTransform?: boolean
+    restorePreviousObjectTransform?: boolean,
   ): void;
 
   detachObject(restorePreviousObjectTransform?: boolean): fabric.Object | null;

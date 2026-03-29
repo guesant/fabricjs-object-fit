@@ -1,5 +1,5 @@
 import { Tag } from "../enums/Tag";
-import { IPoint } from "../types/IPoint";
+import type { IPoint } from "../types/IPoint";
 import { fromFactor } from "./fromFactor";
 
 const factors = { [Tag.START]: 0, [Tag.CENTER]: 0.5, [Tag.END]: 1 };
@@ -7,7 +7,7 @@ const factors = { [Tag.START]: 0, [Tag.CENTER]: 0.5, [Tag.END]: 1 };
 const tagString = {
   [Tag.START]: "Tag.START",
   [Tag.CENTER]: "Tag.CENTER",
-  [Tag.END]: "Tag.END"
+  [Tag.END]: "Tag.END",
 };
 
 /**
@@ -22,7 +22,7 @@ export const fromTag = (tag: Tag): IPoint => {
     toString: () => `Point.fromTag(${tagString[tag] ?? tag})`,
     toJSON: () => ({
       type: "fromTag",
-      args: [tag]
-    })
+      args: [tag],
+    }),
   };
 };

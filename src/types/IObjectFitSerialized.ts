@@ -1,6 +1,6 @@
-import { fabric } from "fabric";
-import { IPositionSerialized } from "./IPositionSerialized";
-import { IFitMode } from "../types/IFitMode";
+import type { fabric } from "fabric";
+import type { IFitMode } from "../types/IFitMode";
+import type { IPositionSerialized } from "./IPositionSerialized";
 
 export type IObjectFitSerialized = Partial<fabric.Group> & {
   width: number;

@@ -3,5 +3,5 @@ export const FitMode = {
   NONE: "none",
   COVER: "cover",
   CONTAIN: "contain",
-  SCALE_DOWN: "scale-down"
+  SCALE_DOWN: "scale-down",
 } as const;

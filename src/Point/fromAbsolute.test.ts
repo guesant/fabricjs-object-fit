@@ -18,16 +18,16 @@ describe(fromAbsolute.name, () => {
   it("toJSON should return correct serialization", () => {
     expect(fromAbsolute(10).toJSON()).toEqual({
       type: "fromAbsolute",
-      args: [10]
+      args: [10],
     });
     expect(fromAbsolute(0).toJSON()).toEqual({
       type: "fromAbsolute",
-      args: [0]
+      args: [0],
     });
   });
 
   it("toString should return readable representation", () => {
-    expect(fromAbsolute(10).toString!()).toBe("Point.fromAbsolute(10)");
-    expect(fromAbsolute(0).toString!()).toBe("Point.fromAbsolute(0)");
+    expect(fromAbsolute(10).toString?.()).toBe("Point.fromAbsolute(10)");
+    expect(fromAbsolute(0).toString?.()).toBe("Point.fromAbsolute(0)");
   });
 });

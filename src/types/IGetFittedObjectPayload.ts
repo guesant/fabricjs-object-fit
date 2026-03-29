@@ -1,4 +1,4 @@
-import { IPosition } from "../types/IPosition";
+import type { IPosition } from "../types/IPosition";
 
 export type IGetFittedObjectPayload = {
   width: number;

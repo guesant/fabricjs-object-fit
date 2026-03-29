@@ -1,5 +1,5 @@
-import { IObjectFit } from "../types/IObjectFit";
-import { IGetFittedObjectOptions } from "./IGetFittedObjectOptions";
+import type { IObjectFit } from "../types/IObjectFit";
+import type { IGetFittedObjectOptions } from "./IGetFittedObjectOptions";
 
 export type IObjectFitConstructorOptions = Partial<
   IGetFittedObjectOptions &
