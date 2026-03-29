@@ -30,4 +30,30 @@ describe(fromPercentage.name, () => {
     expect(fromPercentage("50%").getAbsolute(50, 100)).toBe(-25);
     expect(fromPercentage("100%").getAbsolute(50, 100)).toBe(-50);
   });
+
+  it("toJSON should preserve original input type", () => {
+    expect(fromPercentage(50).toJSON()).toEqual({
+      type: "fromPercentage",
+      args: [50]
+    });
+    expect(fromPercentage("50%").toJSON()).toEqual({
+      type: "fromPercentage",
+      args: ["50%"]
+    });
+    expect(fromPercentage("75").toJSON()).toEqual({
+      type: "fromPercentage",
+      args: ["75"]
+    });
+  });
+
+  it("toString should return readable representation", () => {
+    expect(fromPercentage(50).toString!()).toBe("Point.fromPercentage(50)");
+    expect(fromPercentage("50%").toString!()).toBe("Point.fromPercentage(50%)");
+  });
+
+  it("25% should produce factor 0.25 behavior", () => {
+    // (100 - 50) * 0.25 = 12.5
+    expect(fromPercentage(25).getAbsolute(100, 50)).toBe(12.5);
+    expect(fromPercentage("25%").getAbsolute(100, 50)).toBe(12.5);
+  });
 });
