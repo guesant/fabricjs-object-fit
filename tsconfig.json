@@ -4,9 +4,11 @@
     "module": "ESNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"],
     "strict": true,
-    "skipLibCheck": false,
-    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     "outDir": "./lib"
   },
   "include": ["./src"],
