@@ -3,7 +3,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import dts from "rollup-plugin-dts";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 
 const sharedPluginsBefore = [nodeResolve()];
 const distMinifyPlugins = [terser()];

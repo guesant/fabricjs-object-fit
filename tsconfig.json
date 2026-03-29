@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "moduleResolution": "node10",
     "ignoreDeprecations": "6.0",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "rootDir": "./src"
   },
   "include": ["./src"],
   "exclude": ["./lib"]
