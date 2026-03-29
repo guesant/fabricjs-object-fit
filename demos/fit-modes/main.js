@@ -14,7 +14,7 @@
 
   const IMAGE_WIDTH = 640;
   const IMAGE_HEIGHT = 160;
-  const IMAGE_SRC = `https://via.placeholder.com/${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
+  const IMAGE_SRC = `https://placehold.co/${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
 
   const MODES = ["cover", "contain", "fill", "none", "scale-down"];
 

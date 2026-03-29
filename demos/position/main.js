@@ -15,7 +15,7 @@
 
   const IMAGE_WIDTH = CANVAS_WIDTH * 0.5;
   const IMAGE_HEIGHT = CANVAS_HEIGHT * 0.5;
-  const IMAGE_SRC = `https://via.placeholder.com/${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
+  const IMAGE_SRC = `https://placehold.co/${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
 
   const MODES = [
     {

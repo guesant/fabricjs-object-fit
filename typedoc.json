@@ -1,4 +1,13 @@
 {
   "entryPoints": ["./src/index.ts"],
-  "readme": "none"
+  "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
+  "out": "./docs/api",
+  "docsRoot": "./docs",
+  "readme": "none",
+  "outputFileStrategy": "members",
+  "sidebar": {
+    "autoConfiguration": true,
+    "format": "vitepress",
+    "collapsed": true
+  }
 }

@@ -1,13 +1,6 @@
 ---
 title: Examples
-sidebar: auto
 ---
-
-<style scoped>
-  .theme-default-content:not(.custom) {
-    max-width: 1280px;
-  }
-</style>
 
 ## Fit Modes
 

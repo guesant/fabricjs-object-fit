@@ -24,9 +24,9 @@
     "lint": "biome check src",
     "lint:fix": "biome check --fix src",
     "format": "biome format --write .",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "docs:serve": "vuepress serve docs",
+    "docs:dev": "typedoc && vitepress dev docs",
+    "docs:build": "typedoc && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "dev": "rm -rf lib; rollup --config rollup.config.js --watch",
     "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.js",
     "prepare": "husky install"
@@ -60,12 +60,12 @@
     "rollup": "^2.62.0",
     "rollup-plugin-dts": "^4.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "typedoc": "^0.22.10",
-    "typedoc-plugin-markdown": "^3.11.8",
+    "typedoc": "^0.28.18",
+    "typedoc-plugin-markdown": "^4.11.0",
+    "typedoc-vitepress-theme": "^1.1.2",
     "typescript": "^6.0.2",
-    "vitest": "^4.1.2",
-    "vuepress": "^1.9.5",
-    "vuepress-plugin-typedoc": "^0.10.0"
+    "vitepress": "^1.6.4",
+    "vitest": "^4.1.2"
   },
   "optionalDependencies": {
     "@types/fabric": "^4.5.6"

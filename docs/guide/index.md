@@ -1,6 +1,5 @@
 ---
 title: Guide
-sidebar: auto
 ---
 
 ## Install
@@ -8,6 +7,12 @@ sidebar: auto
 ### From NPM
 
 ```bash
+# with bun
+bun add fabricjs-object-fit
+
+# with pnpm
+pnpm add fabricjs-object-fit
+
 # with yarn
 yarn add fabricjs-object-fit
 
@@ -65,7 +70,7 @@ async function doRender() {
   const canvas = new fabric.Canvas("c");
 
   const img = await new Promise((resolve) =>
-    fabric.Image.fromURL("https://via.placeholder.com/640x360", resolve)
+    fabric.Image.fromURL("https://placehold.co/640x360", resolve)
   );
 
   const container = new ObjectFit(img, {
@@ -113,7 +118,7 @@ canvas.requestRenderAll();
 
 > Behaviors like CSS's [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position).
 
-In the CSS we have the syntax `object-position: size-for-x-axis size-for-y-axis`. In this library we are going to declare the `size-for-?-axis` with the [`Point`](/api/modules/Point.html) API.
+In the CSS we have the syntax `object-position: size-for-x-axis size-for-y-axis`. In this library we are going to declare the `size-for-?-axis` with the [`Point`](/api/fabricjs-object-fit/namespaces/Point/) API.
 
 So lets suppose we have this in the CSS:
 
@@ -151,7 +156,7 @@ container.position.x = Point.X.LEFT; // Point.X.LEFT; Point.X.CENTER; Point.X.RI
 container.position.y = Point.Y.BOTTOM; // Point.Y.TOP; Point.Y.CENTER; Point.Y.BOTTOM;
 ```
 
-Take a look at [`Point`](/api/modules/Point.html) on the API docs.
+Take a look at [`Point`](/api/fabricjs-object-fit/namespaces/Point/) on the API docs.
 
 ### Export/Import
 
@@ -211,7 +216,7 @@ You can take a look at some of ours [examples](/examples/).
 
 ## API Documentation
 
-Browse the [API documentation](/api/index.html) 🚀.
+Browse the [API documentation](/api/) 🚀.
 
 ## Contributting
 

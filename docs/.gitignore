@@ -1,2 +1,3 @@
 api
-dist
+.vitepress/cache
+.vitepress/dist

@@ -35,7 +35,7 @@
     const canvas = new fabric.Canvas(canvasEl);
     syncCanvas(canvas);
 
-    const img = await loadImg("https://via.placeholder.com/180x140", {
+    const img = await loadImg("https://placehold.co/180x140", {
       originX: "center",
       originY: "center",
       left: data.canvas.width / 2,
