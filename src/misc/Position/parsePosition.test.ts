@@ -19,7 +19,7 @@ describe(parsePosition.name, () => {
   it("should fall back to default x when x is missing", () => {
     const position = parsePosition({
       y: { type: "fromAbsolute", args: [20] },
-    } as any);
+    });
 
     expect(position.x.getAbsolute(100, 50)).toBe(
       defaultPosition.x.getAbsolute(100, 50),
@@ -30,7 +30,7 @@ describe(parsePosition.name, () => {
   it("should fall back to default y when y is missing", () => {
     const position = parsePosition({
       x: { type: "fromAbsolute", args: [15] },
-    } as any);
+    });
 
     expect(position.x.getAbsolute(100, 50)).toBe(15);
     expect(position.y.getAbsolute(100, 50)).toBe(
@@ -39,7 +39,7 @@ describe(parsePosition.name, () => {
   });
 
   it("should return defaults for empty object", () => {
-    const position = parsePosition({} as any);
+    const position = parsePosition({});
 
     expect(position.x.getAbsolute(100, 50)).toBe(
       defaultPosition.x.getAbsolute(100, 50),
@@ -53,7 +53,7 @@ describe(parsePosition.name, () => {
     const position = parsePosition({
       x: null,
       y: null,
-    } as any);
+    } as unknown as Parameters<typeof parsePosition>[0]);
 
     expect(position.x.getAbsolute(100, 50)).toBe(
       defaultPosition.x.getAbsolute(100, 50),

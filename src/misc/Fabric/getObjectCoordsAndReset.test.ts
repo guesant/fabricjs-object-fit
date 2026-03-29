@@ -42,7 +42,7 @@ describe(getObjectCoordsAndReset.name, () => {
       height: 50,
       originX: "center",
       originY: "center",
-    } as any);
+    } as fabric.IRectOptions);
 
     getObjectCoordsAndReset(obj);
 
@@ -56,8 +56,8 @@ describe(getObjectCoordsAndReset.name, () => {
       width: 50,
       height: 50,
     });
-    delete (obj as any).left;
-    delete (obj as any).top;
+    delete (obj as Partial<fabric.Rect>).left;
+    delete (obj as Partial<fabric.Rect>).top;
 
     const coords = getObjectCoordsAndReset(obj);
 

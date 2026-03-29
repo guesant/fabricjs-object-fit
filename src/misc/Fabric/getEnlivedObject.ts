@@ -12,7 +12,7 @@ export const getEnlivedObject = (
       ([enlivedObject]: [fabric.Object]) => {
         callback(enlivedObject);
       },
-      undefined as any,
+      undefined as unknown as string,
     );
   } else {
     callback(null);

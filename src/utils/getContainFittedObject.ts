@@ -21,8 +21,8 @@ export const getContainFittedObject = (
   const { left, top } = getObjectCoordsAndReset(object);
 
   const targetScaleFactor = Math.min(
-    divideBy(width, object.width!),
-    divideBy(height, object.height!),
+    divideBy(width, object.width ?? 0),
+    divideBy(height, object.height ?? 0),
   );
 
   object.scaleX = targetScaleFactor;
@@ -31,8 +31,8 @@ export const getContainFittedObject = (
   const objectWrapper = new ns.Group([object], { ...fabricObjectDefaults });
 
   objectWrapper.set({
-    left: x.getAbsolute(width, objectWrapper.width!),
-    top: y.getAbsolute(height, objectWrapper.height!),
+    left: x.getAbsolute(width, objectWrapper.width ?? 0),
+    top: y.getAbsolute(height, objectWrapper.height ?? 0),
   });
 
   objectWrapper.setCoords();

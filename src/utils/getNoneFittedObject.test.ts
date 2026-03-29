@@ -1,6 +1,6 @@
 import { fabric } from "fabric";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
-import { fromAbsolute } from "../Point";
+import { fromAbsolute } from "../Point/index.js";
 import { getNoneFittedObject } from "./getNoneFittedObject";
 
 describe(getNoneFittedObject.name, () => {
@@ -33,13 +33,13 @@ describe(getNoneFittedObject.name, () => {
       fabric,
     );
 
-    const objectWrapper = obj.group!;
+    const objectWrapper = obj.group as fabric.Group;
 
     expect(container.top).toBe(INITIAL_OBJECT.top);
     expect(container.left).toBe(INITIAL_OBJECT.left);
 
-    expect(obj.width! * obj.scaleX!).toBe(INITIAL_OBJECT.width);
-    expect(obj.height! * obj.scaleY!).toBe(INITIAL_OBJECT.height);
+    expect((obj.width ?? 0) * (obj.scaleX ?? 0)).toBe(INITIAL_OBJECT.width);
+    expect((obj.height ?? 0) * (obj.scaleY ?? 0)).toBe(INITIAL_OBJECT.height);
 
     expect(objectWrapper.top).toBe(
       -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY,
@@ -64,8 +64,8 @@ describe(getNoneFittedObject.name, () => {
       fabric,
     );
 
-    expect(obj.scaleX!).toBe(1);
-    expect(obj.scaleY!).toBe(1);
+    expect(obj.scaleX ?? 0).toBe(1);
+    expect(obj.scaleY ?? 0).toBe(1);
   });
 
   it("should use default center position when position is omitted", () => {
@@ -98,7 +98,7 @@ describe(getNoneFittedObject.name, () => {
     );
 
     // Scale stays 1 regardless
-    expect(obj.scaleX!).toBe(1);
-    expect(obj.scaleY!).toBe(1);
+    expect(obj.scaleX ?? 0).toBe(1);
+    expect(obj.scaleY ?? 0).toBe(1);
   });
 });

@@ -1,7 +1,7 @@
 import { fabric } from "fabric";
 import { divideBy } from "../misc/divideBy";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
-import { fromAbsolute } from "../Point";
+import { fromAbsolute } from "../Point/index.js";
 import { getContainFittedObject } from "./getContainFittedObject";
 
 describe(getContainFittedObject.name, () => {
@@ -34,7 +34,7 @@ describe(getContainFittedObject.name, () => {
       fabric,
     );
 
-    const objectWrapper = object.group!;
+    const objectWrapper = object.group as fabric.Group;
 
     expect(container.top).toBe(INITIAL_OBJECT.top);
     expect(container.left).toBe(INITIAL_OBJECT.left);
@@ -44,10 +44,10 @@ describe(getContainFittedObject.name, () => {
       divideBy(INITIAL_CONTAINER.height, INITIAL_OBJECT.height),
     );
 
-    expect(object.width! * object.scaleX!).toBeCloseTo(
+    expect((object.width ?? 0) * (object.scaleX ?? 0)).toBeCloseTo(
       INITIAL_OBJECT.width * targetScaleFactor,
     );
-    expect(object.height! * object.scaleY!).toBeCloseTo(
+    expect((object.height ?? 0) * (object.scaleY ?? 0)).toBeCloseTo(
       INITIAL_OBJECT.height * targetScaleFactor,
     );
 
@@ -76,8 +76,8 @@ describe(getContainFittedObject.name, () => {
     );
 
     // min(200/400, 400/100) = min(0.5, 4) = 0.5
-    expect(obj.scaleX!).toBeCloseTo(0.5);
-    expect(obj.scaleY!).toBeCloseTo(0.5);
+    expect(obj.scaleX ?? 0).toBeCloseTo(0.5);
+    expect(obj.scaleY ?? 0).toBeCloseTo(0.5);
   });
 
   it("should use default center position when position is omitted", () => {
@@ -109,7 +109,7 @@ describe(getContainFittedObject.name, () => {
       fabric,
     );
 
-    expect(obj.scaleX!).toBeCloseTo(0.5);
-    expect(obj.scaleY!).toBeCloseTo(0.5);
+    expect(obj.scaleX ?? 0).toBeCloseTo(0.5);
+    expect(obj.scaleY ?? 0).toBeCloseTo(0.5);
   });
 });

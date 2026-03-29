@@ -27,8 +27,8 @@ export const getNoneFittedObject = (
   });
 
   objectWrapper.set({
-    left: x.getAbsolute(width, objectWrapper.width!),
-    top: y.getAbsolute(height, objectWrapper.height!),
+    left: x.getAbsolute(width, objectWrapper.width ?? 0),
+    top: y.getAbsolute(height, objectWrapper.height ?? 0),
   });
 
   objectWrapper.setCoords();

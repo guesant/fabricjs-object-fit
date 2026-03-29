@@ -9,16 +9,16 @@ describe(setup.name, () => {
   });
 
   it("should assign ObjectFit to namespace by default", () => {
-    const ns = { ...fabric } as any;
+    const ns = { ...fabric } as Record<string, unknown> & typeof fabric;
     setup(ns);
     expect(ns.ObjectFit).toBeDefined();
   });
 
   it("should not assign to namespace when assingClassesToNamespace=false", () => {
-    const ns = { ...fabric } as any;
-    delete ns.ObjectFit;
+    const { ObjectFit: _, ...rest } = fabric as Record<string, unknown>;
+    const ns = rest as unknown as typeof fabric;
     setup(ns, { assingClassesToNamespace: false });
-    expect(ns.ObjectFit).toBeUndefined();
+    expect((ns as Record<string, unknown>).ObjectFit).toBeUndefined();
   });
 
   it("returned ObjectFit should be functional", () => {

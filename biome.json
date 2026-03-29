@@ -16,12 +16,6 @@
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "error"
-      },
-      "style": {
-        "noNonNullAssertion": "off"
-      },
-      "suspicious": {
-        "noExplicitAny": "off"
       }
     }
   },

@@ -1,10 +1,10 @@
 import type { fabric } from "fabric";
-import type { IFabricNS } from "..";
 import { divideBy } from "../misc/divideBy";
 import { fabricObjectDefaults } from "../misc/Fabric/fabricObjectDefaults";
 import { getObjectCoordsAndReset } from "../misc/Fabric/getObjectCoordsAndReset";
 import { getObjectMaskedByRectangle } from "../misc/getObjectMaskedByRectangle";
 import { defaultPosition } from "../misc/Position/defaultPosition";
+import type { IFabricNS } from "../types/IFabricNS";
 import type { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 
 export const getFillFittedObject = (
@@ -20,16 +20,16 @@ export const getFillFittedObject = (
 
   const { left, top } = getObjectCoordsAndReset(object);
 
-  object.scaleX = divideBy(width, object.width!);
-  object.scaleY = divideBy(height, object.height!);
+  object.scaleX = divideBy(width, object.width ?? 0);
+  object.scaleY = divideBy(height, object.height ?? 0);
 
   const objectWrapper = new ns.Group([object], {
     ...fabricObjectDefaults,
   });
 
   objectWrapper.set({
-    left: x.getAbsolute(width, objectWrapper.width!),
-    top: y.getAbsolute(height, objectWrapper.height!),
+    left: x.getAbsolute(width, objectWrapper.width ?? 0),
+    top: y.getAbsolute(height, objectWrapper.height ?? 0),
   });
 
   objectWrapper.setCoords();

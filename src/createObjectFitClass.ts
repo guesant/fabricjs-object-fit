@@ -148,7 +148,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         scaleY: 1,
         width: this.getScaledWidth(),
         height: this.getScaledHeight(),
-      } as any);
+      } as unknown as Partial<this>);
 
       this.setCoords();
 
@@ -160,11 +160,11 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     recompute() {
       if (this._objectGroup) {
         if (Number.isNaN(this.width)) {
-          this.width = this._objectGroup.width!;
+          this.width = this._objectGroup.width ?? 0;
         }
 
         if (Number.isNaN(this.height)) {
-          this.height = this._objectGroup.height!;
+          this.height = this._objectGroup.height ?? 0;
         }
       }
 
@@ -184,11 +184,12 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
             position,
           },
           ns,
-        )!;
+        );
+        if (!fittedObject) return;
         this.addWithUpdate(fittedObject);
       }
 
-      this.set(currentTransformOptions as any);
+      this.set(currentTransformOptions as unknown as Partial<this>);
       this.setCoords();
 
       this._loadedObjectTransform = {};
@@ -204,7 +205,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         left: 0,
         width: this.getScaledWidth(),
         height: this.getScaledHeight(),
-      } as any);
+      } as unknown as Partial<this>);
 
       this.setCoords();
 
@@ -273,7 +274,11 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
     toObject(propertiesToInclude?: string[]): IObjectFitSerialized {
       return ns.util.object.extend(
-        (this as any).callSuper(
+        (
+          this as unknown as {
+            callSuper: (...args: unknown[]) => IObjectFitSerialized;
+          }
+        ).callSuper(
           "toObject",
           ["mode", "width", "height"].concat(propertiesToInclude ?? []),
         ),
@@ -287,7 +292,10 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       );
     }
 
-    static fromObject(objectFitObject: IObjectFitSerialized, callback?: any) {
+    static fromObject(
+      objectFitObject: IObjectFitSerialized,
+      callback?: (objectFit: InstanceType<typeof ObjectFit>) => void,
+    ) {
       const {
         mode,
         width,
@@ -307,7 +315,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
             position: parsePosition(_position),
           });
 
-          objectFit.set(options as any);
+          objectFit.set(options as unknown as Partial<ObjectFit>);
           objectFit.setCoords();
 
           callback?.(objectFit);

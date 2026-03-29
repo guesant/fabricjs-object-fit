@@ -2,7 +2,8 @@ import { fabric } from "fabric";
 import { FitMode } from "../enums/FitMode";
 import { divideBy } from "../misc/divideBy";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
-import { fromAbsolute } from "../Point";
+import { fromAbsolute } from "../Point/index.js";
+import type { IFitMode } from "../types/IFitMode";
 import { getFittedObject } from "./getFittedObject";
 
 describe(getFittedObject.name, () => {
@@ -13,11 +14,11 @@ describe(getFittedObject.name, () => {
     y: fromAbsolute(0),
   };
 
-  const callWithMode = (mode: string) => {
+  const callWithMode = (mode: IFitMode) => {
     const obj = getFakeObject({ ...OBJECT }, fabric);
     const result = getFittedObject(
       obj,
-      { mode: mode as any, ...CONTAINER, position: POSITION },
+      { mode, ...CONTAINER, position: POSITION },
       fabric,
     );
     return { obj, result };
@@ -25,8 +26,12 @@ describe(getFittedObject.name, () => {
 
   it("routes to FILL mode correctly", () => {
     const { obj } = callWithMode(FitMode.FILL);
-    expect(obj.scaleX!).toBeCloseTo(divideBy(CONTAINER.width, OBJECT.width));
-    expect(obj.scaleY!).toBeCloseTo(divideBy(CONTAINER.height, OBJECT.height));
+    expect(obj.scaleX ?? 0).toBeCloseTo(
+      divideBy(CONTAINER.width, OBJECT.width),
+    );
+    expect(obj.scaleY ?? 0).toBeCloseTo(
+      divideBy(CONTAINER.height, OBJECT.height),
+    );
   });
 
   it("routes to CONTAIN mode correctly", () => {
@@ -35,8 +40,8 @@ describe(getFittedObject.name, () => {
       divideBy(CONTAINER.width, OBJECT.width),
       divideBy(CONTAINER.height, OBJECT.height),
     );
-    expect(obj.scaleX!).toBeCloseTo(scale);
-    expect(obj.scaleY!).toBeCloseTo(scale);
+    expect(obj.scaleX ?? 0).toBeCloseTo(scale);
+    expect(obj.scaleY ?? 0).toBeCloseTo(scale);
   });
 
   it("routes to COVER mode correctly", () => {
@@ -45,14 +50,14 @@ describe(getFittedObject.name, () => {
       divideBy(CONTAINER.width, OBJECT.width),
       divideBy(CONTAINER.height, OBJECT.height),
     );
-    expect(obj.scaleX!).toBeCloseTo(scale);
-    expect(obj.scaleY!).toBeCloseTo(scale);
+    expect(obj.scaleX ?? 0).toBeCloseTo(scale);
+    expect(obj.scaleY ?? 0).toBeCloseTo(scale);
   });
 
   it("routes to NONE mode correctly", () => {
     const { obj } = callWithMode(FitMode.NONE);
-    expect(obj.scaleX!).toBe(1);
-    expect(obj.scaleY!).toBe(1);
+    expect(obj.scaleX ?? 0).toBe(1);
+    expect(obj.scaleY ?? 0).toBe(1);
   });
 
   it("routes to SCALE_DOWN mode correctly", () => {
@@ -62,8 +67,8 @@ describe(getFittedObject.name, () => {
       divideBy(CONTAINER.width, OBJECT.width),
       divideBy(CONTAINER.height, OBJECT.height),
     );
-    expect(obj.scaleX!).toBeCloseTo(scale);
-    expect(obj.scaleY!).toBeCloseTo(scale);
+    expect(obj.scaleX ?? 0).toBeCloseTo(scale);
+    expect(obj.scaleY ?? 0).toBeCloseTo(scale);
   });
 
   it("throws on unknown mode", () => {
@@ -71,7 +76,11 @@ describe(getFittedObject.name, () => {
     expect(() =>
       getFittedObject(
         obj,
-        { mode: "banana" as any, ...CONTAINER, position: POSITION },
+        {
+          mode: "banana" as unknown as IFitMode,
+          ...CONTAINER,
+          position: POSITION,
+        },
         fabric,
       ),
     ).toThrow('The fit mode "banana" are not implemented.');

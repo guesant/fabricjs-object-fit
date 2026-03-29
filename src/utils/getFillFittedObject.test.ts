@@ -1,7 +1,7 @@
 import { fabric } from "fabric";
 import { Tag } from "../enums/Tag";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
-import { fromAbsolute, fromTag } from "../Point";
+import { fromAbsolute, fromTag } from "../Point/index.js";
 import { getFillFittedObject } from "./getFillFittedObject";
 
 describe(getFillFittedObject.name, () => {
@@ -34,13 +34,15 @@ describe(getFillFittedObject.name, () => {
       fabric,
     );
 
-    const objectWrapper = object.group!;
+    const objectWrapper = object.group as fabric.Group;
 
     expect(container.top).toBe(INITIAL_OBJECT.top);
     expect(container.left).toBe(INITIAL_OBJECT.left);
 
-    expect(object.width! * object.scaleX!).toBeCloseTo(INITIAL_CONTAINER.width);
-    expect(object.height! * object.scaleY!).toBeCloseTo(
+    expect((object.width ?? 0) * (object.scaleX ?? 0)).toBeCloseTo(
+      INITIAL_CONTAINER.width,
+    );
+    expect((object.height ?? 0) * (object.scaleY ?? 0)).toBeCloseTo(
       INITIAL_CONTAINER.height,
     );
 
@@ -67,8 +69,8 @@ describe(getFillFittedObject.name, () => {
       fabric,
     );
 
-    expect(obj.scaleX!).toBeCloseTo(2);
-    expect(obj.scaleY!).toBeCloseTo(2);
+    expect(obj.scaleX ?? 0).toBeCloseTo(2);
+    expect(obj.scaleY ?? 0).toBeCloseTo(2);
   });
 
   it("should handle tag-based position", () => {

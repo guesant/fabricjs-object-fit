@@ -45,21 +45,30 @@ describe(parsePoint.name, () => {
   it("invalid", () => {
     expect(() =>
       parsePoint(
-        { type: "fromModeThatIsNotImplemented", args: [] } as any,
+        {
+          type: "fromModeThatIsNotImplemented",
+          args: [],
+        } as unknown as Parameters<typeof parsePoint>[0],
         true,
       ),
     ).not.toThrow();
 
     expect(
       parsePoint(
-        { type: "fromModeThatIsNotImplemented", args: [] } as any,
+        {
+          type: "fromModeThatIsNotImplemented",
+          args: [],
+        } as unknown as Parameters<typeof parsePoint>[0],
         true,
       ),
     ).toEqual(defaultPoint);
 
     expect(() =>
       parsePoint(
-        { type: "fromModeThatIsNotImplemented", args: [] } as any,
+        {
+          type: "fromModeThatIsNotImplemented",
+          args: [],
+        } as unknown as Parameters<typeof parsePoint>[0],
         false,
       ),
     ).toThrow();

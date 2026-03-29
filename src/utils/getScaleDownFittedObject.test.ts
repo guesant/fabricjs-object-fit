@@ -1,7 +1,7 @@
 import { fabric } from "fabric";
 import { divideBy } from "../misc/divideBy";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
-import { fromAbsolute } from "../Point";
+import { fromAbsolute } from "../Point/index.js";
 import { getScaleDownFittedObject } from "./getScaleDownFittedObject";
 
 describe(getScaleDownFittedObject.name, () => {
@@ -29,15 +29,19 @@ describe(getScaleDownFittedObject.name, () => {
       makeOptions(100, 80, 10, 5),
       fabric,
     );
-    const objectWrapper = obj.group!;
+    const objectWrapper = obj.group as fabric.Group;
 
     expect(container.top).toBe(5);
     expect(container.left).toBe(3);
 
     const targetScaleFactor = Math.min(divideBy(100, 200), divideBy(80, 150));
 
-    expect(obj.width! * obj.scaleX!).toBeCloseTo(200 * targetScaleFactor);
-    expect(obj.height! * obj.scaleY!).toBeCloseTo(150 * targetScaleFactor);
+    expect((obj.width ?? 0) * (obj.scaleX ?? 0)).toBeCloseTo(
+      200 * targetScaleFactor,
+    );
+    expect((obj.height ?? 0) * (obj.scaleY ?? 0)).toBeCloseTo(
+      150 * targetScaleFactor,
+    );
 
     expect(objectWrapper.top).toBe(-80 / 2 + 5);
     expect(objectWrapper.left).toBe(-100 / 2 + 10);
@@ -52,8 +56,12 @@ describe(getScaleDownFittedObject.name, () => {
 
     const targetScaleFactor = Math.min(divideBy(100, 200), divideBy(80, 50));
 
-    expect(obj.width! * obj.scaleX!).toBeCloseTo(200 * targetScaleFactor);
-    expect(obj.height! * obj.scaleY!).toBeCloseTo(50 * targetScaleFactor);
+    expect((obj.width ?? 0) * (obj.scaleX ?? 0)).toBeCloseTo(
+      200 * targetScaleFactor,
+    );
+    expect((obj.height ?? 0) * (obj.scaleY ?? 0)).toBeCloseTo(
+      50 * targetScaleFactor,
+    );
   });
 
   it("should behave like contain when object is larger only on height", () => {
@@ -65,8 +73,12 @@ describe(getScaleDownFittedObject.name, () => {
 
     const targetScaleFactor = Math.min(divideBy(100, 50), divideBy(80, 200));
 
-    expect(obj.width! * obj.scaleX!).toBeCloseTo(50 * targetScaleFactor);
-    expect(obj.height! * obj.scaleY!).toBeCloseTo(200 * targetScaleFactor);
+    expect((obj.width ?? 0) * (obj.scaleX ?? 0)).toBeCloseTo(
+      50 * targetScaleFactor,
+    );
+    expect((obj.height ?? 0) * (obj.scaleY ?? 0)).toBeCloseTo(
+      200 * targetScaleFactor,
+    );
   });
 
   it("should behave like none when object is smaller than container", () => {
@@ -79,13 +91,13 @@ describe(getScaleDownFittedObject.name, () => {
       makeOptions(100, 80, 7, 3),
       fabric,
     );
-    const objectWrapper = obj.group!;
+    const objectWrapper = obj.group as fabric.Group;
 
     expect(container.top).toBe(2);
     expect(container.left).toBe(4);
 
-    expect(obj.width! * obj.scaleX!).toBe(50);
-    expect(obj.height! * obj.scaleY!).toBe(30);
+    expect((obj.width ?? 0) * (obj.scaleX ?? 0)).toBe(50);
+    expect((obj.height ?? 0) * (obj.scaleY ?? 0)).toBe(30);
 
     expect(objectWrapper.top).toBe(-80 / 2 + 3);
     expect(objectWrapper.left).toBe(-100 / 2 + 7);
@@ -99,7 +111,7 @@ describe(getScaleDownFittedObject.name, () => {
     getScaleDownFittedObject(obj, makeOptions(100, 80, 0, 0), fabric);
 
     // scale should be 1 (none mode), not contain
-    expect(obj.scaleX!).toBe(1);
-    expect(obj.scaleY!).toBe(1);
+    expect(obj.scaleX ?? 0).toBe(1);
+    expect(obj.scaleY ?? 0).toBe(1);
   });
 });

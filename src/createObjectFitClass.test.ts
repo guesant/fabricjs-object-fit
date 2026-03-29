@@ -3,7 +3,7 @@ import { createObjectFitClass } from "./createObjectFitClass";
 import { FitMode } from "./enums/FitMode";
 import { Tag } from "./enums/Tag";
 import { getFakeObject } from "./misc/Fabric/getFakeObject";
-import { fromAbsolute, fromPercentage, fromTag } from "./Point";
+import { fromAbsolute, fromPercentage, fromTag } from "./Point/index.js";
 
 const ObjectFit = createObjectFitClass(fabric);
 
@@ -233,7 +233,7 @@ describe("ObjectFit.handleScaled", () => {
     });
 
     // Simulate scaling the ObjectFit
-    of.set({ scaleX: 2, scaleY: 1.5 } as any);
+    of.set({ scaleX: 2, scaleY: 1.5 } as Partial<fabric.IGroupOptions>);
     of.setCoords();
 
     of.handleScaled(false);
@@ -253,7 +253,7 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaled: true,
     });
 
-    of.set({ scaleX: 2, scaleY: 2 } as any);
+    of.set({ scaleX: 2, scaleY: 2 } as Partial<fabric.IGroupOptions>);
     of.setCoords();
 
     of.fire("scaled");
@@ -270,7 +270,7 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaled: false,
     });
 
-    of.set({ scaleX: 2, scaleY: 2 } as any);
+    of.set({ scaleX: 2, scaleY: 2 } as Partial<fabric.IGroupOptions>);
     of.setCoords();
 
     of.fire("scaled");
@@ -288,7 +288,7 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaling: true,
     });
 
-    of.set({ scaleX: 1.5, scaleY: 1.5 } as any);
+    of.set({ scaleX: 1.5, scaleY: 1.5 } as Partial<fabric.IGroupOptions>);
     of.setCoords();
 
     of.fire("scaling");

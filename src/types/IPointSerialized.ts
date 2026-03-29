@@ -1,4 +1,4 @@
-import type { Tag } from "..";
+import type { Tag } from "../enums/Tag.js";
 
 export type IPointSerialized =
   | {

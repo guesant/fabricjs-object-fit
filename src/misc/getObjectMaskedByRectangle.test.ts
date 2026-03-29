@@ -27,6 +27,6 @@ it(getObjectMaskedByRectangle.name, () => {
   expect(masked.getScaledWidth()).toBe(INITIAL_MASK.width);
   expect(masked.getScaledHeight()).toBe(INITIAL_MASK.height);
 
-  expect(object.top).toBe(-masked.height! / 2 + INITIAL_OBJECT.top);
-  expect(object.left).toBe(-masked.width! / 2 + INITIAL_OBJECT.left);
+  expect(object.top).toBe(-(masked.height ?? 0) / 2 + INITIAL_OBJECT.top);
+  expect(object.left).toBe(-(masked.width ?? 0) / 2 + INITIAL_OBJECT.left);
 });
