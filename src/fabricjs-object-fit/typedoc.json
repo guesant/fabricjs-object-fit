@@ -4,6 +4,7 @@
   "out": "../docs/docs/api",
   "docsRoot": "../docs/docs",
   "readme": "none",
+  "sanitizeComments": true,
   "outputFileStrategy": "members",
   "sidebar": {
     "autoConfiguration": true,

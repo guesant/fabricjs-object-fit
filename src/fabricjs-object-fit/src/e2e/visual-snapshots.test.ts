@@ -2,9 +2,9 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadImage } from "canvas";
 import * as fabric from "fabric/node";
-import { createObjectFitClass } from "../createObjectFitClass";
-import { FitMode } from "../enums/FitMode";
-import { Tag } from "../enums/Tag";
+import { createObjectFitClass } from "../create-object-fit-class";
+import { FitMode } from "../enums/fit-mode";
+import { Tag } from "../enums/tag";
 import {
   fromAbsolute,
   fromFactor,
@@ -12,8 +12,8 @@ import {
   fromTag,
   X,
   Y,
-} from "../Point/index.js";
-import type { IPosition } from "../types/IPosition";
+} from "../point/index.js";
+import type { IPosition } from "../types/i-position";
 
 const E2E_DIR = resolve(process.cwd(), "src/e2e");
 const SNAPSHOTS_DIR = resolve(E2E_DIR, "__snapshots__/images");

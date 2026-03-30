@@ -1,6 +1,6 @@
-import { createObjectFitClass } from "./createObjectFitClass";
-import type { IFabricNS } from "./types/IFabricNS";
-import type { ISetupOptions } from "./types/ISetupOptions";
+import { createObjectFitClass } from "./create-object-fit-class";
+import type { IFabricNS } from "./types/i-fabric-ns";
+import type { ISetupOptions } from "./types/i-setup-options";
 
 export const setup = (ns: IFabricNS, options: ISetupOptions = {}) => {
   const { assignClassesToRegistry = true } = options;

@@ -18,7 +18,7 @@
     "docs:preview": "npx nx run docs:preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.9",
+    "@biomejs/biome": "^2.4.10",
     "@types/node": "^25.5.0",
     "nx": "^22.6.3"
   }

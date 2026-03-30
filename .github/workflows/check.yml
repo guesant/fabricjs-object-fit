@@ -42,3 +42,6 @@ jobs:
 
       - name: E2E tests
         run: cd src && npx nx run fabricjs-object-fit:test:e2e
+
+      - name: Docs
+        run: cd src && npx nx run docs:build
