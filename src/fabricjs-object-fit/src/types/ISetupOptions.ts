@@ -1,3 +1,3 @@
 export type ISetupOptions = {
-  assingClassesToNamespace?: boolean;
+  assignClassesToRegistry?: boolean;
 };

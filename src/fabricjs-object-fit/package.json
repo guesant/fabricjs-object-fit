@@ -32,6 +32,8 @@
     "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.mjs",
     "dev": "rm -rf lib; rollup --config rollup.config.mjs --watch",
     "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
     "lint": "biome check src",
     "lint:fix": "biome check --fix src",
     "typedoc": "typedoc"
@@ -52,6 +54,7 @@
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-vitepress-theme": "^1.1.2",
     "typescript": "^6.0.2",
+    "@playwright/test": "^1.52.0",
     "vitest": "^4.1.2"
   }
 }

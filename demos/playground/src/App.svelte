@@ -15,11 +15,13 @@
   let containerWidth = $state(400);
   let containerHeight = $state(300);
   let posXType = $state("tag");
-  let posXValue = $state("end");
+  let posXValue = $state("center");
   let posYType = $state("tag");
-  let posYValue = $state("end");
+  let posYValue = $state("center");
   let useObjectTransform = $state(true);
-  let imageSrc = $state("https://placehold.co/20x20/3b82f6/fff?text=20x20");
+  let imageSrc = $state(
+    "https://placehold.co/300x500/3b82f6/fff?text=300x500",
+  );
   let containerInfo = $state("{}");
   let loading = $state(false);
 
@@ -58,13 +60,9 @@
     loading = true;
 
     try {
-      const img = await fabric.FabricImage.fromURL(
-        imageSrc,
-        {},
-        {
-          crossOrigin: "anonymous",
-        },
-      );
+      const img = await fabric.FabricImage.fromURL(imageSrc, {
+        crossOrigin: "anonymous",
+      });
       img.set({ originX: "left", originY: "top", top: 0, left: 0 });
 
       if (container) {

@@ -9,6 +9,7 @@
     "build": "npx nx run fabricjs-object-fit:build",
     "dev": "npx nx run fabricjs-object-fit:dev",
     "test": "npx nx run fabricjs-object-fit:test",
+    "test:e2e": "npx nx run fabricjs-object-fit:test:e2e",
     "lint": "npx nx run fabricjs-object-fit:lint",
     "lint:fix": "npx nx run fabricjs-object-fit:lint:fix",
     "format": "biome format --write .",

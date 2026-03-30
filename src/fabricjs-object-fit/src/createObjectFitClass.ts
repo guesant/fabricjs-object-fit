@@ -340,7 +340,5 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
     }
   }
 
-  ns.classRegistry.setClass(ObjectFit);
-
   return ObjectFit as unknown as IObjectFitConstructor;
 };

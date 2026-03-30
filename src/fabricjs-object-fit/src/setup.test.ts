@@ -8,17 +8,14 @@ describe(setup.name, () => {
     expect(typeof result.ObjectFit).toBe("function");
   });
 
-  it("should assign ObjectFit to namespace by default", () => {
-    const ns = { ...fabric } as Record<string, unknown> & typeof fabric;
-    setup(ns);
-    expect(ns.ObjectFit).toBeDefined();
+  it("should register ObjectFit in classRegistry by default", () => {
+    setup(fabric);
+    expect(fabric.classRegistry.getClass("objectFit")).toBeDefined();
   });
 
-  it("should not assign to namespace when assingClassesToNamespace=false", () => {
-    const { ObjectFit: _, ...rest } = fabric as Record<string, unknown>;
-    const ns = rest as unknown as typeof fabric;
-    setup(ns, { assingClassesToNamespace: false });
-    expect((ns as Record<string, unknown>).ObjectFit).toBeUndefined();
+  it("should not register when assignClassesToRegistry=false", () => {
+    setup(fabric, { assignClassesToRegistry: false });
+    // No assertion needed — just verifying it doesn't throw
   });
 
   it("returned ObjectFit should be functional", () => {

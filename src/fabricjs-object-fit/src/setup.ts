@@ -3,12 +3,12 @@ import type { IFabricNS } from "./types/IFabricNS";
 import type { ISetupOptions } from "./types/ISetupOptions";
 
 export const setup = (ns: IFabricNS, options: ISetupOptions = {}) => {
-  const { assingClassesToNamespace = true } = options;
+  const { assignClassesToRegistry = true } = options;
 
   const ObjectFit = createObjectFitClass(ns);
 
-  if (assingClassesToNamespace && Object.isExtensible(ns)) {
-    Object.assign(ns, { ObjectFit });
+  if (assignClassesToRegistry) {
+    ns.classRegistry.setClass(ObjectFit);
   }
 
   return { ObjectFit };
