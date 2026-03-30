@@ -7,8 +7,21 @@
 [![GitHub stars](https://img.shields.io/github/stars/guesant/fabricjs-object-fit?style=for-the-badge&logo=github&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/stargazers)
 [![GitHub license](https://img.shields.io/github/license/guesant/fabricjs-object-fit?style=for-the-badge&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/blob/dev/LICENSE)
 [![npm version](https://img.shields.io/npm/v/fabricjs-object-fit?style=for-the-badge&logo=npm&labelColor=black)](https://www.npmjs.com/package/fabricjs-object-fit)
+[![pkg.pr.new](https://pkg.pr.new/badge/guesant/fabricjs-object-fit)](https://pkg.pr.new/guesant/fabricjs-object-fit)
 
 CSS-like `object-fit` and `object-position` behavior for [Fabric.js](http://fabricjs.com/) (v7+).
+
+## What is this?
+
+When you place an image on a Fabric.js canvas, there is no built-in way to say "fit this image inside a 400×400 box without distortion." In the browser, CSS `object-fit` solves this in one property. **fabricjs-object-fit** brings that same behavior to Fabric.js:
+
+- **cover** -- fill the container, crop the overflow
+- **contain** -- fit inside the container, letterbox the rest
+- **fill** -- stretch to match exactly
+- **none** -- display at original size, clip overflow
+- **scale-down** -- like contain, but never scales up
+
+It also supports `object-position` (pixel, percentage, or named anchors) and round-trips through Fabric.js serialization (`toJSON` / `loadFromJSON`).
 
 ## Quick Start
 

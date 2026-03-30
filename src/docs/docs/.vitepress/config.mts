@@ -53,12 +53,14 @@ export default defineConfig({
         {
           text: "Guide",
           items: [
+            { text: "What is fabricjs-object-fit?", link: "/guide/#what-is-fabricjs-object-fit" },
             { text: "Install", link: "/guide/#install" },
             { text: "Usage", link: "/guide/#usage" },
+            { text: "Fit Modes Explained", link: "/guide/#fit-modes-explained" },
             { text: "Export/Import", link: "/guide/#export-import" },
             { text: "Examples", link: "/guide/#examples" },
             { text: "API Documentation", link: "/guide/#api-documentation" },
-            { text: "Contributing", link: "/guide/#contributting" },
+            { text: "Contributing", link: "/guide/#contributing" },
             { text: "License", link: "/guide/#license" },
           ],
         },
