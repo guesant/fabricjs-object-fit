@@ -8,6 +8,32 @@ export default defineConfig({
 
   base: process.env.BASE ?? "/",
 
+  vite: {
+    plugins: [
+      {
+        name: "escape-typedoc-html",
+        enforce: "pre",
+        transform(code, id) {
+          if (!id.endsWith(".md") || !id.includes("/api/")) return;
+
+          // Escape raw HTML tags in typedoc-generated prose that cause Vue
+          // compiler errors (e.g. "<canvas>" missing end tag).
+          // Preserves content inside backtick spans and fenced code blocks.
+          const blocks: string[] = [];
+          const ph = "\0CODEBLOCK\0";
+          let result = code.replace(/(```[\s\S]*?```|`[^`]*?`)/g, (m) => {
+            blocks.push(m);
+            return ph;
+          });
+          // Escape bare HTML element tags that are not markup
+          result = result.replace(/<(\/?)(canvas|slot|template)(\s|>)/gi, "\\<$1$2$3");
+          result = result.replace(new RegExp(ph.replace(/\0/g, "\\0"), "g"), () => blocks.shift()!);
+          return result;
+        },
+      },
+    ],
+  },
+
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/" },
