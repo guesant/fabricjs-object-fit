@@ -1,5 +1,5 @@
 {
-  "$schema": "https://nx.dev/reference/nx-schema",
+  "$schema": "node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
       "dependsOn": [
@@ -18,5 +18,8 @@
     }
   },
   "defaultBase": "dev",
-  "analytics": false
+  "analytics": false,
+  "tui": {
+    "enabled": false
+  }
 }
