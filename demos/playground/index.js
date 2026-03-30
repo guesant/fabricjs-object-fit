@@ -1,5 +1,5 @@
 import { mount } from "svelte";
-import App from "./src/App.svelte";
+import App from "./src/app.svelte";
 
 const app = mount(App, {
   target: document.body,
