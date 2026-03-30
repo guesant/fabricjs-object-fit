@@ -1,4 +1,6 @@
 {
+  "name": "@fabricjs-object-fit/demo-fuzzer",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",

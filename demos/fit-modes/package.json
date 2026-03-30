@@ -1,4 +1,6 @@
 {
+  "name": "@fabricjs-object-fit/demo-fit-modes",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
