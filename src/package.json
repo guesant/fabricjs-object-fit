@@ -1,4 +1,5 @@
 {
+  "name": "@guesant/fabricjs-object-fit.src",
   "private": true,
   "scripts": {
     "build": "npx nx run fabricjs-object-fit:build",

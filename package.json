@@ -1,5 +1,5 @@
 {
-  "name": "fabricjs-object-fit-monorepo",
+  "name": "@guesant/fabricjs-object-fit.repo",
   "private": true,
   "workspaces": [
     "src",
