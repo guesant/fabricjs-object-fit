@@ -19,6 +19,10 @@
     "fill",
     "object-position"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "files": [
     "lib/**/*"
   ],

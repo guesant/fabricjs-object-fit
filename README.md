@@ -1,12 +1,12 @@
 # fabricjs-object-fit
 
-[![Check](https://img.shields.io/github/actions/workflow/status/guesant/fabricjs-object-fit/check.yml?branch=dev&style=for-the-badge&logo=github&label=Check)](https://github.com/guesant/fabricjs-object-fit/actions/workflows/check.yml)
-[![Deploy Docs](https://img.shields.io/github/actions/workflow/status/guesant/fabricjs-object-fit/deploy-docs.yml?branch=dev&style=for-the-badge&logo=github-pages&label=Docs)](https://github.com/guesant/fabricjs-object-fit/actions/workflows/deploy-docs.yml)
-[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025e8c?style=for-the-badge&logo=dependabot)](https://github.com/guesant/fabricjs-object-fit/security/dependabot)
-[![CodeQL](https://img.shields.io/badge/CodeQL-enabled-3b82f6?style=for-the-badge&logo=github)](https://github.com/guesant/fabricjs-object-fit/security/code-scanning)
-[![GitHub stars](https://img.shields.io/github/stars/guesant/fabricjs-object-fit?style=for-the-badge&logo=github)](https://github.com/guesant/fabricjs-object-fit/stargazers)
-[![GitHub license](https://img.shields.io/github/license/guesant/fabricjs-object-fit?style=for-the-badge)](https://github.com/guesant/fabricjs-object-fit/blob/dev/LICENSE)
-[![npm version](https://img.shields.io/npm/v/fabricjs-object-fit?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/fabricjs-object-fit)
+[![Check](https://img.shields.io/github/actions/workflow/status/guesant/fabricjs-object-fit/check.yml?branch=dev&style=for-the-badge&logo=github&label=Check&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/actions/workflows/check.yml)
+[![Deploy Docs](https://img.shields.io/github/actions/workflow/status/guesant/fabricjs-object-fit/deploy-docs.yml?branch=dev&style=for-the-badge&logo=github-pages&label=Docs&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/actions/workflows/deploy-docs.yml)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025e8c?style=for-the-badge&logo=dependabot&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/security/dependabot)
+[![CodeQL](https://img.shields.io/badge/CodeQL-enabled-3b82f6?style=for-the-badge&logo=github&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/security/code-scanning)
+[![GitHub stars](https://img.shields.io/github/stars/guesant/fabricjs-object-fit?style=for-the-badge&logo=github&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/stargazers)
+[![GitHub license](https://img.shields.io/github/license/guesant/fabricjs-object-fit?style=for-the-badge&labelColor=black)](https://github.com/guesant/fabricjs-object-fit/blob/dev/LICENSE)
+[![npm version](https://img.shields.io/npm/v/fabricjs-object-fit?style=for-the-badge&logo=npm&labelColor=black)](https://www.npmjs.com/package/fabricjs-object-fit)
 
 CSS-like `object-fit` and `object-position` behavior for [Fabric.js](http://fabricjs.com/) (v7+).
 

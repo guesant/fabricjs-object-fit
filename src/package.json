@@ -15,10 +15,14 @@
     "format": "biome format --write .",
     "docs:dev": "npx nx run docs:dev",
     "docs:build": "npx nx run docs:build",
-    "docs:preview": "npx nx run docs:preview"
+    "docs:preview": "npx nx run docs:preview",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",
+    "@changesets/cli": "^2.30.0",
     "@types/node": "^25.5.0",
     "nx": "^22.6.3"
   }
