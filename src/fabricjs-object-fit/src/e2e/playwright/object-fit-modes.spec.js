@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 
 const FIXTURES = {
-  landscape: "/fabricjs-object-fit/src/e2e/fixtures/600x400.png",
-  portrait: "/fabricjs-object-fit/src/e2e/fixtures/200x400.png",
-  wide: "/fabricjs-object-fit/src/e2e/fixtures/600x100.png",
-  small: "/fabricjs-object-fit/src/e2e/fixtures/200x100.png",
+  landscape: "/src/fabricjs-object-fit/src/e2e/fixtures/600x400.png",
+  portrait: "/src/fabricjs-object-fit/src/e2e/fixtures/200x400.png",
+  wide: "/src/fabricjs-object-fit/src/e2e/fixtures/600x100.png",
+  small: "/src/fabricjs-object-fit/src/e2e/fixtures/200x100.png",
 };
 
 async function waitForRender(page, ms = 300) {
@@ -62,7 +62,7 @@ async function getContainerBounds(page) {
 
 test.describe("Object Fit Modes", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/fabricjs-object-fit/src/e2e/playwright/index.html");
+    await page.goto("/src/fabricjs-object-fit/src/e2e/playwright/index.html");
     await waitForRender(page, 500);
   });
 
@@ -223,7 +223,7 @@ test.describe("Object Fit Modes", () => {
 
 test.describe("Workflow", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/fabricjs-object-fit/src/e2e/playwright/index.html");
+    await page.goto("/src/fabricjs-object-fit/src/e2e/playwright/index.html");
     await waitForRender(page, 500);
   });
 

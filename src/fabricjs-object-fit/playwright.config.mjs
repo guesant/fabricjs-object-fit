@@ -14,7 +14,7 @@ export default defineConfig({
   },
   webServer: {
     command: "npx serve -l 3001 --no-clipboard",
-    cwd: resolve(__dirname, ".."),
+    cwd: resolve(__dirname, "../.."),
     port: 3001,
     reuseExistingServer: false,
   },
