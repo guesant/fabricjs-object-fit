@@ -259,9 +259,7 @@ test.describe("Workflow", () => {
     ).toBe(true);
   });
 
-  test("state stays consistent after rapid mode switches", async ({
-    page,
-  }) => {
+  test("state stays consistent after rapid mode switches", async ({ page }) => {
     await loadImage(page, FIXTURES.small, { width: 300, height: 300 });
 
     await setMode(page, "cover");
