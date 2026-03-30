@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: cd src && npm ci
+
+      - name: Build
+        run: cd src && npx nx run fabricjs-object-fit:build
+
+      - name: Create Release Pull Request or Publish
+        uses: changesets/action@v1
+        with:
+          version: npm run changeset:version
+          publish: npm run changeset:publish
+          title: "chore: version packages"
+          commit: "chore: version packages"
+          cwd: src
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

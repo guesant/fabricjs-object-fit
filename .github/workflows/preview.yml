@@ -1,0 +1,33 @@
+name: Preview Package
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
+      - name: Install dependencies
+        run: cd src && npm ci
+
+      - name: Build
+        run: cd src && npx nx run fabricjs-object-fit:build
+
+      - name: Publish preview package
+        run: npx pkg-pr-new publish ./src/fabricjs-object-fit
