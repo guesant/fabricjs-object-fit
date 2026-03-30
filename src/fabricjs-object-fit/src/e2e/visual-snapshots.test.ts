@@ -5,16 +5,15 @@ import { fabric } from "fabric";
 import { createObjectFitClass } from "../createObjectFitClass";
 import { FitMode } from "../enums/FitMode";
 import { Tag } from "../enums/Tag";
-import type { IFitMode } from "../types/IFitMode";
-import type { IPosition } from "../types/IPosition";
 import {
-  X,
-  Y,
   fromAbsolute,
   fromFactor,
   fromPercentage,
   fromTag,
+  X,
+  Y,
 } from "../Point/index.js";
+import type { IPosition } from "../types/IPosition";
 
 const E2E_DIR = resolve(process.cwd(), "src/e2e");
 const SNAPSHOTS_DIR = resolve(E2E_DIR, "__snapshots__/images");
