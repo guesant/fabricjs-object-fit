@@ -1,6 +1,6 @@
 <script>
   import * as fabric from "fabric";
-  import { createObjectFitClass, FitMode } from "fabricjs-object-fit";
+  import { createObjectFitClass } from "fabricjs-object-fit";
   import Controls from "./components/Controls.svelte";
   import { extractContainerInfo } from "./utils/extractContainerInfo.js";
   import { makePoint } from "./utils/makePoint.js";
@@ -11,13 +11,13 @@
   let canvas;
   let container;
 
-  let mode = $state("cover");
+  let mode = $state("fill");
   let containerWidth = $state(400);
   let containerHeight = $state(300);
   let posXType = $state("tag");
-  let posXValue = $state("center");
+  let posXValue = $state("end");
   let posYType = $state("tag");
-  let posYValue = $state("center");
+  let posYValue = $state("end");
   let useObjectTransform = $state(true);
   let imageSrc = $state("https://placehold.co/20x20/3b82f6/fff?text=20x20");
   let containerInfo = $state("{}");
@@ -58,9 +58,13 @@
     loading = true;
 
     try {
-      const img = await fabric.FabricImage.fromURL(imageSrc, {}, {
-        crossOrigin: "anonymous",
-      });
+      const img = await fabric.FabricImage.fromURL(
+        imageSrc,
+        {},
+        {
+          crossOrigin: "anonymous",
+        },
+      );
       img.set({ originX: "left", originY: "top", top: 0, left: 0 });
 
       if (container) {
@@ -160,7 +164,10 @@
   :global(body) {
     margin: 0;
     padding: 16px;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     background: #fafafa;
   }
 

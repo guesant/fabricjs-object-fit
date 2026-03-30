@@ -257,7 +257,7 @@ describe("ObjectFit.handleScaled", () => {
     of.set({ scaleX: 2, scaleY: 2 });
     of.setCoords();
 
-    of.fire("scaled" as keyof fabric.GroupEvents);
+    of.fire("modified");
 
     expect(of.scaleX).toBe(1);
     expect(of.scaleY).toBe(1);
@@ -274,7 +274,7 @@ describe("ObjectFit.handleScaled", () => {
     of.set({ scaleX: 2, scaleY: 2 });
     of.setCoords();
 
-    of.fire("scaled" as keyof fabric.GroupEvents);
+    of.fire("modified");
 
     // Scale should NOT be absorbed
     expect(of.scaleX).toBe(2);

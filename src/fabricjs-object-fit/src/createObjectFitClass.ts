@@ -134,11 +134,8 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.handleRecomputeOnScaled = this.handleRecomputeOnScaled.bind(this);
       this.handleRecomputeOnScaling = this.handleRecomputeOnScaling.bind(this);
 
-      // "scaled" is a custom event not in GroupEvents; use object handler form
-      // which accepts Record<string, handler> via EventRegistryObject
-      this.on({ scaled: this.handleRecomputeOnScaled } as Parameters<
-        typeof this.on
-      >[0]);
+      // In fabric v7, "scaled" was replaced by "modified" (fires after any transform)
+      this.on("modified", this.handleRecomputeOnScaled);
       this.on("scaling", this.handleRecomputeOnScaling);
     }
 
@@ -185,6 +182,18 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.resetContainer();
 
       if (this._objectGroup && !Number.isNaN(width) && !Number.isNaN(height)) {
+        // In fabric v7, exitGroup applies the parent's transform to the child
+        // when it leaves a group. We must detach _objectGroup from any previous
+        // wrapper group and reset its transform to a clean state before fitting.
+        detachObjectFromGroup(this._objectGroup);
+        this._objectGroup.set({
+          ...resetTransformOptions,
+          ...fabricObjectDefaults,
+          left: 0,
+          top: 0,
+        });
+        this._objectGroup.setCoords();
+
         const fittedObject = getFittedObject(
           this._objectGroup,
           {
@@ -200,6 +209,9 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       }
 
       this.set(currentTransformOptions as unknown as Partial<this>);
+      // Restore intended dimensions (resetContainer overwrites with getScaledWidth/Height)
+      this.width = width;
+      this.height = height;
       this.setCoords();
 
       this._loadedObjectTransform = {};
