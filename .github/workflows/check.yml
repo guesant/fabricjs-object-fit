@@ -18,31 +18,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Lint
-        run: npx nx run fabricjs-object-fit:lint
+        run: pnpm exec nx run fabricjs-object-fit:lint
 
       - name: Test
-        run: npx nx run fabricjs-object-fit:test
+        run: pnpm exec nx run fabricjs-object-fit:test
 
       - name: Build
-        run: npx nx run fabricjs-object-fit:build
+        run: pnpm exec nx run fabricjs-object-fit:build
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium firefox
+        run: pnpm exec playwright install --with-deps chromium firefox
 
       - name: E2E tests
-        run: npx nx run fabricjs-object-fit:test:e2e
+        run: pnpm exec nx run fabricjs-object-fit:test:e2e
 
       - name: Docs
-        run: npx nx run docs:build
+        run: pnpm exec nx run docs:build

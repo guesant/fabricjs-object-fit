@@ -3,7 +3,7 @@
   "sourceRoot": "fabricjs-object-fit/src",
   "targets": {
     "build": {
-      "command": "npm run build",
+      "command": "pnpm run build",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -17,13 +17,13 @@
       ]
     },
     "dev": {
-      "command": "npm run dev",
+      "command": "pnpm run dev",
       "options": {
         "cwd": "{projectRoot}"
       }
     },
     "test": {
-      "command": "npm run test",
+      "command": "pnpm run test",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -33,7 +33,7 @@
       ]
     },
     "test:e2e": {
-      "command": "npm run test:e2e",
+      "command": "pnpm run test:e2e",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -46,7 +46,7 @@
       ]
     },
     "lint": {
-      "command": "npm run lint",
+      "command": "pnpm run lint",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -55,13 +55,13 @@
       ]
     },
     "lint:fix": {
-      "command": "npm run lint:fix",
+      "command": "pnpm run lint:fix",
       "options": {
         "cwd": "{projectRoot}"
       }
     },
     "typedoc": {
-      "command": "npm run typedoc",
+      "command": "pnpm run typedoc",
       "options": {
         "cwd": "{projectRoot}"
       },

@@ -26,7 +26,7 @@ It also supports `object-position` (pixel, percentage, or named anchors) and rou
 ## Quick Start
 
 ```bash
-npm install fabricjs-object-fit fabric
+pnpm add fabricjs-object-fit fabric
 ```
 
 ```ts

@@ -23,26 +23,27 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
+          cache: pnpm
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build
-        run: npx nx run fabricjs-object-fit:build
+        run: pnpm exec nx run fabricjs-object-fit:build
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
-          version: npx changeset version
-          publish: npx changeset publish
+          version: pnpm exec changeset version
+          publish: pnpm exec changeset publish
           title: "chore: version packages"
           commit: "chore: version packages"
         env:

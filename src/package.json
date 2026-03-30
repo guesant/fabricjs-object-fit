@@ -2,16 +2,16 @@
   "name": "@guesant/fabricjs-object-fit.repo.src",
   "private": true,
   "scripts": {
-    "build": "npx nx run fabricjs-object-fit:build",
-    "dev": "npx nx run fabricjs-object-fit:dev",
-    "test": "npx nx run fabricjs-object-fit:test",
-    "test:e2e": "npx nx run fabricjs-object-fit:test:e2e",
-    "lint": "npx nx run fabricjs-object-fit:lint",
-    "lint:fix": "npx nx run fabricjs-object-fit:lint:fix",
+    "build": "pnpm exec nx run fabricjs-object-fit:build",
+    "dev": "pnpm exec nx run fabricjs-object-fit:dev",
+    "test": "pnpm exec nx run fabricjs-object-fit:test",
+    "test:e2e": "pnpm exec nx run fabricjs-object-fit:test:e2e",
+    "lint": "pnpm exec nx run fabricjs-object-fit:lint",
+    "lint:fix": "pnpm exec nx run fabricjs-object-fit:lint:fix",
     "format": "biome format --write .",
-    "docs:dev": "npx nx run docs:dev",
-    "docs:build": "npx nx run docs:build",
-    "docs:preview": "npx nx run docs:preview"
+    "docs:dev": "pnpm exec nx run docs:dev",
+    "docs:build": "pnpm exec nx run docs:build",
+    "docs:preview": "pnpm exec nx run docs:preview"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",

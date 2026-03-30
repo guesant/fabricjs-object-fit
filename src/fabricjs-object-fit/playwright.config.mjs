@@ -13,7 +13,7 @@ export default defineConfig({
     headless: true,
   },
   webServer: {
-    command: "npx serve -l 3001 --no-clipboard",
+    command: "pnpm exec serve -l 3001 --no-clipboard",
     cwd: resolve(__dirname, "../.."),
     port: 3001,
     reuseExistingServer: false,

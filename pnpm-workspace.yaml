@@ -1,0 +1,8 @@
+packages:
+  - "src"
+  - "src/fabricjs-object-fit"
+  - "src/docs"
+onlyBuiltDependencies:
+  - canvas
+  - esbuild
+  - nx

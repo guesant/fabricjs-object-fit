@@ -2,7 +2,7 @@
   "name": "docs",
   "targets": {
     "dev": {
-      "command": "npm run dev",
+      "command": "pnpm run dev",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -11,7 +11,7 @@
       ]
     },
     "build": {
-      "command": "npm run build",
+      "command": "pnpm run build",
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -26,7 +26,7 @@
       ]
     },
     "preview": {
-      "command": "npm run preview",
+      "command": "pnpm run preview",
       "options": {
         "cwd": "{projectRoot}"
       }
