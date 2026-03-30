@@ -2,6 +2,7 @@ packages:
   - "src"
   - "src/fabricjs-object-fit"
   - "src/docs"
+  - "demos/*"
 onlyBuiltDependencies:
   - canvas
   - esbuild

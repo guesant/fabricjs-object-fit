@@ -1,9 +1,6 @@
+import { Point, Tag } from "fabricjs-object-fit";
 import { randInt } from "./rand-int";
 import { randItem } from "./rand-item";
-
-const {
-  FabricJSObjectFit: { Point, Tag }
-} = window;
 
 export const randPosition = (axis) => {
   const modes = [];

@@ -1,6 +1,4 @@
-const {
-  FabricJSObjectFit: { Tag }
-} = window;
+import { Tag } from "fabricjs-object-fit";
 
 export const ALL_POSITION_TAGS = {
   [Tag.START]: "Tag.START",

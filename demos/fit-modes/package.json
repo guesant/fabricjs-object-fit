@@ -1,7 +1,12 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
+  },
+  "dependencies": {
+    "fabric": "^7.0.0",
+    "fabricjs-object-fit": "^1.0.0"
   },
   "devDependencies": {
     "vite": "^6.3.5"

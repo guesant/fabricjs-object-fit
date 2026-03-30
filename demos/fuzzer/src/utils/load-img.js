@@ -1,4 +1,7 @@
-const { fabric } = window;
+import * as fabric from "fabric";
 
 export const loadImg = (src, options) =>
-  new Promise((resolve) => fabric.Image.fromURL(src, resolve, options));
+  fabric.FabricImage.fromURL(src, { crossOrigin: "anonymous" }).then((img) => {
+    img.set(options);
+    return img;
+  });

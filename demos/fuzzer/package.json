@@ -5,6 +5,8 @@
     "build": "vite build"
   },
   "dependencies": {
+    "fabric": "^7.0.0",
+    "fabricjs-object-fit": "^1.0.0",
     "svelte": "^5.55.1"
   },
   "devDependencies": {

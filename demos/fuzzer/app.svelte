@@ -1,4 +1,6 @@
 <script>
+  import * as fabric from "fabric";
+  import { createObjectFitClass } from "fabricjs-object-fit";
   import { onMount } from "svelte";
   import { getDefaultData } from "./src/consts/get-default-data";
   import Data from "./src/components/data.svelte";
@@ -25,44 +27,29 @@
   };
 
   onMount(async () => {
-    const {
-      fabric,
-      FabricJSObjectFit: { setup }
-    } = window;
-
-    const { ObjectFit } = setup(fabric);
+    const ObjectFit = createObjectFitClass(fabric);
 
     const canvas = new fabric.Canvas(canvasEl);
     syncCanvas(canvas);
 
-    const img = await loadImg("https://placehold.co/180x140", {
-      originX: "center",
-      originY: "center",
-      left: data.canvas.width / 2,
-      top: data.canvas.height / 2
-    });
+    const img = await loadImg("https://placehold.co/180x140", {});
 
     const container = new ObjectFit(img, {
       mode: "cover",
       width: 300,
-      height: 200
+      height: 200,
     });
 
     canvas.add(container);
 
     // draw borders
     canvas.on("after:render", () => {
-      const lineWidth = 3;
-      canvas.contextContainer.lineWidth = lineWidth;
-      canvas.contextContainer.strokeStyle = "red";
+      const ctx = canvas.getElement().getContext("2d");
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "red";
       canvas.forEachObject((obj) => {
         const { left, top, width, height } = obj.getBoundingRect();
-        canvas.contextContainer.strokeRect(
-          left + 0.5,
-          top + 0.5,
-          width,
-          height
-        );
+        ctx.strokeRect(left + 0.5, top + 0.5, width, height);
       });
     });
 
