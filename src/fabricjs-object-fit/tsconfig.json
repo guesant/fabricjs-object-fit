@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["fabric", "vitest/globals"],
+    "types": ["fabric", "vitest/globals", "node"],
     "outDir": "./lib",
     "rootDir": "./src"
   },
