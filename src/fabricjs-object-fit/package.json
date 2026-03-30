@@ -1,6 +1,6 @@
 {
   "name": "fabricjs-object-fit",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "CSS-like 'object-fit' and 'object-position' behavior for FabricJS.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
