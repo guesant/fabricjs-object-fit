@@ -21,13 +21,14 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
 
       - name: Install dependencies
-        run: cd src && npm ci
+        run: npm install
 
       - name: Build
-        run: cd src && npx nx run fabricjs-object-fit:build
+        run: npx nx run fabricjs-object-fit:build
 
       - name: Publish preview package
         run: npx pkg-pr-new publish ./src/fabricjs-object-fit

@@ -1,0 +1,13 @@
+{
+  "name": "fabricjs-object-fit-monorepo",
+  "private": true,
+  "workspaces": [
+    "src",
+    "src/fabricjs-object-fit",
+    "src/docs"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^2.30.0",
+    "nx": "^22.6.3"
+  }
+}

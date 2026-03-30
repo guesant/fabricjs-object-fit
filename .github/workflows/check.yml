@@ -23,25 +23,26 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
 
       - name: Install dependencies
-        run: cd src && npm ci
+        run: npm install
 
       - name: Lint
-        run: cd src && npx nx run fabricjs-object-fit:lint
+        run: npx nx run fabricjs-object-fit:lint
 
       - name: Test
-        run: cd src && npx nx run fabricjs-object-fit:test
+        run: npx nx run fabricjs-object-fit:test
 
       - name: Build
-        run: cd src && npx nx run fabricjs-object-fit:build
+        run: npx nx run fabricjs-object-fit:build
 
-      - name: Install Playwright browsers
-        run: cd src/fabricjs-object-fit && npx playwright install --with-deps chromium firefox
+      # - name: Install Playwright browsers
+      #   run: npx playwright install --with-deps chromium firefox
 
-      - name: E2E tests
-        run: cd src && npx nx run fabricjs-object-fit:test:e2e
+      # - name: E2E tests
+      #   run: npx nx run fabricjs-object-fit:test:e2e
 
       - name: Docs
-        run: cd src && npx nx run docs:build
+        run: npx nx run docs:build

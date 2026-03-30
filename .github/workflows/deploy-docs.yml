@@ -26,13 +26,14 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
 
       - name: Install dependencies
-        run: cd src && npm ci
+        run: npm install
 
       - name: Build docs
-        run: cd src && npx nx run docs:build
+        run: npx nx run docs:build
         env:
           BASE: /fabricjs-object-fit/
 

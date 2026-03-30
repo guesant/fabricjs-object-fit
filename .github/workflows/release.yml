@@ -20,29 +20,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: cd src && npm ci
+        run: npm install
 
       - name: Build
-        run: cd src && npx nx run fabricjs-object-fit:build
+        run: npx nx run fabricjs-object-fit:build
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
-          version: npm run changeset:version
-          publish: npm run changeset:publish
+          version: npx changeset version
+          publish: npx changeset publish
           title: "chore: version packages"
           commit: "chore: version packages"
-          cwd: src
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
