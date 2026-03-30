@@ -2,6 +2,7 @@
   "name": "@guesant/fabricjs-object-fit.repo",
   "private": true,
   "workspaces": [
+    ".",
     "src",
     "src/fabricjs-object-fit",
     "src/docs"
