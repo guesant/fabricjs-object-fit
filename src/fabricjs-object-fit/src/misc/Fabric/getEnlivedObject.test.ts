@@ -1,48 +1,27 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { getEnlivedObject } from "./getEnlivedObject";
 
 describe(getEnlivedObject.name, () => {
-  it("should enlive a serialized object", () => {
-    const serialized = new fabric.Rect({ width: 100, height: 50 }).toObject();
+  it("should enlive a serialized object", async () => {
+    const serialized = new fabric.Rect({
+      width: 100,
+      height: 50,
+    }).toObject() as unknown as Record<string, unknown>;
 
-    return new Promise<void>((resolve) => {
-      getEnlivedObject(
-        serialized,
-        (enlivedObject) => {
-          expect(enlivedObject).not.toBeNull();
-          expect(enlivedObject?.type).toBe("rect");
-          expect(enlivedObject?.width).toBe(100);
-          expect(enlivedObject?.height).toBe(50);
-          resolve();
-        },
-        fabric,
-      );
-    });
+    const enlivedObject = await getEnlivedObject(serialized, fabric);
+
+    expect(enlivedObject).not.toBeNull();
+    expect(enlivedObject?.width).toBe(100);
+    expect(enlivedObject?.height).toBe(50);
   });
 
-  it("should call callback with null for null input", () => {
-    return new Promise<void>((resolve) => {
-      getEnlivedObject(
-        null,
-        (enlivedObject) => {
-          expect(enlivedObject).toBeNull();
-          resolve();
-        },
-        fabric,
-      );
-    });
+  it("should return null for null input", async () => {
+    const enlivedObject = await getEnlivedObject(null, fabric);
+    expect(enlivedObject).toBeNull();
   });
 
-  it("should call callback with null for undefined input", () => {
-    return new Promise<void>((resolve) => {
-      getEnlivedObject(
-        undefined,
-        (enlivedObject) => {
-          expect(enlivedObject).toBeNull();
-          resolve();
-        },
-        fabric,
-      );
-    });
+  it("should return null for undefined input", async () => {
+    const enlivedObject = await getEnlivedObject(undefined, fabric);
+    expect(enlivedObject).toBeNull();
   });
 });

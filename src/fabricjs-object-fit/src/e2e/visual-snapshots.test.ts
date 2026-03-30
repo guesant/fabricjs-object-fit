@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type Canvas, createCanvas, loadImage } from "canvas";
-import { fabric } from "fabric";
+import { loadImage } from "canvas";
+import * as fabric from "fabric/node";
 import { createObjectFitClass } from "../createObjectFitClass";
 import { FitMode } from "../enums/FitMode";
 import { Tag } from "../enums/Tag";
@@ -26,18 +26,11 @@ const CONTAINER_HEIGHT = 340;
 
 const ObjectFit = createObjectFitClass(fabric);
 
-// Patch fabric's internal canvas creation to use node-canvas
-const originalCreateCanvasElement = fabric.util.createCanvasElement;
-fabric.util.createCanvasElement = () =>
-  createCanvas(1, 1) as unknown as HTMLCanvasElement;
-
-afterAll(() => {
-  fabric.util.createCanvasElement = originalCreateCanvasElement;
-});
-
-async function loadFabricImage(filename: string): Promise<fabric.Image> {
+async function loadFabricImage(
+  filename: string,
+): Promise<InstanceType<typeof fabric.FabricImage>> {
   const nodeImage = await loadImage(resolve(FIXTURES_DIR, filename));
-  return new fabric.Image(nodeImage as unknown as HTMLImageElement, {
+  return new fabric.FabricImage(nodeImage as unknown as HTMLImageElement, {
     originX: "left",
     originY: "top",
     top: 0,
@@ -45,31 +38,27 @@ async function loadFabricImage(filename: string): Promise<fabric.Image> {
   });
 }
 
-function strokeContainerBorder(
-  canvasEl: Canvas,
-  container: InstanceType<ReturnType<typeof createObjectFitClass>>,
-): void {
-  const ctx = canvasEl.getContext("2d");
-  const bounds = container.getBoundingRect();
-  ctx.strokeStyle = "red";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(bounds.left, bounds.top, bounds.width, bounds.height);
-}
-
 function renderToBuffer(
   container: InstanceType<ReturnType<typeof createObjectFitClass>>,
   canvasWidth: number,
   canvasHeight: number,
 ): Buffer {
-  const canvasEl = createCanvas(canvasWidth, canvasHeight);
-  const canvas = new fabric.StaticCanvas(
-    canvasEl as unknown as HTMLCanvasElement,
-    { width: canvasWidth, height: canvasHeight },
-  );
+  const canvas = new fabric.StaticCanvas(undefined, {
+    width: canvasWidth,
+    height: canvasHeight,
+  });
   canvas.add(container);
   canvas.renderAll();
-  strokeContainerBorder(canvasEl, container);
-  return canvasEl.toBuffer("image/png");
+
+  // Draw container border
+  const nodeCanvas = canvas.getNodeCanvas();
+  const ctx = nodeCanvas.getContext("2d");
+  const bounds = container.getBoundingRect();
+  ctx.strokeStyle = "red";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(bounds.left, bounds.top, bounds.width, bounds.height);
+
+  return nodeCanvas.toBuffer("image/png");
 }
 
 function expectToMatchSnapshot(buffer: Buffer, snapshotName: string): void {

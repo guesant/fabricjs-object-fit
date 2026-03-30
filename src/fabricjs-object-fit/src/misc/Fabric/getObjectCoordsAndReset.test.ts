@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { fabricObjectDefaults } from "./fabricObjectDefaults";
 import { getObjectCoordsAndReset } from "./getObjectCoordsAndReset";
 
@@ -42,7 +42,7 @@ describe(getObjectCoordsAndReset.name, () => {
       height: 50,
       originX: "center",
       originY: "center",
-    } as fabric.IRectOptions);
+    } as fabric.RectProps);
 
     getObjectCoordsAndReset(obj);
 

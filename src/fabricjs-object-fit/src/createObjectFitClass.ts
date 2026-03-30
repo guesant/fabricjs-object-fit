@@ -1,4 +1,4 @@
-import type { fabric } from "fabric";
+import type { FabricObject, FabricObjectProps } from "fabric";
 import { FitMode } from "./enums/FitMode";
 import { detachObjectFromGroup } from "./misc/Fabric/detachObjectFromGroup";
 import { fabricObjectDefaults } from "./misc/Fabric/fabricObjectDefaults";
@@ -18,7 +18,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
   const resetTransformOptions = ns.util.qrDecompose([1, 0, 0, 1, 0, 0]);
 
   class ObjectFit extends ns.Group implements IObjectFit {
-    type = "objectFit";
+    static type = "objectFit";
 
     mode: IFitMode;
 
@@ -34,29 +34,29 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
     position: Partial<IPosition> = {};
 
-    private _object: fabric.Object | null = null;
+    private _object: FabricObject | null = null;
 
-    private _objectGroup: fabric.Group | null = null;
+    private _objectGroup: InstanceType<typeof ns.Group> | null = null;
 
     // both will store the same shape of object transform info, but
     // _loadedObjectTransform will be cleaned after `recompute` and
     // _loadedObjectInitialTransform will be kept the same until the
     // the object get replaced by setObject.
 
-    private _loadedObjectTransform: Partial<fabric.IObjectOptions> = {};
+    private _loadedObjectTransform: Partial<FabricObjectProps> = {};
 
-    private _loadedObjectInitialTransform: Partial<fabric.IObjectOptions> = {};
+    private _loadedObjectInitialTransform: Partial<FabricObjectProps> = {};
 
     get object() {
       return this._object;
     }
 
-    set object(object: fabric.Object | null) {
+    set object(object: FabricObject | null) {
       this.setObject(object ?? null, this.useObjectTransform);
     }
 
     setObject(
-      object: fabric.Object | null,
+      object: FabricObject | null,
       useObjectTransform = false,
       restorePreviousObjectTransform = true,
     ) {
@@ -87,15 +87,21 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
 
         this._object = object;
 
-        this._objectGroup = new ns.Group([object], { ...fabricObjectDefaults });
+        this._objectGroup = new ns.Group([object], {
+          ...fabricObjectDefaults,
+          layoutManager: new ns.LayoutManager(new ns.FixedLayout()),
+        });
       }
     }
 
     constructor(
-      object?: fabric.Object | null | undefined,
+      object?: FabricObject | null | undefined,
       options: IObjectFitConstructorOptions = {},
     ) {
-      super(undefined, { ...fabricObjectDefaults });
+      super([], {
+        ...fabricObjectDefaults,
+        layoutManager: new ns.LayoutManager(new ns.FixedLayout()),
+      });
 
       const {
         width = NaN,
@@ -128,7 +134,8 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.handleRecomputeOnScaled = this.handleRecomputeOnScaled.bind(this);
       this.handleRecomputeOnScaling = this.handleRecomputeOnScaling.bind(this);
 
-      this.on("scaled", this.handleRecomputeOnScaled);
+      // In fabric v7, "scaled" was replaced by "modified" (fires after any transform)
+      this.on("modified", this.handleRecomputeOnScaled);
       this.on("scaling", this.handleRecomputeOnScaling);
     }
 
@@ -175,6 +182,18 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.resetContainer();
 
       if (this._objectGroup && !Number.isNaN(width) && !Number.isNaN(height)) {
+        // In fabric v7, exitGroup applies the parent's transform to the child
+        // when it leaves a group. We must detach _objectGroup from any previous
+        // wrapper group and reset its transform to a clean state before fitting.
+        detachObjectFromGroup(this._objectGroup);
+        this._objectGroup.set({
+          ...resetTransformOptions,
+          ...fabricObjectDefaults,
+          left: 0,
+          top: 0,
+        });
+        this._objectGroup.setCoords();
+
         const fittedObject = getFittedObject(
           this._objectGroup,
           {
@@ -186,10 +205,13 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
           ns,
         );
         if (!fittedObject) return;
-        this.addWithUpdate(fittedObject);
+        this.add(fittedObject);
       }
 
       this.set(currentTransformOptions as unknown as Partial<this>);
+      // Restore intended dimensions (resetContainer overwrites with getScaledWidth/Height)
+      this.width = width;
+      this.height = height;
       this.setCoords();
 
       this._loadedObjectTransform = {};
@@ -210,7 +232,7 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       this.setCoords();
 
       for (const object of this.getObjects()) {
-        this.removeWithUpdate(object);
+        this.remove(object);
       }
     }
 
@@ -272,30 +294,24 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
       return currentObject;
     }
 
+    // @ts-expect-error - v7's toObject has complex generics; our return type extends it
     toObject(propertiesToInclude?: string[]): IObjectFitSerialized {
-      return ns.util.object.extend(
-        (
-          this as unknown as {
-            callSuper: (...args: unknown[]) => IObjectFitSerialized;
-          }
-        ).callSuper(
-          "toObject",
-          ["mode", "width", "height"].concat(propertiesToInclude ?? []),
-        ),
-        {
-          position: {
-            x: this.position.x?.toJSON(),
-            y: this.position.y?.toJSON(),
-          },
-          object: this.object?.toObject(),
+      const base = (
+        super.toObject as (keys?: string[]) => Record<string, unknown>
+      )(["mode", "width", "height"].concat(propertiesToInclude ?? []));
+      return {
+        ...base,
+        position: {
+          x: this.position.x?.toJSON(),
+          y: this.position.y?.toJSON(),
         },
-      );
+        object: this.object?.toObject(),
+      } as IObjectFitSerialized;
     }
 
-    static fromObject(
+    static async fromObject(
       objectFitObject: IObjectFitSerialized,
-      callback?: (objectFit: InstanceType<typeof ObjectFit>) => void,
-    ) {
+    ): Promise<InstanceType<typeof ObjectFit>> {
       const {
         mode,
         width,
@@ -305,25 +321,24 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         ...options
       } = objectFitObject;
 
-      getEnlivedObject(
-        object,
-        (enlivedObject) => {
-          const objectFit = new ObjectFit(enlivedObject, {
-            mode,
-            width,
-            height,
-            position: parsePosition(_position),
-          });
-
-          objectFit.set(options as unknown as Partial<ObjectFit>);
-          objectFit.setCoords();
-
-          callback?.(objectFit);
-        },
+      const enlivedObject = await getEnlivedObject(
+        object as Record<string, unknown> | null | undefined,
         ns,
       );
+
+      const objectFit = new ObjectFit(enlivedObject, {
+        mode,
+        width,
+        height,
+        position: parsePosition(_position),
+      });
+
+      objectFit.set(options as unknown as Partial<ObjectFit>);
+      objectFit.setCoords();
+
+      return objectFit;
     }
   }
 
-  return ObjectFit;
+  return ObjectFit as unknown as IObjectFitConstructor;
 };

@@ -1,13 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
   "files": {
-    "includes": [
-      "fabricjs-object-fit/src/**"
-    ],
+    "includes": ["fabricjs-object-fit/src/**"],
     "experimentalScannerIgnores": [
       "**/lib/**",
       "**/docs/**",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/test-results/**"
     ]
   },
   "formatter": {

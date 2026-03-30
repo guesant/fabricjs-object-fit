@@ -58,7 +58,7 @@ Lets suppose that we have something like this in CSS:
 And here is the same behavior written in FabricJS:
 
 ```ts
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
@@ -69,9 +69,7 @@ const { ObjectFit } = setup(fabric);
 async function doRender() {
   const canvas = new fabric.Canvas("c");
 
-  const img = await new Promise((resolve) =>
-    fabric.Image.fromURL("https://placehold.co/640x360", resolve)
-  );
+  const img = await fabric.FabricImage.fromURL("https://placehold.co/640x360");
 
   const container = new ObjectFit(img, {
     width: 400,
@@ -87,14 +85,13 @@ async function doRender() {
 doRender();
 ```
 
-- Changing the container image to another with diffrent dimensions
+- Changing the container image to another with different dimensions
 
 ```ts
-fabric.Image.fromURL("...", (img2) => {
-  container.setObject(img2);
-  container.recompute();
-  canvas.requestRenderAll();
-});
+const img2 = await fabric.FabricImage.fromURL("...");
+container.setObject(img2);
+container.recompute();
+canvas.requestRenderAll();
 ```
 
 - Changing the container mode
@@ -160,10 +157,10 @@ Take a look at [`Point`](/api/fabricjs-object-fit/namespaces/Point/) on the API 
 
 ### Export/Import
 
-Lets suppose we have an async function called `draw` that loads an remote image, applies then to a `contained` `100x100` container and returns the canvas:
+Lets suppose we have an async function called `draw` that loads a remote image, applies it to a `contained` `100x100` container and returns the canvas:
 
 ```ts
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { setup } from "fabricjs-object-fit";
 
 // if you are using the UMD version
@@ -174,9 +171,7 @@ const { ObjectFit } = setup(fabric);
 async function draw() {
   const canvas = new fabric.Canvas("c");
 
-  const img = await new Promise((resolve) =>
-    fabric.Image.fromURL("...", resolve)
-  );
+  const img = await fabric.FabricImage.fromURL("...");
 
   const container = new ObjectFit(img, {
     width: 100,
@@ -195,20 +190,19 @@ async function draw() {
 Now we can call `canvas.toJSON` and `canvas.loadFromJSON`:
 
 ```ts
-draw().then((canvas) => {
-  // exporting the canvas data
-  const exportedData = canvas.toJSON();
-  console.log(JSON.stringify(exportedData));
+const canvas = await draw();
 
-  // loading the canvas data
-  const canvas2 = new fabric.Canvas("c2");
-  canvas2.loadFromJSON(exportedData, () => {
-    canvas2.renderAll();
-  });
-});
+// exporting the canvas data
+const exportedData = canvas.toJSON();
+console.log(JSON.stringify(exportedData));
+
+// loading the canvas data
+const canvas2 = new fabric.Canvas("c2");
+await canvas2.loadFromJSON(exportedData);
+canvas2.renderAll();
 ```
 
-> If you can't load the exported data, remember to call `setup(fabric)` before the `loadFromJSON` (on the same context) even if you dont use the returned `ObjectFit` class.
+> If you can't load the exported data, remember to call `setup(fabric)` before the `loadFromJSON` (on the same context) even if you don't use the returned `ObjectFit` class. This registers the `ObjectFit` type in fabric's `classRegistry`, which is needed for deserialization.
 
 ## Examples
 
@@ -216,12 +210,12 @@ You can take a look at some of ours [examples](/examples/).
 
 ## API Documentation
 
-Browse the [API documentation](/api/) 🚀.
+Browse the [API documentation](/api/).
 
-## Contributting
+## Contributing
 
-The source code is freely avaliable in our [GitHub Repository](https://github.com/guesant/fabricjs-object-fit). Contributtions are welcome.
+The source code is freely available in our [GitHub Repository](https://github.com/guesant/fabricjs-object-fit). Contributions are welcome.
 
 ## License
 
-- [LGPL](https://www.gnu.org/licenses/lgpl-3.0.html) © [Gabriel R. Antunes](https://github.com/guesant), 2022.
+- [LGPL](https://www.gnu.org/licenses/lgpl-3.0.html) &copy; [Gabriel R. Antunes](https://github.com/guesant), 2022.

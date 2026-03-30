@@ -1,9 +1,10 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { createObjectFitClass } from "./createObjectFitClass";
 import { FitMode } from "./enums/FitMode";
 import { Tag } from "./enums/Tag";
 import { getFakeObject } from "./misc/Fabric/getFakeObject";
 import { fromAbsolute, fromPercentage, fromTag } from "./Point/index.js";
+import type { IObjectFitSerialized } from "./types/IObjectFitSerialized";
 
 const ObjectFit = createObjectFitClass(fabric);
 
@@ -14,7 +15,7 @@ describe("ObjectFit constructor", () => {
   it("should have correct defaults when created without options", () => {
     const of = new ObjectFit(null);
 
-    expect(of.type).toBe("objectFit");
+    expect(ObjectFit.type).toBe("objectFit");
     expect(of.mode).toBe(FitMode.FILL);
     expect(Number.isNaN(of.width)).toBe(true);
     expect(Number.isNaN(of.height)).toBe(true);
@@ -233,7 +234,7 @@ describe("ObjectFit.handleScaled", () => {
     });
 
     // Simulate scaling the ObjectFit
-    of.set({ scaleX: 2, scaleY: 1.5 } as Partial<fabric.IGroupOptions>);
+    of.set({ scaleX: 2, scaleY: 1.5 });
     of.setCoords();
 
     of.handleScaled(false);
@@ -253,10 +254,10 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaled: true,
     });
 
-    of.set({ scaleX: 2, scaleY: 2 } as Partial<fabric.IGroupOptions>);
+    of.set({ scaleX: 2, scaleY: 2 });
     of.setCoords();
 
-    of.fire("scaled");
+    of.fire("modified");
 
     expect(of.scaleX).toBe(1);
     expect(of.scaleY).toBe(1);
@@ -270,10 +271,10 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaled: false,
     });
 
-    of.set({ scaleX: 2, scaleY: 2 } as Partial<fabric.IGroupOptions>);
+    of.set({ scaleX: 2, scaleY: 2 });
     of.setCoords();
 
-    of.fire("scaled");
+    of.fire("modified");
 
     // Scale should NOT be absorbed
     expect(of.scaleX).toBe(2);
@@ -288,7 +289,7 @@ describe("ObjectFit.handleScaled", () => {
       enableRecomputeOnScaling: true,
     });
 
-    of.set({ scaleX: 1.5, scaleY: 1.5 } as Partial<fabric.IGroupOptions>);
+    of.set({ scaleX: 1.5, scaleY: 1.5 });
     of.setCoords();
 
     of.fire("scaling");
@@ -307,7 +308,7 @@ describe("ObjectFit serialization", () => {
       mode: FitMode.COVER,
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
     expect(serialized.mode).toBe(FitMode.COVER);
     expect(serialized.width).toBe(400);
@@ -324,7 +325,7 @@ describe("ObjectFit serialization", () => {
       },
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
     expect(serialized.position.x).toEqual({ type: "fromAbsolute", args: [10] });
     expect(serialized.position.y).toEqual({ type: "fromTag", args: [Tag.END] });
@@ -337,10 +338,10 @@ describe("ObjectFit serialization", () => {
       height: 300,
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
     expect(serialized.object).toBeDefined();
-    expect(serialized.object?.type).toBe("rect");
+    expect((serialized.object as Record<string, unknown>)?.type).toBe("Rect");
   });
 
   it("toObject should handle no object", () => {
@@ -349,12 +350,12 @@ describe("ObjectFit serialization", () => {
       height: 100,
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
     expect(serialized.object).toBeUndefined();
   });
 
-  it("fromObject should deserialize and callback", () => {
+  it("fromObject should deserialize", async () => {
     const obj = makeObject(200, 100);
     const of = new ObjectFit(obj, {
       width: 400,
@@ -366,44 +367,30 @@ describe("ObjectFit serialization", () => {
       },
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
-    return new Promise<void>((resolve) => {
-      ObjectFit.fromObject(
-        serialized,
-        (restored: InstanceType<typeof ObjectFit>) => {
-          expect(restored.mode).toBe(FitMode.CONTAIN);
-          expect(restored.width).toBe(400);
-          expect(restored.height).toBe(300);
-          expect(restored.object).not.toBeNull();
-          resolve();
-        },
-      );
-    });
+    const restored = await ObjectFit.fromObject(serialized);
+    expect(restored.mode).toBe(FitMode.CONTAIN);
+    expect(restored.width).toBe(400);
+    expect(restored.height).toBe(300);
+    expect(restored.object).not.toBeNull();
   });
 
-  it("fromObject with null object should callback with ObjectFit with null object", () => {
+  it("fromObject with null object should return ObjectFit with null object", async () => {
     const of = new ObjectFit(null, {
       width: 100,
       height: 100,
       mode: FitMode.NONE,
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
-    return new Promise<void>((resolve) => {
-      ObjectFit.fromObject(
-        serialized,
-        (restored: InstanceType<typeof ObjectFit>) => {
-          expect(restored.object).toBeNull();
-          expect(restored.mode).toBe(FitMode.NONE);
-          resolve();
-        },
-      );
-    });
+    const restored = await ObjectFit.fromObject(serialized);
+    expect(restored.object).toBeNull();
+    expect(restored.mode).toBe(FitMode.NONE);
   });
 
-  it("round-trip: toObject then fromObject preserves behavior", () => {
+  it("round-trip: toObject then fromObject preserves behavior", async () => {
     const obj = makeObject(200, 100);
     const of = new ObjectFit(obj, {
       width: 400,
@@ -415,28 +402,20 @@ describe("ObjectFit serialization", () => {
       },
     });
 
-    const serialized = of.toObject();
+    const serialized = of.toObject() as IObjectFitSerialized;
 
-    return new Promise<void>((resolve) => {
-      ObjectFit.fromObject(
-        serialized,
-        (restored: InstanceType<typeof ObjectFit>) => {
-          expect(restored.mode).toBe(of.mode);
-          expect(restored.width).toBe(of.width);
-          expect(restored.height).toBe(of.height);
+    const restored = await ObjectFit.fromObject(serialized);
+    expect(restored.mode).toBe(of.mode);
+    expect(restored.width).toBe(of.width);
+    expect(restored.height).toBe(of.height);
 
-          // Position should produce same absolute values
-          expect(restored.position.x?.getAbsolute(400, 200)).toBe(
-            of.position.x?.getAbsolute(400, 200),
-          );
-          expect(restored.position.y?.getAbsolute(300, 100)).toBe(
-            of.position.y?.getAbsolute(300, 100),
-          );
-
-          resolve();
-        },
-      );
-    });
+    // Position should produce same absolute values
+    expect(restored.position.x?.getAbsolute(400, 200)).toBe(
+      of.position.x?.getAbsolute(400, 200),
+    );
+    expect(restored.position.y?.getAbsolute(300, 100)).toBe(
+      of.position.y?.getAbsolute(300, 100),
+    );
   });
 });
 

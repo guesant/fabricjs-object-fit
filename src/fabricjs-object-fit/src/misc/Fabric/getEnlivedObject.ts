@@ -1,20 +1,15 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import type { IFabricNS } from "../../types/IFabricNS";
 
-export const getEnlivedObject = (
-  object: Partial<fabric.Object> | null | undefined,
-  callback: (enlivedObject: fabric.Object | null) => void,
+export const getEnlivedObject = async (
+  object: Record<string, unknown> | null | undefined,
   ns: IFabricNS,
-) => {
+): Promise<FabricObject | null> => {
   if (object) {
-    ns.util.enlivenObjects(
-      [object],
-      ([enlivedObject]: [fabric.Object]) => {
-        callback(enlivedObject);
-      },
-      undefined as unknown as string,
-    );
-  } else {
-    callback(null);
+    const [enlivedObject] = await ns.util.enlivenObjects<FabricObject>([
+      object,
+    ]);
+    return enlivedObject;
   }
+  return null;
 };

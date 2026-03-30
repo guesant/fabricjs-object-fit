@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
 import { fromAbsolute } from "../Point/index.js";
 import { getNoneFittedObject } from "./getNoneFittedObject";

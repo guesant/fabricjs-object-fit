@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>fabricjs-object-fit e2e</title>
+  <style>
+    body { margin: 0; padding: 16px; background: #fafafa; font-family: system-ui, sans-serif; }
+    canvas { border: 1px solid #ccc; }
+    textarea { width: 400px; height: 200px; font-family: monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="860" height="500"></canvas>
+  <br />
+  <textarea id="info" readonly></textarea>
+
+  <script src="/node_modules/fabric/dist/index.js"></script>
+  <script src="/fabricjs-object-fit/lib/index.umd.js"></script>
+  <script>
+    (() => {
+      const { createObjectFitClass, Point, FitMode } = FabricJSObjectFit;
+      const ObjectFit = createObjectFitClass(fabric);
+
+      const canvas = new fabric.Canvas("c", {
+        width: 860,
+        height: 500,
+        backgroundColor: "#f0f0f0",
+      });
+
+      let container = null;
+
+      function updateInfo() {
+        if (!container) return;
+        const extract = (obj) => {
+          const { width, height, left, top, originX, originY, angle, scaleX, scaleY } = obj;
+          return { angle, left, top, scaleX, scaleY, width, height, originX, originY };
+        };
+        const info = {
+          mode: container.mode,
+          width: Math.round(container.width * 100) / 100,
+          height: Math.round(container.height * 100) / 100,
+          position: {
+            x: container.position.x?.toString?.() ?? String(container.position.x),
+            y: container.position.y?.toString?.() ?? String(container.position.y),
+          },
+          container: extract(container),
+          ...(container.object ? { object: extract(container.object) } : {}),
+        };
+        document.getElementById("info").value = JSON.stringify(info, null, 2);
+      }
+
+      window.app = {
+        async loadImage(src, opts = {}) {
+          const {
+            width = 400,
+            height = 300,
+            mode = "fill",
+            useObjectTransform = true,
+          } = opts;
+
+          const img = await fabric.FabricImage.fromURL(src, { crossOrigin: "anonymous" });
+          img.set({ originX: "left", originY: "top", top: 0, left: 0 });
+
+          if (container) {
+            canvas.remove(container);
+          }
+
+          container = new ObjectFit(img, {
+            width,
+            height,
+            mode,
+            useObjectTransform,
+            position: { x: Point.X.CENTER, y: Point.Y.CENTER },
+          });
+
+          canvas.add(container);
+          canvas.centerObject(container);
+          container.setCoords();
+          updateInfo();
+          canvas.requestRenderAll();
+        },
+
+        setMode(mode) {
+          if (!container) return;
+          container.mode = mode;
+          container.recompute();
+          updateInfo();
+          canvas.requestRenderAll();
+        },
+
+        setSize(w, h) {
+          if (!container) return;
+          container.width = w;
+          container.height = h;
+          container.recompute();
+          updateInfo();
+          canvas.requestRenderAll();
+        },
+
+        setPosition(x, y) {
+          if (!container) return;
+          container.position.x = x;
+          container.position.y = y;
+          container.recompute();
+          updateInfo();
+          canvas.requestRenderAll();
+        },
+
+        getInfo() {
+          return JSON.parse(document.getElementById("info").value);
+        },
+
+        // Expose point builders for tests
+        Point,
+        FitMode,
+      };
+    })();
+  </script>
+</body>
+</html>

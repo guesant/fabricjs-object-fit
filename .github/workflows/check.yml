@@ -36,3 +36,9 @@ jobs:
 
       - name: Build
         run: cd src && npx nx run fabricjs-object-fit:build
+
+      - name: Install Playwright browsers
+        run: cd src/fabricjs-object-fit && npx playwright install --with-deps chromium firefox
+
+      - name: E2E tests
+        run: cd src && npx nx run fabricjs-object-fit:test:e2e
