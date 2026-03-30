@@ -2,6 +2,12 @@
 title: Guide
 ---
 
+## What is fabricjs-object-fit?
+
+Fabric.js gives you a powerful canvas toolkit, but it has no built-in way to say "fit this image inside a 400×400 box without distortion." In the browser, CSS `object-fit` solves this in one property. **fabricjs-object-fit** brings that same mental model to Fabric.js.
+
+You pass your `fabric` instance to `setup(fabric)`, and it returns an `ObjectFit` class that extends `fabric.Group`. This dependency-injection pattern means the library never imports Fabric.js directly, staying compatible across bundler configurations.
+
 ## Install
 
 ### From NPM
@@ -154,6 +160,85 @@ container.position.y = Point.Y.BOTTOM; // Point.Y.TOP; Point.Y.CENTER; Point.Y.B
 ```
 
 Take a look at [`Point`](/api/fabricjs-object-fit/namespaces/Point/) on the API docs.
+
+## Fit Modes Explained
+
+The `mode` option controls how the object scales inside the container. Each mode mirrors its CSS `object-fit` counterpart.
+
+### `cover`
+
+Scales the object uniformly so the container is completely filled. Parts of the object that overflow are clipped.
+
+**When to use:** you need the container fully filled with no empty space -- for example, a background image behind a text overlay, or a profile picture in a circular frame.
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400, height: 400,
+  mode: "cover",
+});
+```
+
+### `contain`
+
+Scales the object uniformly so it fits entirely within the container. Empty space (letterboxing) may appear on two sides.
+
+**When to use:** showing the entire object matters more than filling the container -- for example, product images in a grid where you do not want cropping.
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400, height: 400,
+  mode: "contain",
+});
+```
+
+### `fill`
+
+Stretches the object independently on each axis to exactly match the container dimensions. The aspect ratio is **not** preserved.
+
+**When to use:** you explicitly want the object to match the container size, regardless of distortion -- for example, stretching a gradient or solid-color rectangle to fill a slot.
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400, height: 400,
+  mode: "fill",
+});
+```
+
+### `none`
+
+Displays the object at its original (intrinsic) size. If the object is larger than the container, it is clipped. If smaller, there is empty space.
+
+**When to use:** you want pixel-perfect rendering at the object's native resolution -- for example, displaying a UI icon at its designed size.
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400, height: 400,
+  mode: "none",
+});
+```
+
+### `scale-down`
+
+Acts like `contain` if the object is larger than the container, and like `none` if it is smaller. The object is never scaled *up*.
+
+**When to use:** small objects should stay crisp at their native size but large objects should shrink to fit -- for example, user-uploaded avatars that vary in resolution.
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400, height: 400,
+  mode: "scale-down",
+});
+```
+
+### Comparison Table
+
+| Mode | Preserves Aspect Ratio | May Clip | May Letterbox | May Distort |
+|------|----------------------|----------|---------------|-------------|
+| `cover` | Yes | Yes | No | No |
+| `contain` | Yes | No | Yes | No |
+| `fill` | No | No | No | Yes |
+| `none` | Yes | Yes | Yes | No |
+| `scale-down` | Yes | Possible | Possible | No |
 
 ### Export/Import
 
