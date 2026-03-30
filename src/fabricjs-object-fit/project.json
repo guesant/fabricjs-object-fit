@@ -17,6 +17,11 @@
       "options": { "cwd": "fabricjs-object-fit" },
       "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/vitest.config.ts"]
     },
+    "test:e2e": {
+      "command": "npm run test:e2e",
+      "options": { "cwd": "fabricjs-object-fit" },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/playwright.config.mjs"]
+    },
     "lint": {
       "command": "npm run lint",
       "options": { "cwd": "fabricjs-object-fit" },
