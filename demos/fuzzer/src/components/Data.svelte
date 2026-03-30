@@ -3,7 +3,7 @@
   import { ALL_POSITION_TAGS } from "../consts/ALL_POSITION_TAGS";
   import { ALL_SIZE_KEYS } from "../consts/ALL_SIZE_KEYS";
 
-  export let data;
+  let { data = $bindable() } = $props();
 
   const toggleMode = (mode) => {
     data.modes = data.modes.includes(mode)
@@ -21,7 +21,7 @@
 <fieldset>
   <legend>Data</legend>
 
-  <form on:submit={(e) => e.preventDefault()}>
+  <form onsubmit={(e) => e.preventDefault()}>
     <div>
       <fieldset>
         <legend>canvas</legend>
@@ -53,7 +53,7 @@
             <input
               type="checkbox"
               checked={data.modes.includes(mode)}
-              on:click={() => toggleMode(mode)}
+              onclick={() => toggleMode(mode)}
             />
             {mode}
           </label>
@@ -107,7 +107,7 @@
                 <label>
                   <input
                     type="checkbox"
-                    on:change={() => togglePositionTag(axis, tagInfo[0])}
+                    onchange={() => togglePositionTag(axis, tagInfo[0])}
                     checked={data.position[axis].tags.includes(tagInfo[0])}
                   />
                   {tagInfo[1]}</label

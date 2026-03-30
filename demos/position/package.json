@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "dev": "vite",
+    "build": "vite build"
   },
-  "dependencies": {
-    "parcel": "^2.16.4"
+  "devDependencies": {
+    "vite": "^6.3.5"
   }
 }

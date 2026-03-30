@@ -12,11 +12,11 @@
   let canvasEl, start, stop, next, previewInfo;
 
   // fuzzer interval utils
-  let fuzzerIntervalId = null;
-  let fuzzerInterval = null;
+  let fuzzerIntervalId = $state(null);
+  let fuzzerInterval = $state(null);
 
   // fuzzer payload
-  let data = getDefaultData();
+  let data = $state(getDefaultData());
 
   const syncCanvas = (canvas) => {
     canvas.setWidth(data.canvas.width);
@@ -78,7 +78,7 @@
 
       container.position.x = randPosition(data.position.x);
       container.position.y = randPosition(data.position.y);
-      
+
       previewInfo.value = JSON.stringify(
         extractContainerInfo(container),
         null,
@@ -138,7 +138,7 @@
 
     <div class="previewWrapper">
       <div>
-        <canvas bind:this={canvasEl} />
+        <canvas bind:this={canvasEl}></canvas>
       </div>
 
       <div>
@@ -164,7 +164,7 @@
           <span>|</span>
           <button bind:this={next}>Generate Next</button>
         </div>
-        <textarea class="previewInfo" rows="15" bind:this={previewInfo} />
+        <textarea class="previewInfo" rows="15" bind:this={previewInfo}></textarea>
       </div>
     </div>
   </fieldset>
@@ -177,7 +177,7 @@
   ::before {
     box-sizing: border-box;
   }
-  
+
   main {
     max-width: 861px;
     margin: 0 auto;
@@ -222,10 +222,10 @@
     border: 2px solid rgba(0, 0, 0, 0.25);
     padding: 8px;
     resize: vertical;
-    display: "block";
+    display: block;
 
     width: 100%;
-    
+
     min-height: 180px;
     max-height: 540px;
   }
