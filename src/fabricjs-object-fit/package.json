@@ -48,7 +48,7 @@
     "canvas": "^3.2.2",
     "fabric": "^7.0.0",
     "jsdom": "^26.1.0",
-    "rollup": "^4.60.0",
+    "rollup": "^4.60.1",
     "rollup-plugin-dts": "^6.4.1",
     "typedoc": "^0.28.18",
     "typedoc-plugin-markdown": "^4.11.0",
