@@ -26,10 +26,12 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            src/package-lock.json
 
       - name: Install dependencies
-        run: cd src && npm ci
+        run: npm ci && cd src && npm ci
 
       - name: Build docs
         run: cd src && npx nx run docs:build

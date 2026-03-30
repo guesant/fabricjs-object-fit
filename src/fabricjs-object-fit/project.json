@@ -4,39 +4,74 @@
   "targets": {
     "build": {
       "command": "npm run build",
-      "options": { "cwd": "fabricjs-object-fit" },
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/rollup.config.mjs", "{projectRoot}/tsconfig.json"],
-      "outputs": ["{projectRoot}/lib"]
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "inputs": [
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/rollup.config.mjs",
+        "{projectRoot}/tsconfig.json"
+      ],
+      "outputs": [
+        "{projectRoot}/lib"
+      ]
     },
     "dev": {
       "command": "npm run dev",
-      "options": { "cwd": "fabricjs-object-fit" }
+      "options": {
+        "cwd": "{projectRoot}"
+      }
     },
     "test": {
       "command": "npm run test",
-      "options": { "cwd": "fabricjs-object-fit" },
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/vitest.config.ts"]
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "inputs": [
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/vitest.config.ts"
+      ]
     },
     "test:e2e": {
       "command": "npm run test:e2e",
-      "options": { "cwd": "fabricjs-object-fit" },
-      "dependsOn": ["build"],
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/playwright.config.mjs"]
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/playwright.config.mjs"
+      ]
     },
     "lint": {
       "command": "npm run lint",
-      "options": { "cwd": "fabricjs-object-fit" },
-      "inputs": ["{projectRoot}/src/**/*"]
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "inputs": [
+        "{projectRoot}/src/**/*"
+      ]
     },
     "lint:fix": {
       "command": "npm run lint:fix",
-      "options": { "cwd": "fabricjs-object-fit" }
+      "options": {
+        "cwd": "{projectRoot}"
+      }
     },
     "typedoc": {
       "command": "npm run typedoc",
-      "options": { "cwd": "fabricjs-object-fit" },
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/typedoc.json"],
-      "outputs": ["{workspaceRoot}/docs/docs/api"]
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "inputs": [
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/typedoc.json"
+      ],
+      "outputs": [
+        "{workspaceRoot}/docs/docs/api"
+      ]
     }
   }
 }
