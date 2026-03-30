@@ -2,6 +2,7 @@
 **/dist
 **/lib
 **/.nx
+**/.parcel-cache
 src/docs/docs/api
 src/docs/docs/.vitepress/cache
 src/docs/docs/.vitepress/dist
