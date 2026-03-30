@@ -1,0 +1,23 @@
+{
+  "name": "fabricjs-object-fit-monorepo",
+  "private": true,
+  "workspaces": [
+    "fabricjs-object-fit",
+    "docs"
+  ],
+  "scripts": {
+    "build": "npx nx run fabricjs-object-fit:build",
+    "dev": "npx nx run fabricjs-object-fit:dev",
+    "test": "npx nx run fabricjs-object-fit:test",
+    "lint": "npx nx run fabricjs-object-fit:lint",
+    "lint:fix": "npx nx run fabricjs-object-fit:lint:fix",
+    "format": "biome format --write .",
+    "docs:dev": "npx nx run docs:dev",
+    "docs:build": "npx nx run docs:build",
+    "docs:preview": "npx nx run docs:preview"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.9",
+    "nx": "^22.6.3"
+  }
+}

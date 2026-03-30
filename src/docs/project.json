@@ -1,0 +1,21 @@
+{
+  "name": "docs",
+  "targets": {
+    "dev": {
+      "command": "npm run dev",
+      "options": { "cwd": "docs" },
+      "dependsOn": ["fabricjs-object-fit:typedoc"]
+    },
+    "build": {
+      "command": "npm run build",
+      "options": { "cwd": "docs" },
+      "dependsOn": ["fabricjs-object-fit:typedoc"],
+      "inputs": ["{projectRoot}/docs/**/*"],
+      "outputs": ["{projectRoot}/docs/.vitepress/dist"]
+    },
+    "preview": {
+      "command": "npm run preview",
+      "options": { "cwd": "docs" }
+    }
+  }
+}

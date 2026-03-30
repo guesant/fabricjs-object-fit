@@ -26,19 +26,20 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: src/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: cd src && npm ci
 
       - name: Build docs
-        run: npm run docs:build
+        run: cd src && npx nx run docs:build
         env:
           BASE: /fabricjs-object-fit/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: src/docs/docs/.vitepress/dist
 
   deploy:
     environment:

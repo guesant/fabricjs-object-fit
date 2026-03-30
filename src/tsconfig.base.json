@@ -4,13 +4,8 @@
     "module": "Node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["fabric", "vitest/globals"],
     "strict": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
-    "outDir": "./lib",
-    "rootDir": "./src"
-  },
-  "include": ["./src"],
-  "exclude": ["./lib"]
+    "moduleResolution": "node16"
+  }
 }

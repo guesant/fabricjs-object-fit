@@ -1,3 +1,7 @@
-node_modules
-dist
-lib
+**/node_modules
+**/dist
+**/lib
+**/.nx
+src/docs/docs/api
+src/docs/docs/.vitepress/cache
+src/docs/docs/.vitepress/dist

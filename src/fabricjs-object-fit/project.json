@@ -1,0 +1,36 @@
+{
+  "name": "fabricjs-object-fit",
+  "sourceRoot": "fabricjs-object-fit/src",
+  "targets": {
+    "build": {
+      "command": "npm run build",
+      "options": { "cwd": "fabricjs-object-fit" },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/rollup.config.mjs", "{projectRoot}/tsconfig.json"],
+      "outputs": ["{projectRoot}/lib"]
+    },
+    "dev": {
+      "command": "npm run dev",
+      "options": { "cwd": "fabricjs-object-fit" }
+    },
+    "test": {
+      "command": "npm run test",
+      "options": { "cwd": "fabricjs-object-fit" },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/vitest.config.ts"]
+    },
+    "lint": {
+      "command": "npm run lint",
+      "options": { "cwd": "fabricjs-object-fit" },
+      "inputs": ["{projectRoot}/src/**/*"]
+    },
+    "lint:fix": {
+      "command": "npm run lint:fix",
+      "options": { "cwd": "fabricjs-object-fit" }
+    },
+    "typedoc": {
+      "command": "npm run typedoc",
+      "options": { "cwd": "fabricjs-object-fit" },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/typedoc.json"],
+      "outputs": ["{workspaceRoot}/docs/docs/api"]
+    }
+  }
+}

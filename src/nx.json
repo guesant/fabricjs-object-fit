@@ -1,0 +1,19 @@
+{
+  "$schema": "https://nx.dev/reference/nx-schema",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "typedoc": {
+      "cache": true
+    }
+  },
+  "defaultBase": "dev"
+}
