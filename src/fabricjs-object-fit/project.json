@@ -20,6 +20,7 @@
     "test:e2e": {
       "command": "npm run test:e2e",
       "options": { "cwd": "fabricjs-object-fit" },
+      "dependsOn": ["build"],
       "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/playwright.config.mjs"]
     },
     "lint": {

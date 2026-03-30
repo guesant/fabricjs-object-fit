@@ -1,9 +1,8 @@
 import { defineConfig } from "@playwright/test";
-import { resolve, dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const playgroundDir = resolve(__dirname, "../../demos/playground");
 
 export default defineConfig({
   testDir: "./src/e2e/playwright",
@@ -14,8 +13,8 @@ export default defineConfig({
     headless: true,
   },
   webServer: {
-    command: "npx vite --port 3001 --strictPort",
-    cwd: playgroundDir,
+    command: "npx serve -l 3001 --no-clipboard",
+    cwd: resolve(__dirname, ".."),
     port: 3001,
     reuseExistingServer: false,
   },
