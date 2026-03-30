@@ -3,7 +3,7 @@ layout: home
 hero:
   name: fabricjs-object-fit
   tagline: Control how images and objects fill their containers on the Fabric.js canvas -- just like CSS object-fit.
-  text: Drop-in object-fit and object-position behavior for Fabric.js v7+. Cover, contain, fill, scale-down, or display at original size -- without writing scaling math yourself.
+  text: CSS object-fit and object-position for Fabric.js v7+.
   actions:
     - theme: brand
       text: Get Started
