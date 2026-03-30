@@ -24,7 +24,9 @@
     "provenance": true
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "browserslist": [
     ">0.2%",
