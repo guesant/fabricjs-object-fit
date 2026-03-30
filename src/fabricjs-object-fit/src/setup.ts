@@ -7,7 +7,7 @@ export const setup = (ns: IFabricNS, options: ISetupOptions = {}) => {
 
   const ObjectFit = createObjectFitClass(ns);
 
-  if (assingClassesToNamespace) {
+  if (assingClassesToNamespace && Object.isExtensible(ns)) {
     Object.assign(ns, { ObjectFit });
   }
 

@@ -1,6 +1,6 @@
-import type { fabric } from "fabric";
+import type { FabricObjectProps } from "fabric";
 
-export const fabricObjectDefaults: Partial<fabric.Object> = {
+export const fabricObjectDefaults: Partial<FabricObjectProps> = {
   originX: "left",
   originY: "top",
 };

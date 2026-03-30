@@ -1,9 +1,8 @@
-import type { fabric } from "fabric";
+import type { FabricObject, Group } from "fabric";
 import type { IFitMode } from "./IFitMode";
-import type { IObjectFitSerialized } from "./IObjectFitSerialized";
 import type { IPosition } from "./IPosition";
 
-export interface IObjectFit extends fabric.Group {
+export interface IObjectFit extends Group {
   type: string;
 
   mode: IFitMode;
@@ -20,19 +19,17 @@ export interface IObjectFit extends fabric.Group {
 
   enableRecomputeOnScaling: boolean;
 
-  object: fabric.Object | null;
+  object: FabricObject | null;
 
   setObject(
-    object: fabric.Object | null,
+    object: FabricObject | null,
     useObjectTransform?: boolean,
     restorePreviousObjectTransform?: boolean,
   ): void;
 
-  detachObject(restorePreviousObjectTransform?: boolean): fabric.Object | null;
+  detachObject(restorePreviousObjectTransform?: boolean): FabricObject | null;
 
   handleScaled(shouldRenderCanvas?: boolean): void;
 
   recompute(): void;
-
-  toObject(propertiesToInclude?: string[]): IObjectFitSerialized;
 }

@@ -1,4 +1,4 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import { fabricObjectDefaults } from "../misc/Fabric/fabricObjectDefaults";
 import { getObjectCoordsAndReset } from "../misc/Fabric/getObjectCoordsAndReset";
 import { getObjectMaskedByRectangle } from "../misc/getObjectMaskedByRectangle";
@@ -7,7 +7,7 @@ import type { IFabricNS } from "../types/IFabricNS";
 import type { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 
 export const getNoneFittedObject = (
-  object: fabric.Object,
+  object: FabricObject,
   options: IGetFittedObjectPayload,
   ns: IFabricNS,
 ) => {
@@ -24,6 +24,7 @@ export const getNoneFittedObject = (
 
   const objectWrapper = new ns.Group([object], {
     ...fabricObjectDefaults,
+    layoutManager: new ns.LayoutManager(new ns.FixedLayout()),
   });
 
   objectWrapper.set({

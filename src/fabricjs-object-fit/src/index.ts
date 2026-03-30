@@ -6,7 +6,6 @@ export * from "./misc/Position/defaultPosition";
 export * from "./misc/Position/parsePosition";
 export * as Point from "./Point/index.js";
 export * from "./setup";
-export * from "./types/fabric-extended";
 export * from "./types/IFabricNS";
 export * from "./types/IFitMode";
 export * from "./types/IGetFittedObjectOptions";

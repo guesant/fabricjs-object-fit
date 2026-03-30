@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { Tag } from "../enums/Tag";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
 import { fromAbsolute, fromTag } from "../Point/index.js";

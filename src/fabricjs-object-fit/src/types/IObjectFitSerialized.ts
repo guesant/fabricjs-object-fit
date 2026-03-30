@@ -1,11 +1,11 @@
-import type { fabric } from "fabric";
+import type { SerializedGroupProps, SerializedObjectProps } from "fabric";
 import type { IFitMode } from "../types/IFitMode";
 import type { IPositionSerialized } from "./IPositionSerialized";
 
-export type IObjectFitSerialized = Partial<fabric.Group> & {
+export type IObjectFitSerialized = Partial<SerializedGroupProps> & {
   width: number;
   height: number;
   mode: IFitMode;
   position: IPositionSerialized;
-  object?: Partial<fabric.Object> | null | undefined;
+  object?: Partial<SerializedObjectProps> | null | undefined;
 };

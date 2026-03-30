@@ -43,10 +43,9 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@types/fabric": "^4.5.6",
     "canvas": "^3.2.2",
-    "fabric": "^4.6.0-browser",
-    "jsdom": "^19.0.0",
+    "fabric": "^7.0.0",
+    "jsdom": "^26.1.0",
     "rollup": "^4.60.0",
     "rollup-plugin-dts": "^6.4.1",
     "typedoc": "^0.28.18",
@@ -54,8 +53,5 @@
     "typedoc-vitepress-theme": "^1.1.2",
     "typescript": "^6.0.2",
     "vitest": "^4.1.2"
-  },
-  "optionalDependencies": {
-    "@types/fabric": "^4.5.6"
   }
 }

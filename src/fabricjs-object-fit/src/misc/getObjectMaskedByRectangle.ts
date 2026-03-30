@@ -1,4 +1,4 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import type { IFabricNS } from "../types/IFabricNS";
 import { divideBy } from "./divideBy";
 import { fabricObjectDefaults } from "./Fabric/fabricObjectDefaults";
@@ -6,7 +6,7 @@ import { fabricObjectDefaults } from "./Fabric/fabricObjectDefaults";
 export type IGetObjectMaskedByRectangleOptions = {
   width: number;
   height: number;
-  object: fabric.Object;
+  object: FabricObject;
 };
 
 export const getObjectMaskedByRectangle = (
@@ -15,10 +15,11 @@ export const getObjectMaskedByRectangle = (
 ) => {
   const { width, height, object } = options;
 
-  const group = new ns.Group(undefined, {
+  const group = new ns.Group([], {
     ...fabricObjectDefaults,
     width,
     height,
+    layoutManager: new ns.LayoutManager(new ns.FixedLayout()),
   });
 
   const groupMask = new ns.Rect({
@@ -30,7 +31,6 @@ export const getObjectMaskedByRectangle = (
   });
 
   group.add(object);
-  group._updateObjectsCoords();
 
   group.clipPath = groupMask;
 

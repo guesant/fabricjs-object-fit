@@ -1,7 +1,7 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import { fabricObjectDefaults } from "./fabricObjectDefaults";
 
-export const getObjectCoordsAndReset = (object: fabric.Object) => {
+export const getObjectCoordsAndReset = (object: FabricObject) => {
   const { left = 0, top = 0 } = object;
 
   object.set({ ...fabricObjectDefaults, left: 0, top: 0 });

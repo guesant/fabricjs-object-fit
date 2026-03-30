@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { setup } from "./setup";
 
 describe(setup.name, () => {

@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { FitMode } from "../enums/FitMode";
 import { divideBy } from "../misc/divideBy";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";

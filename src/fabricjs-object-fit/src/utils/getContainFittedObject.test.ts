@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { divideBy } from "../misc/divideBy";
 import { getFakeObject } from "../misc/Fabric/getFakeObject";
 import { fromAbsolute } from "../Point/index.js";
@@ -51,11 +51,11 @@ describe(getContainFittedObject.name, () => {
       INITIAL_OBJECT.height * targetScaleFactor,
     );
 
-    expect(objectWrapper.top).toBe(
+    expect(objectWrapper.top).toBeCloseTo(
       -INITIAL_CONTAINER.height / 2 + INITIAL_CONTAINER.absPosY,
     );
 
-    expect(objectWrapper.left).toBe(
+    expect(objectWrapper.left).toBeCloseTo(
       -INITIAL_CONTAINER.width / 2 + INITIAL_CONTAINER.absPosX,
     );
   });

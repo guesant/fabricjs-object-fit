@@ -1,4 +1,4 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import { divideBy } from "../misc/divideBy";
 import { fabricObjectDefaults } from "../misc/Fabric/fabricObjectDefaults";
 import { getObjectCoordsAndReset } from "../misc/Fabric/getObjectCoordsAndReset";
@@ -8,7 +8,7 @@ import type { IFabricNS } from "../types/IFabricNS";
 import type { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 
 export const getCoverFittedObject = (
-  object: fabric.Object,
+  object: FabricObject,
   options: IGetFittedObjectPayload,
   ns: IFabricNS,
 ) => {
@@ -28,7 +28,10 @@ export const getCoverFittedObject = (
   object.scaleX = targetScaleFactor;
   object.scaleY = targetScaleFactor;
 
-  const objectWrapper = new ns.Group([object], { ...fabricObjectDefaults });
+  const objectWrapper = new ns.Group([object], {
+    ...fabricObjectDefaults,
+    layoutManager: new ns.LayoutManager(new ns.FixedLayout()),
+  });
 
   objectWrapper.set({
     left: x.getAbsolute(width, objectWrapper.width ?? 0),

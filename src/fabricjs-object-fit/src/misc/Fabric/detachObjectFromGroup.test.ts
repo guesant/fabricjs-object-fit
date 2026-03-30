@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { detachObjectFromGroup } from "./detachObjectFromGroup";
 import { fabricObjectDefaults } from "./fabricObjectDefaults";
 

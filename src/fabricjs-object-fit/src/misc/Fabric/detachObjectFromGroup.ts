@@ -1,5 +1,5 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 
-export const detachObjectFromGroup = (object: fabric.Object) => {
-  object.group?.removeWithUpdate(object);
+export const detachObjectFromGroup = (object: FabricObject) => {
+  object.group?.remove(object);
 };

@@ -1,11 +1,11 @@
-import type { fabric } from "fabric";
+import type { FabricObject } from "fabric";
 import type { IFabricNS } from "../types/IFabricNS";
 import type { IGetFittedObjectPayload } from "../types/IGetFittedObjectPayload";
 import { getContainFittedObject } from "./getContainFittedObject";
 import { getNoneFittedObject } from "./getNoneFittedObject";
 
 export const getScaleDownFittedObject = (
-  object: fabric.Object,
+  object: FabricObject,
   options: IGetFittedObjectPayload,
   ns: IFabricNS,
 ) => {

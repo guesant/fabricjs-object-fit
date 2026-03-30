@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { getFakeObject } from "./Fabric/getFakeObject";
 import { getObjectMaskedByRectangle } from "./getObjectMaskedByRectangle";
 
