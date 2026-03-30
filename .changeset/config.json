@@ -8,7 +8,7 @@
   "baseBranch": "dev",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@guesant/fabricjs-object-fit.repo",
+    "@fabricjs-object-fit/demo-*",
     "@guesant/fabricjs-object-fit.repo.docs",
     "@guesant/fabricjs-object-fit.repo.src"
   ]
