@@ -34,6 +34,7 @@ async function main() {
       mode,
       width: CONTAINER_WIDTH,
       height: CONTAINER_HEIGHT,
+      useObjectTransform: false,
     });
 
     canvas.add(container);

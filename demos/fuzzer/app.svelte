@@ -2,8 +2,8 @@
   import * as fabric from "fabric";
   import { createObjectFitClass } from "fabricjs-object-fit";
   import { onMount } from "svelte";
-  import { getDefaultData } from "./src/consts/get-default-data";
   import Data from "./src/components/data.svelte";
+  import { getDefaultData } from "./src/consts/get-default-data";
   import { extractContainerInfo } from "./src/utils/extract-container-info";
   import { loadImg } from "./src/utils/load-img";
   import { randInt } from "./src/utils/rand-int";
@@ -38,6 +38,7 @@
       mode: "cover",
       width: 300,
       height: 200,
+      useObjectTransform: false,
     });
 
     canvas.add(container);
@@ -69,7 +70,7 @@
       previewInfo.value = JSON.stringify(
         extractContainerInfo(container),
         null,
-        2
+        2,
       );
 
       container.recompute();
@@ -151,7 +152,8 @@
           <span>|</span>
           <button bind:this={next}>Generate Next</button>
         </div>
-        <textarea class="previewInfo" rows="15" bind:this={previewInfo}></textarea>
+        <textarea class="previewInfo" rows="15" bind:this={previewInfo}
+        ></textarea>
       </div>
     </div>
   </fieldset>
