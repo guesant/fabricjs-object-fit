@@ -40,7 +40,7 @@ jobs:
         run: pnpm exec nx run fabricjs-object-fit:build
 
       - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium firefox
+        run: pnpm --filter fabricjs-object-fit exec playwright install --with-deps chromium firefox
 
       - name: E2E tests
         run: pnpm exec nx run fabricjs-object-fit:test:e2e
