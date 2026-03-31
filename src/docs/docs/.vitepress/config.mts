@@ -64,6 +64,13 @@ export default defineConfig({
             { text: "License", link: "/guide/#license" },
           ],
         },
+        {
+          text: "Deep Dives",
+          items: [
+            { text: "useObjectTransform", link: "/guide/use-object-transform" },
+            { text: "Fabric.js Compatibility", link: "/guide/fabricjs-compatibility" },
+          ],
+        },
       ],
       "/examples/": [
         {

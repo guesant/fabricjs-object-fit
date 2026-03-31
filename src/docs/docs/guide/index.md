@@ -289,6 +289,29 @@ canvas2.renderAll();
 
 > If you can't load the exported data, remember to call `setup(fabric)` before the `loadFromJSON` (on the same context) even if you don't use the returned `ObjectFit` class. This registers the `ObjectFit` type in fabric's `classRegistry`, which is needed for deserialization.
 
+## Object Transform Behavior
+
+When an object already has transforms (position, rotation, scale) before being wrapped in an ObjectFit container, the `useObjectTransform` option controls whether those transforms are preserved on the container or discarded.
+
+By default, `useObjectTransform` is `true` and the container inherits the object's position. Set it to `false` when you want to control placement yourself:
+
+```ts
+const container = new ObjectFit(img, {
+  width: 400,
+  height: 400,
+  mode: "cover",
+  useObjectTransform: false,
+});
+
+container.set({ left: 100, top: 50 });
+```
+
+Read the full explanation in [Understanding useObjectTransform](/guide/use-object-transform).
+
+## Fabric.js Version Compatibility
+
+This library requires **Fabric.js v7+** and was built specifically for the v7 API. If you are migrating from an older Fabric.js version, see [Fabric.js Compatibility](/guide/fabricjs-compatibility) for a detailed breakdown of breaking changes from v4 through v7 and how this library handles them.
+
 ## Examples
 
 You can take a look at some of ours [examples](/examples/).
