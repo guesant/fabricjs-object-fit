@@ -1,8 +1,8 @@
 {
   "entryPoints": ["./src/index.ts"],
   "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
-  "out": "../docs/docs/api",
-  "docsRoot": "../docs/docs",
+  "out": "../../docs/docs/api",
+  "docsRoot": "../../docs/docs",
   "readme": "none",
   "sanitizeComments": true,
   "outputFileStrategy": "members",

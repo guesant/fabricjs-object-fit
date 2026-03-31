@@ -1,6 +1,6 @@
 {
   "name": "fabricjs-object-fit",
-  "sourceRoot": "fabricjs-object-fit/src",
+  "sourceRoot": "packages/fabricjs-object-fit/src",
   "targets": {
     "build": {
       "command": "pnpm run build",
@@ -74,7 +74,7 @@
         "{projectRoot}/typedoc.json"
       ],
       "outputs": [
-        "{workspaceRoot}/docs/docs/api"
+        "{workspaceRoot}/src/docs/docs/api"
       ]
     }
   }

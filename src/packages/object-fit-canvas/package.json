@@ -1,6 +1,7 @@
 {
   "name": "object-fit-canvas",
   "version": "0.0.0",
+  "private": true,
   "description": "CSS-like object-fit and object-position for native HTML Canvas.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",

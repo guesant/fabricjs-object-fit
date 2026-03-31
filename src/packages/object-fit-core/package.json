@@ -1,6 +1,7 @@
 {
   "name": "@guesant/object-fit.core",
   "version": "0.0.0",
+  "private": true,
   "description": "Core object-fit and object-position utilities.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
