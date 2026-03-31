@@ -1,0 +1,44 @@
+{
+  "name": "@guesant/object-fit.core",
+  "version": "0.0.0",
+  "description": "Core object-fit and object-position utilities.",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
+  "browser": "lib/index.umd.js",
+  "unpkg": "lib/index.umd.js",
+  "repository": "https://github.com/guesant/fabricjs-object-fit.git",
+  "author": "Gabriel R. Antunes <gabrielrodantunes@gmail.com>",
+  "license": "LGPL-3.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "files": [
+    "lib/**/*",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.mjs",
+    "dev": "rm -rf lib; rollup --config rollup.config.mjs --watch",
+    "test": "vitest run",
+    "lint": "biome check src",
+    "lint:fix": "biome check --fix src"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@biomejs/biome": "^2.4.10",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^25.5.0",
+    "rollup": "^4.60.1",
+    "rollup-plugin-dts": "^6.4.1",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
+}

@@ -2,6 +2,15 @@
   "name": "@guesant/fabricjs-object-fit.repo",
   "private": true,
   "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "check": "pnpm check:build && pnpm check:typecheck && pnpm check:lint && pnpm check:format && pnpm check:test",
+    "check:typecheck": "pnpm -r --if-present run typecheck",
+    "check:lint": "pnpm -r run lint",
+    "check:format": "pnpm --filter @guesant/fabricjs-object-fit.repo.src exec biome format .",
+    "check:build": "pnpm -r run build",
+    "check:test": "pnpm -r run test",
+    "check:e2e": "pnpm --filter fabricjs-object-fit run test:e2e"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "nx": "^22.6.3",

@@ -1,0 +1,72 @@
+{
+  "name": "fabricjs-object-fit",
+  "version": "1.0.0",
+  "description": "CSS-like 'object-fit' and 'object-position' behavior for FabricJS.",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
+  "browser": "lib/index.umd.js",
+  "unpkg": "lib/index.umd.js",
+  "repository": "https://github.com/guesant/fabricjs-object-fit.git",
+  "homepage": "https://guesant.github.io/fabricjs-object-fit/",
+  "author": "Gabriel R. Antunes <gabrielrodantunes@gmail.com>",
+  "license": "LGPL-3.0",
+  "keywords": [
+    "fabricjs",
+    "object-fit",
+    "cover",
+    "contain",
+    "fill",
+    "object-position"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "files": [
+    "lib/**/*",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf lib; tsc --noEmit && rollup --config rollup.config.mjs",
+    "dev": "rm -rf lib; rollup --config rollup.config.mjs --watch",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "lint": "biome check src",
+    "lint:fix": "biome check --fix src",
+    "typedoc": "typedoc"
+  },
+  "devDependencies": {
+    "@guesant/object-fit.core": "workspace:*",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@biomejs/biome": "^2.4.10",
+    "@playwright/test": "^1.52.0",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^25.5.0",
+    "canvas": "^3.2.2",
+    "fabric": "^7.0.0",
+    "jsdom": "^29.0.1",
+    "rollup": "^4.60.1",
+    "rollup-plugin-dts": "^6.4.1",
+    "serve": "^14.2.6",
+    "typedoc": "^0.28.18",
+    "typedoc-plugin-markdown": "^4.11.0",
+    "typedoc-vitepress-theme": "^1.1.2",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  }
+}

@@ -50,25 +50,6 @@ importers:
         specifier: ^6.3.5
         version: 6.4.1(@types/node@25.5.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3)
 
-  demos/playground:
-    dependencies:
-      fabric:
-        specifier: ^7.0.0
-        version: 7.2.0
-      fabricjs-object-fit:
-        specifier: ^1.0.0
-        version: 1.0.0
-      svelte:
-        specifier: ^5.55.1
-        version: 5.55.1
-    devDependencies:
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^5.1.1
-        version: 5.1.1(svelte@5.55.1)(vite@6.4.1(@types/node@25.5.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
-      vite:
-        specifier: ^6.3.5
-        version: 6.4.1(@types/node@25.5.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3)
-
   demos/position:
     dependencies:
       fabric:
@@ -97,7 +78,7 @@ importers:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.50.0)(@types/node@25.5.0)(axios@1.14.0)(lightningcss@1.32.0)(postcss@8.5.8)(search-insights@2.17.3)(terser@5.46.1)(typescript@6.0.2)
 
-  src/fabricjs-object-fit:
+  src/packages/fabricjs-object-fit:
     devDependencies:
       '@babel/core':
         specifier: ^7.29.0
@@ -108,6 +89,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.4.10
         version: 2.4.10
+      '@guesant/object-fit.core':
+        specifier: workspace:*
+        version: link:../object-fit-core
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.58.2
@@ -159,6 +143,109 @@ importers:
       vite:
         specifier: ^8.0.3
         version: 8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@25.5.0)(terser@5.46.1)(yaml@2.8.3)
+      vitest:
+        specifier: ^4.1.2
+        version: 4.1.2(@types/node@25.5.0)(jsdom@29.0.1(canvas@3.2.2))(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@25.5.0)(terser@5.46.1)(yaml@2.8.3))
+
+  src/packages/fabricjs-object-fit/playground:
+    dependencies:
+      fabric:
+        specifier: ^7.0.0
+        version: 7.2.0
+      fabricjs-object-fit:
+        specifier: ^1.0.0
+        version: 1.0.0
+      svelte:
+        specifier: ^5.55.1
+        version: 5.55.1
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^5.1.1
+        version: 5.1.1(svelte@5.55.1)(vite@6.4.1(@types/node@25.5.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
+      vite:
+        specifier: ^6.3.5
+        version: 6.4.1(@types/node@25.5.0)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3)
+
+  src/packages/object-fit-canvas:
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.29.0
+        version: 7.29.0
+      '@babel/preset-env':
+        specifier: ^7.29.2
+        version: 7.29.2(@babel/core@7.29.0)
+      '@biomejs/biome':
+        specifier: ^2.4.10
+        version: 2.4.10
+      '@guesant/object-fit.core':
+        specifier: workspace:*
+        version: link:../object-fit-core
+      '@rollup/plugin-babel':
+        specifier: ^7.0.0
+        version: 7.0.0(@babel/core@7.29.0)(rollup@4.60.1)
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.3
+        version: 16.0.3(rollup@4.60.1)
+      '@rollup/plugin-terser':
+        specifier: ^1.0.0
+        version: 1.0.0(rollup@4.60.1)
+      '@rollup/plugin-typescript':
+        specifier: ^12.3.0
+        version: 12.3.0(rollup@4.60.1)(tslib@2.8.1)(typescript@6.0.2)
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.0
+      canvas:
+        specifier: ^3.2.2
+        version: 3.2.2
+      rollup:
+        specifier: ^4.60.1
+        version: 4.60.1
+      rollup-plugin-dts:
+        specifier: ^6.4.1
+        version: 6.4.1(rollup@4.60.1)(typescript@6.0.2)
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+      vitest:
+        specifier: ^4.1.2
+        version: 4.1.2(@types/node@25.5.0)(jsdom@29.0.1(canvas@3.2.2))(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@25.5.0)(terser@5.46.1)(yaml@2.8.3))
+
+  src/packages/object-fit-core:
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.29.0
+        version: 7.29.0
+      '@babel/preset-env':
+        specifier: ^7.29.2
+        version: 7.29.2(@babel/core@7.29.0)
+      '@biomejs/biome':
+        specifier: ^2.4.10
+        version: 2.4.10
+      '@rollup/plugin-babel':
+        specifier: ^7.0.0
+        version: 7.0.0(@babel/core@7.29.0)(rollup@4.60.1)
+      '@rollup/plugin-node-resolve':
+        specifier: ^16.0.3
+        version: 16.0.3(rollup@4.60.1)
+      '@rollup/plugin-terser':
+        specifier: ^1.0.0
+        version: 1.0.0(rollup@4.60.1)
+      '@rollup/plugin-typescript':
+        specifier: ^12.3.0
+        version: 12.3.0(rollup@4.60.1)(tslib@2.8.1)(typescript@6.0.2)
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.0
+      rollup:
+        specifier: ^4.60.1
+        version: 4.60.1
+      rollup-plugin-dts:
+        specifier: ^6.4.1
+        version: 6.4.1(rollup@4.60.1)(typescript@6.0.2)
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
       vitest:
         specifier: ^4.1.2
         version: 4.1.2(@types/node@25.5.0)(jsdom@29.0.1(canvas@3.2.2))(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@25.5.0)(terser@5.46.1)(yaml@2.8.3))

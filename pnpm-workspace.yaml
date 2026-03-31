@@ -1,6 +1,7 @@
 packages:
   - "src"
-  - "src/fabricjs-object-fit"
+  - "src/packages/*"
+  - "src/packages/fabricjs-object-fit/playground"
   - "src/docs"
   - "demos/*"
 onlyBuiltDependencies:
