@@ -169,7 +169,7 @@ The `mode` option controls how the object scales inside the container. Each mode
 
 Scales the object uniformly so the container is completely filled. Parts of the object that overflow are clipped.
 
-**When to use:** you need the container fully filled with no empty space -- for example, a background image behind a text overlay, or a profile picture in a circular frame.
+**When to use:** you need the container fully filled with no empty space. For example, a background image behind a text overlay, or a profile picture in a circular frame.
 
 ```ts
 const container = new ObjectFit(img, {
@@ -182,7 +182,7 @@ const container = new ObjectFit(img, {
 
 Scales the object uniformly so it fits entirely within the container. Empty space (letterboxing) may appear on two sides.
 
-**When to use:** showing the entire object matters more than filling the container -- for example, product images in a grid where you do not want cropping.
+**When to use:** showing the entire object matters more than filling the container. For example, product images in a grid where you do not want cropping.
 
 ```ts
 const container = new ObjectFit(img, {
@@ -195,7 +195,7 @@ const container = new ObjectFit(img, {
 
 Stretches the object independently on each axis to exactly match the container dimensions. The aspect ratio is **not** preserved.
 
-**When to use:** you explicitly want the object to match the container size, regardless of distortion -- for example, stretching a gradient or solid-color rectangle to fill a slot.
+**When to use:** you explicitly want the object to match the container size, regardless of distortion. For example, stretching a gradient or solid-color rectangle to fill a slot.
 
 ```ts
 const container = new ObjectFit(img, {
@@ -208,7 +208,7 @@ const container = new ObjectFit(img, {
 
 Displays the object at its original (intrinsic) size. If the object is larger than the container, it is clipped. If smaller, there is empty space.
 
-**When to use:** you want pixel-perfect rendering at the object's native resolution -- for example, displaying a UI icon at its designed size.
+**When to use:** you want pixel-perfect rendering at the object's native resolution. For example, displaying a UI icon at its designed size.
 
 ```ts
 const container = new ObjectFit(img, {
@@ -221,7 +221,7 @@ const container = new ObjectFit(img, {
 
 Acts like `contain` if the object is larger than the container, and like `none` if it is smaller. The object is never scaled *up*.
 
-**When to use:** small objects should stay crisp at their native size but large objects should shrink to fit -- for example, user-uploaded avatars that vary in resolution.
+**When to use:** small objects should stay crisp at their native size but large objects should shrink to fit. For example, user-uploaded avatars that vary in resolution.
 
 ```ts
 const container = new ObjectFit(img, {

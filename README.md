@@ -15,11 +15,11 @@ CSS-like `object-fit` and `object-position` behavior for [Fabric.js](http://fabr
 
 When you place an image on a Fabric.js canvas, there is no built-in way to say "fit this image inside a 400×400 box without distortion." In the browser, CSS `object-fit` solves this in one property. **fabricjs-object-fit** brings that same behavior to Fabric.js:
 
-- **cover** -- fill the container, crop the overflow
-- **contain** -- fit inside the container, letterbox the rest
-- **fill** -- stretch to match exactly
-- **none** -- display at original size, clip overflow
-- **scale-down** -- like contain, but never scales up
+- **cover** fills the container, cropping the overflow
+- **contain** fits inside the container, letterboxing the rest
+- **fill** stretches to match exactly
+- **none** displays at original size, clipping overflow
+- **scale-down** like contain, but never scales up
 
 It also supports `object-position` (pixel, percentage, or named anchors) and round-trips through Fabric.js serialization (`toJSON` / `loadFromJSON`).
 
