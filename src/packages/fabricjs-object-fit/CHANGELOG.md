@@ -1,5 +1,11 @@
 # fabricjs-object-fit
 
+## 1.0.1
+
+### Patch Changes
+
+- f17a10e: fix(fabricjs): handle new origin center from fabric@7
+
 ## 1.0.0
 
 ### Major Changes
