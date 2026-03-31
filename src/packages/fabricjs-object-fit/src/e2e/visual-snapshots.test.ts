@@ -162,10 +162,7 @@ describe("useObjectTransform: true with position", () => {
         });
 
         const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
-        expectToMatchSnapshot(
-          buffer,
-          `uot-true-pos-${label}-${name}.png`,
-        );
+        expectToMatchSnapshot(buffer, `uot-true-pos-${label}-${name}.png`);
       });
     }
   }
@@ -191,10 +188,7 @@ describe("useObjectTransform: true with center origin", () => {
       });
 
       const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
-      expectToMatchSnapshot(
-        buffer,
-        `uot-true-center-origin-${name}.png`,
-      );
+      expectToMatchSnapshot(buffer, `uot-true-center-origin-${name}.png`);
     });
   }
 });
@@ -274,10 +268,7 @@ describe("useObjectTransform: false ignores object transform", () => {
       });
 
       const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
-      expectToMatchSnapshot(
-        buffer,
-        `uot-false-${name}.png`,
-      );
+      expectToMatchSnapshot(buffer, `uot-false-${name}.png`);
     });
   }
 
@@ -328,8 +319,16 @@ describe("useObjectTransform: true with identity transform matches false", () =>
         useObjectTransform: false,
       });
 
-      const bufferTrue = renderToBuffer(containerTrue, CANVAS_WIDTH, CANVAS_HEIGHT);
-      const bufferFalse = renderToBuffer(containerFalse, CANVAS_WIDTH, CANVAS_HEIGHT);
+      const bufferTrue = renderToBuffer(
+        containerTrue,
+        CANVAS_WIDTH,
+        CANVAS_HEIGHT,
+      );
+      const bufferFalse = renderToBuffer(
+        containerFalse,
+        CANVAS_WIDTH,
+        CANVAS_HEIGHT,
+      );
 
       expect(bufferTrue.equals(bufferFalse)).toBe(true);
     });
