@@ -1,6 +1,6 @@
 {
-  "name": "fabricjs-object-fit",
-  "sourceRoot": "fabricjs-object-fit/src",
+  "name": "object-fit-core",
+  "sourceRoot": "object-fit-core/src",
   "targets": {
     "build": {
       "command": "pnpm run build",
@@ -33,19 +33,6 @@
         "{projectRoot}/vitest.config.ts"
       ]
     },
-    "test:e2e": {
-      "command": "pnpm run test:e2e",
-      "options": {
-        "cwd": "{projectRoot}"
-      },
-      "dependsOn": [
-        "build"
-      ],
-      "inputs": [
-        "{projectRoot}/src/**/*",
-        "{projectRoot}/playwright.config.mjs"
-      ]
-    },
     "lint": {
       "command": "pnpm run lint",
       "options": {
@@ -60,19 +47,6 @@
       "options": {
         "cwd": "{projectRoot}"
       }
-    },
-    "typedoc": {
-      "command": "pnpm run typedoc",
-      "options": {
-        "cwd": "{projectRoot}"
-      },
-      "inputs": [
-        "{projectRoot}/src/**/*",
-        "{projectRoot}/typedoc.json"
-      ],
-      "outputs": [
-        "{workspaceRoot}/docs/docs/api"
-      ]
     }
   }
 }

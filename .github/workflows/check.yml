@@ -31,13 +31,13 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: pnpm exec nx run fabricjs-object-fit:lint
+        run: pnpm exec nx run-many --target=lint --projects=object-fit-core,object-fit-canvas,fabricjs-object-fit
 
       - name: Test
-        run: pnpm exec nx run fabricjs-object-fit:test
+        run: pnpm exec nx run-many --target=test --projects=object-fit-core,object-fit-canvas,fabricjs-object-fit
 
       - name: Build
-        run: pnpm exec nx run fabricjs-object-fit:build
+        run: pnpm exec nx run-many --target=build --projects=object-fit-core,object-fit-canvas,fabricjs-object-fit
 
       - name: Install Playwright browsers
         run: pnpm --filter fabricjs-object-fit exec playwright install --with-deps chromium firefox

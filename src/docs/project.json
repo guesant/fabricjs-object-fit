@@ -3,6 +3,7 @@
   "targets": {
     "dev": {
       "command": "pnpm run dev",
+      "continuous": true,
       "options": {
         "cwd": "{projectRoot}"
       },
@@ -27,6 +28,7 @@
     },
     "preview": {
       "command": "pnpm run preview",
+      "continuous": true,
       "options": {
         "cwd": "{projectRoot}"
       }
