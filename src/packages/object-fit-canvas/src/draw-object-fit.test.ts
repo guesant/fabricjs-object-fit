@@ -463,6 +463,177 @@ describe("drawObjectFit", () => {
     });
   });
 
+  describe("canvas ≠ container ≠ image sizes", () => {
+    it("cover: large canvas, medium container, small image", () => {
+      const source = createGradientSource(120, 80);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 300,
+          containerHeight: 200,
+          mode: FitMode.COVER,
+          containerX: 50,
+          containerY: 75,
+        },
+        500,
+        400,
+      );
+
+      const scale = Math.max(300 / 120, 200 / 80);
+      expect(layout.scaleX).toBeCloseTo(scale);
+      expect(layout.scaleY).toBeCloseTo(scale);
+      expect(layout.clipWidth).toBe(300);
+      expect(layout.clipHeight).toBe(200);
+
+      snapshotCanvas(canvas, "cover-120x80-in-300x200-canvas-500x400");
+    });
+
+    it("contain: large canvas, medium container, wide image", () => {
+      const source = createGradientSource(800, 200);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 250,
+          containerHeight: 300,
+          mode: FitMode.CONTAIN,
+          containerX: 75,
+          containerY: 25,
+        },
+        500,
+        400,
+      );
+
+      const scale = Math.min(250 / 800, 300 / 200);
+      expect(layout.scaleX).toBeCloseTo(scale);
+      expect(layout.scaleY).toBeCloseTo(scale);
+      expect(layout.width).toBeCloseTo(800 * scale);
+      expect(layout.height).toBeCloseTo(200 * scale);
+
+      snapshotCanvas(canvas, "contain-800x200-in-250x300-canvas-500x400");
+    });
+
+    it("fill: tall canvas, wide container, square image", () => {
+      const source = createGradientSource(150, 150);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 350,
+          containerHeight: 180,
+          mode: FitMode.FILL,
+          containerX: 20,
+          containerY: 60,
+        },
+        400,
+        500,
+      );
+
+      expect(layout.width).toBe(350);
+      expect(layout.height).toBe(180);
+      expect(layout.scaleX).toBeCloseTo(350 / 150);
+      expect(layout.scaleY).toBeCloseTo(180 / 150);
+
+      snapshotCanvas(canvas, "fill-150x150-in-350x180-canvas-400x500");
+    });
+
+    it("none: image larger than container, container smaller than canvas", () => {
+      const source = createGradientSource(500, 350);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 200,
+          containerHeight: 150,
+          mode: FitMode.NONE,
+          containerX: 100,
+          containerY: 80,
+        },
+        450,
+        400,
+      );
+
+      expect(layout.scaleX).toBe(1);
+      expect(layout.scaleY).toBe(1);
+      expect(layout.width).toBe(500);
+      expect(layout.height).toBe(350);
+      expect(layout.clipWidth).toBe(200);
+      expect(layout.clipHeight).toBe(150);
+
+      snapshotCanvas(canvas, "none-500x350-in-200x150-canvas-450x400");
+    });
+
+    it("scale-down: image larger, distinct canvas and container", () => {
+      const source = createGradientSource(600, 300);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 250,
+          containerHeight: 200,
+          mode: FitMode.SCALE_DOWN,
+          containerX: 40,
+          containerY: 30,
+        },
+        400,
+        350,
+      );
+
+      const scale = Math.min(250 / 600, 200 / 300);
+      expect(layout.scaleX).toBeCloseTo(scale);
+      expect(layout.scaleY).toBeCloseTo(scale);
+
+      snapshotCanvas(canvas, "scale-down-600x300-in-250x200-canvas-400x350");
+    });
+
+    it("scale-down: image smaller, distinct canvas and container", () => {
+      const source = createGradientSource(80, 60);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 250,
+          containerHeight: 200,
+          mode: FitMode.SCALE_DOWN,
+          containerX: 40,
+          containerY: 30,
+        },
+        400,
+        350,
+      );
+
+      expect(layout.scaleX).toBe(1);
+      expect(layout.scaleY).toBe(1);
+      expect(layout.width).toBe(80);
+      expect(layout.height).toBe(60);
+
+      snapshotCanvas(canvas, "scale-down-80x60-in-250x200-canvas-400x350");
+    });
+
+    it("cover with custom position: all sizes different", () => {
+      const source = createGradientSource(400, 250);
+      const { canvas, layout } = draw(
+        {
+          source: source,
+          containerWidth: 200,
+          containerHeight: 300,
+          mode: FitMode.COVER,
+          position: { x: X.LEFT, y: Y.BOTTOM },
+          containerX: 60,
+          containerY: 20,
+        },
+        450,
+        400,
+      );
+
+      const scale = Math.max(200 / 400, 300 / 250);
+      expect(layout.scaleX).toBeCloseTo(scale);
+      expect(layout.scaleY).toBeCloseTo(scale);
+      expect(layout.clipWidth).toBe(200);
+      expect(layout.clipHeight).toBe(300);
+
+      snapshotCanvas(
+        canvas,
+        "cover-400x250-in-200x300-canvas-450x400-pos-left-bottom",
+      );
+    });
+  });
+
   describe("edge cases", () => {
     it("source same size as container in contain", () => {
       const source = createGradientSource(200, 200);
