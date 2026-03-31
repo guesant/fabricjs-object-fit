@@ -66,6 +66,9 @@
       "options": {
         "cwd": "{projectRoot}"
       },
+      "dependsOn": [
+        "^build"
+      ],
       "inputs": [
         "{projectRoot}/src/**/*",
         "{projectRoot}/typedoc.json"

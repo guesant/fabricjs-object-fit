@@ -38,16 +38,6 @@ function createGradientSource(width: number, height: number) {
   sctx.lineWidth = 1;
   sctx.strokeRect(0, 0, width, height);
 
-  const label = `${width}\u00D7${height}`;
-  const fontSize = Math.max(14, Math.min(width, height) * 0.15);
-  sctx.font = `bold ${fontSize}px sans-serif`;
-  sctx.textAlign = "center";
-  sctx.textBaseline = "middle";
-  sctx.fillStyle = "rgba(0,0,0,0.4)";
-  sctx.fillText(label, width / 2 + 1, height / 2 + 1);
-  sctx.fillStyle = "#ffffff";
-  sctx.fillText(label, width / 2, height / 2);
-
   return src;
 }
 
