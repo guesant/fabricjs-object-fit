@@ -32,4 +32,4 @@ jobs:
         run: pnpm exec nx run fabricjs-object-fit:build
 
       - name: Publish preview package
-        run: pnpm exec pkg-pr-new publish ./src/fabricjs-object-fit
+        run: pnpm exec pkg-pr-new publish ./src/packages/fabricjs-object-fit
