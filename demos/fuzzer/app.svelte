@@ -38,7 +38,6 @@
       mode: "cover",
       width: 300,
       height: 200,
-      useObjectTransform: false,
     });
 
     canvas.add(container);

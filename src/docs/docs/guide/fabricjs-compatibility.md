@@ -192,6 +192,8 @@ const fabricObjectDefaults = {
 };
 ```
 
+When [`useObjectTransform`](/guide/use-object-transform) is enabled and an object uses Fabric v7's default `center/center` origin, the library automatically converts the object's position to `left/top` coordinates using `translateToGivenOrigin()` before applying the transform to the container. This ensures the container appears at the correct visual position regardless of the object's origin settings.
+
 ### exitGroup transform behavior
 
 When recomputing the fit, the library explicitly detaches objects from their previous group and resets their transform to a clean state. This prevents Fabric.js v7's `exitGroup` transform application from shifting the fitted object:

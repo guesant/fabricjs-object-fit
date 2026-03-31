@@ -7,6 +7,7 @@ import {
 } from "@guesant/object-fit.core";
 import * as fabric from "fabric";
 import { createObjectFitClass } from "./create-object-fit-class";
+import { fabricObjectDefaults } from "./misc/fabric/fabric-object-defaults";
 import { getFakeObject } from "./misc/fabric/get-fake-object";
 import type { IObjectFitSerialized } from "./types/i-object-fit-serialized";
 
@@ -420,6 +421,103 @@ describe("ObjectFit serialization", () => {
     expect(restored.position.y?.getAbsolute(300, 100)).toBe(
       of.position.y?.getAbsolute(300, 100),
     );
+  });
+});
+
+describe("ObjectFit useObjectTransform origin normalization", () => {
+  it("should normalize center-origin position to left/top origin", () => {
+    const obj = new fabric.Rect({
+      width: 200,
+      height: 100,
+      left: 150,
+      top: 100,
+      originX: "center",
+      originY: "center",
+      strokeWidth: 0,
+    });
+    obj.setCoords();
+
+    const of = new ObjectFit(obj, {
+      width: 200,
+      height: 100,
+      mode: FitMode.FILL,
+      useObjectTransform: true,
+    });
+
+    // center at (150, 100) with 200x100 object => left/top origin at (50, 50)
+    expect(of.left).toBeCloseTo(50);
+    expect(of.top).toBeCloseTo(50);
+    expect(of.originX).toBe("left");
+    expect(of.originY).toBe("top");
+  });
+
+  it("should be a no-op when object already uses left/top origin", () => {
+    const obj = new fabric.Rect({
+      ...fabricObjectDefaults,
+      width: 200,
+      height: 100,
+      left: 50,
+      top: 30,
+    });
+    obj.setCoords();
+
+    const of = new ObjectFit(obj, {
+      width: 200,
+      height: 100,
+      mode: FitMode.FILL,
+      useObjectTransform: true,
+    });
+
+    expect(of.left).toBeCloseTo(50);
+    expect(of.top).toBeCloseTo(30);
+  });
+
+  it("should restore original origin on detachObject", () => {
+    const obj = new fabric.Rect({
+      width: 200,
+      height: 100,
+      left: 150,
+      top: 100,
+      originX: "center",
+      originY: "center",
+      strokeWidth: 0,
+    });
+    obj.setCoords();
+
+    const of = new ObjectFit(null, { width: 200, height: 100 });
+    of.setObject(obj, true, true);
+
+    const detached = of.detachObject(true);
+
+    expect(detached?.originX).toBe("center");
+    expect(detached?.originY).toBe("center");
+    expect(detached?.left).toBeCloseTo(150);
+    expect(detached?.top).toBeCloseTo(100);
+  });
+
+  it("should handle right/bottom origin correctly", () => {
+    const obj = new fabric.Rect({
+      width: 200,
+      height: 100,
+      left: 250,
+      top: 150,
+      originX: "right",
+      originY: "bottom",
+      strokeWidth: 0,
+    });
+    obj.setCoords();
+
+    const of = new ObjectFit(obj, {
+      width: 200,
+      height: 100,
+      mode: FitMode.FILL,
+      useObjectTransform: true,
+    });
+
+    // right at 250 with width 200 => left origin at 50
+    // bottom at 150 with height 100 => top origin at 50
+    expect(of.left).toBeCloseTo(50);
+    expect(of.top).toBeCloseTo(50);
   });
 });
 

@@ -293,18 +293,7 @@ canvas2.renderAll();
 
 When an object already has transforms (position, rotation, scale) before being wrapped in an ObjectFit container, the `useObjectTransform` option controls whether those transforms are preserved on the container or discarded.
 
-By default, `useObjectTransform` is `true` and the container inherits the object's position. Set it to `false` when you want to control placement yourself:
-
-```ts
-const container = new ObjectFit(img, {
-  width: 400,
-  height: 400,
-  mode: "cover",
-  useObjectTransform: false,
-});
-
-container.set({ left: 100, top: 50 });
-```
+By default, `useObjectTransform` is `true` and the container inherits the object's position. The library automatically normalizes coordinates from Fabric.js v7's default `center/center` origin to its internal `left/top` origin, so the container always appears at the correct visual position. Set it to `false` when you want to discard the object's transforms and control placement yourself.
 
 Read the full explanation in [Understanding useObjectTransform](/guide/use-object-transform).
 

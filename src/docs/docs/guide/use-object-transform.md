@@ -34,11 +34,12 @@ const container = new ObjectFit(img, {
 With `useObjectTransform: true`, the library:
 
 1. Captures the object's current transform via `qrDecompose()` on its transform matrix (position, scale, rotation, skew, origin).
-2. Resets the object to an identity transform internally.
-3. Computes the fit (cover, contain, etc.) on the clean object.
-4. Re-applies the captured transform to the ObjectFit container itself.
+2. **Normalizes the position** to `left/top` origin using Fabric.js's `translateToGivenOrigin()`. This is critical because Fabric.js v7 defaults to `center/center` origin, while the library uses `left/top` internally. Without this conversion, the container would appear at the wrong position.
+3. Resets the object to an identity transform internally.
+4. Computes the fit (cover, contain, etc.) on the clean object.
+5. Re-applies the normalized transform to the ObjectFit container itself.
 
-The result: the container appears at the same position, rotation, and scale as the original object.
+The result: the container appears at the same position, rotation, and scale as the original object, regardless of which `originX`/`originY` the object used.
 
 ### Disabling it
 
@@ -119,12 +120,22 @@ container.setObject(newImage);
 container.setObject(newImage, true);
 ```
 
+## Origin Normalization
+
+Fabric.js v7 changed the default `originX`/`originY` from `"left"`/`"top"` to `"center"`/`"center"`. This means that an object with `left: 100, top: 100` in Fabric v7 has its **center** at (100, 100), not its top-left corner.
+
+The library internally uses `originX: "left", originY: "top"` for all layout calculations. When `useObjectTransform` captures an object's position, it automatically converts the coordinates from the object's origin to `left/top` origin using Fabric.js's `translateToGivenOrigin()`.
+
+For example, a 200x100 object with `originX: "center"` at `left: 150` is converted to `left: 50` (since center at 150 minus half-width 100 equals top-left at 50).
+
+This conversion is transparent — you don't need to worry about origin settings when using `useObjectTransform`.
+
 ## What Transforms Are Captured
 
 When `useObjectTransform` is active, the following properties are captured from the original object:
 
-- `left`, `top` — position
-- `originX`, `originY` — transform origin
+- `left`, `top` — position (normalized to `left/top` origin for the container)
+- `originX`, `originY` — transform origin (stored for restoration via `detachObject`)
 - `scaleX`, `scaleY` — scale factors
 - `angle` — rotation in degrees
 - `skewX`, `skewY` — skew factors
@@ -141,19 +152,8 @@ The ObjectFit class maintains two private properties for transform tracking:
 
 The `restorePreviousObjectTransform` parameter in `setObject()` controls whether the previous object's initial transform is restored when it is detached from the container. This defaults to `true`, so swapping objects puts the old one back where it was.
 
-## Why Demos Use `false`
+## Demos and the Default
 
-All the [demo examples](/examples/) use `useObjectTransform: false`:
+The [demo examples](/examples/) rely on the default `useObjectTransform: true`. Since freshly loaded images typically carry identity transforms, the origin normalization is a no-op and the containers appear exactly where placed.
 
-```ts
-const container = new ObjectFit(img, {
-  width: 400,
-  height: 400,
-  mode: "cover",
-  useObjectTransform: false,
-});
-```
-
-This is intentional. The demos place containers at specific positions on the canvas to showcase each fit mode and position option. Using `true` would cause the containers to inherit whatever transforms the loaded images carry, making the demo layout unpredictable.
-
-If you are following a demo to get started and want to control placement yourself, use `false`. If you are integrating into an existing canvas where objects already have positions, use `true` (the default).
+If you are building a fresh layout and want to make it explicit that you are positioning containers yourself, you can pass `useObjectTransform: false`. But in most cases, the default `true` works correctly thanks to automatic origin normalization.

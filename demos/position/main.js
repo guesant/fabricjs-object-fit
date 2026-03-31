@@ -72,7 +72,6 @@ async function main() {
       mode: CONTAINER_FIT_MODE,
       width: CONTAINER_WIDTH,
       height: CONTAINER_HEIGHT,
-      useObjectTransform: false,
     });
 
     canvas.add(container);

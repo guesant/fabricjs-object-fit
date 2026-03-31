@@ -78,7 +78,21 @@ export const createObjectFitClass = (ns: IFabricNS): IObjectFitConstructor => {
         );
 
         if (useObjectTransform) {
-          this._loadedObjectTransform = this._loadedObjectInitialTransform;
+          const normalizedPos = object.translateToGivenOrigin(
+            new ns.Point(object.left, object.top),
+            object.originX,
+            object.originY,
+            "left",
+            "top",
+          );
+
+          this._loadedObjectTransform = {
+            ...this._loadedObjectInitialTransform,
+            left: normalizedPos.x,
+            top: normalizedPos.y,
+            originX: "left" as const,
+            originY: "top" as const,
+          };
         }
 
         object.set(resetTransformOptions);
