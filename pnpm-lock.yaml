@@ -24,7 +24,7 @@ importers:
         specifier: ^7.0.0
         version: 7.2.0
       fabricjs-object-fit:
-        specifier: ^1.0.0
+        specifier: ^1.0.1
         version: link:../../src/packages/fabricjs-object-fit
     devDependencies:
       vite:
@@ -37,7 +37,7 @@ importers:
         specifier: ^7.0.0
         version: 7.2.0
       fabricjs-object-fit:
-        specifier: ^1.0.0
+        specifier: ^1.0.1
         version: link:../../src/packages/fabricjs-object-fit
       svelte:
         specifier: ^5.55.1
@@ -56,7 +56,7 @@ importers:
         specifier: ^7.0.0
         version: 7.2.0
       fabricjs-object-fit:
-        specifier: ^1.0.0
+        specifier: ^1.0.1
         version: link:../../src/packages/fabricjs-object-fit
     devDependencies:
       vite:

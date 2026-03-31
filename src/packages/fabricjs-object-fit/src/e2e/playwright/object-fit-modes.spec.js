@@ -234,19 +234,11 @@ test.describe("useObjectTransform", () => {
   test("useObjectTransform=true inherits object position", async ({ page }) => {
     await page.evaluate(
       async ([src]) => {
+        const { ObjectFit, Point, canvas } = window.app;
         const img = await fabric.FabricImage.fromURL(src, {
           crossOrigin: "anonymous",
         });
         img.set({ originX: "left", originY: "top", left: 100, top: 80 });
-
-        if (window.app._container) window.app._container = null;
-
-        const { ObjectFit, Point } = window.app._internals
-          ? window.app._internals
-          : (() => {
-              const { createObjectFitClass, Point } = FabricJSObjectFit;
-              return { ObjectFit: createObjectFitClass(fabric), Point };
-            })();
 
         const container = new ObjectFit(img, {
           width: 300,
@@ -256,10 +248,8 @@ test.describe("useObjectTransform", () => {
           position: { x: Point.X.CENTER, y: Point.Y.CENTER },
         });
 
-        const canvas = document.querySelector("canvas").__fabric;
         canvas.add(container);
         canvas.requestRenderAll();
-
         window._testContainer = container;
       },
       [FIXTURES.landscape],
@@ -288,13 +278,11 @@ test.describe("useObjectTransform", () => {
   }) => {
     await page.evaluate(
       async ([src]) => {
+        const { ObjectFit, Point, canvas } = window.app;
         const img = await fabric.FabricImage.fromURL(src, {
           crossOrigin: "anonymous",
         });
         img.set({ originX: "left", originY: "top", left: 100, top: 80 });
-
-        const { createObjectFitClass, Point } = FabricJSObjectFit;
-        const ObjectFit = createObjectFitClass(fabric);
 
         const container = new ObjectFit(img, {
           width: 300,
@@ -304,10 +292,8 @@ test.describe("useObjectTransform", () => {
           position: { x: Point.X.CENTER, y: Point.Y.CENTER },
         });
 
-        const canvas = document.querySelector("canvas").__fabric;
         canvas.add(container);
         canvas.requestRenderAll();
-
         window._testContainer = container;
       },
       [FIXTURES.landscape],
@@ -327,15 +313,13 @@ test.describe("useObjectTransform", () => {
   test("useObjectTransform=true normalizes center origin", async ({ page }) => {
     await page.evaluate(
       async ([src]) => {
+        const { ObjectFit, Point, canvas } = window.app;
         const img = await fabric.FabricImage.fromURL(src, {
           crossOrigin: "anonymous",
         });
         // center origin: center of image at (400, 300)
         // image is 600x400, so left/top should be at (100, 100)
         img.set({ originX: "center", originY: "center", left: 400, top: 300 });
-
-        const { createObjectFitClass, Point } = FabricJSObjectFit;
-        const ObjectFit = createObjectFitClass(fabric);
 
         const container = new ObjectFit(img, {
           width: 300,
@@ -345,10 +329,8 @@ test.describe("useObjectTransform", () => {
           position: { x: Point.X.CENTER, y: Point.Y.CENTER },
         });
 
-        const canvas = document.querySelector("canvas").__fabric;
         canvas.add(container);
         canvas.requestRenderAll();
-
         window._testContainer = container;
       },
       [FIXTURES.landscape],
@@ -376,6 +358,7 @@ test.describe("useObjectTransform", () => {
   test("useObjectTransform=true with scale and angle", async ({ page }) => {
     await page.evaluate(
       async ([src]) => {
+        const { ObjectFit, Point, canvas } = window.app;
         const img = await fabric.FabricImage.fromURL(src, {
           crossOrigin: "anonymous",
         });
@@ -389,9 +372,6 @@ test.describe("useObjectTransform", () => {
           angle: 30,
         });
 
-        const { createObjectFitClass, Point } = FabricJSObjectFit;
-        const ObjectFit = createObjectFitClass(fabric);
-
         const container = new ObjectFit(img, {
           width: 300,
           height: 200,
@@ -400,10 +380,8 @@ test.describe("useObjectTransform", () => {
           position: { x: Point.X.CENTER, y: Point.Y.CENTER },
         });
 
-        const canvas = document.querySelector("canvas").__fabric;
         canvas.add(container);
         canvas.requestRenderAll();
-
         window._testContainer = container;
       },
       [FIXTURES.landscape],
@@ -432,6 +410,7 @@ test.describe("useObjectTransform", () => {
   test("useObjectTransform=false ignores scale and angle", async ({ page }) => {
     await page.evaluate(
       async ([src]) => {
+        const { ObjectFit, Point, canvas } = window.app;
         const img = await fabric.FabricImage.fromURL(src, {
           crossOrigin: "anonymous",
         });
@@ -445,9 +424,6 @@ test.describe("useObjectTransform", () => {
           angle: 90,
         });
 
-        const { createObjectFitClass, Point } = FabricJSObjectFit;
-        const ObjectFit = createObjectFitClass(fabric);
-
         const container = new ObjectFit(img, {
           width: 300,
           height: 200,
@@ -456,10 +432,8 @@ test.describe("useObjectTransform", () => {
           position: { x: Point.X.CENTER, y: Point.Y.CENTER },
         });
 
-        const canvas = document.querySelector("canvas").__fabric;
         canvas.add(container);
         canvas.requestRenderAll();
-
         window._testContainer = container;
       },
       [FIXTURES.landscape],
