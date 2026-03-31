@@ -9,7 +9,9 @@
     "check:format": "pnpm --filter @guesant/fabricjs-object-fit.repo.src exec biome format .",
     "check:build": "pnpm -r run build",
     "check:test": "pnpm -r run test",
-    "check:e2e": "pnpm --filter fabricjs-object-fit run test:e2e"
+    "check:e2e": "pnpm --filter fabricjs-object-fit run test:e2e",
+    "changeset:add": "changeset",
+    "changeset:version": "changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",

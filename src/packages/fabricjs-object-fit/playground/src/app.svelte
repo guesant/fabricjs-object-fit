@@ -19,6 +19,13 @@
   let posYType = $state("tag");
   let posYValue = $state("center");
   let useObjectTransform = $state(true);
+  let objectOriginX = $state("center");
+  let objectOriginY = $state("center");
+  let objectLeft = $state(0);
+  let objectTop = $state(0);
+  let objectAngle = $state(0);
+  let objectScaleX = $state(1);
+  let objectScaleY = $state(1);
   let imageSrc = $state(
     "https://placehold.co/300x500/3b82f6/fff?text=300x500",
   );
@@ -63,7 +70,15 @@
       const img = await fabric.FabricImage.fromURL(imageSrc, {
         crossOrigin: "anonymous",
       });
-      img.set({ originX: "left", originY: "top", top: 0, left: 0 });
+      img.set({
+        originX: objectOriginX,
+        originY: objectOriginY,
+        left: objectLeft,
+        top: objectTop,
+        angle: objectAngle,
+        scaleX: objectScaleX,
+        scaleY: objectScaleY,
+      });
 
       if (container) {
         canvas.remove(container);
@@ -146,6 +161,13 @@
         bind:posYType
         bind:posYValue
         bind:useObjectTransform
+        bind:objectOriginX
+        bind:objectOriginY
+        bind:objectLeft
+        bind:objectTop
+        bind:objectAngle
+        bind:objectScaleX
+        bind:objectScaleY
         bind:imageSrc
         onLoadImage={loadImage}
       />
@@ -159,9 +181,10 @@
 </main>
 
 <style>
-  :global(body) {
+  :global(html, body) {
     margin: 0;
-    padding: 16px;
+    padding: 0;
+    height: 100%;
     font-family:
       system-ui,
       -apple-system,
@@ -170,24 +193,30 @@
   }
 
   h1 {
-    margin: 0 0 16px;
+    margin: 0 0 12px;
+    padding: 16px 16px 0;
     font-size: 20px;
     font-weight: 600;
   }
 
   main {
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
 
   .layout {
     display: flex;
     gap: 16px;
-    align-items: flex-start;
+    flex: 1;
+    padding: 0 16px 16px;
+    min-height: 0;
   }
 
   .canvas-area {
     position: relative;
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 0;
   }
 
   .canvas-area canvas {
@@ -211,7 +240,6 @@
     flex-direction: column;
     gap: 0;
     min-width: 280px;
-    max-height: 520px;
     overflow-y: auto;
   }
 

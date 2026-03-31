@@ -10,9 +10,29 @@
     posYType = $bindable(),
     posYValue = $bindable(),
     useObjectTransform = $bindable(),
+    objectOriginX = $bindable(),
+    objectOriginY = $bindable(),
+    objectLeft = $bindable(),
+    objectTop = $bindable(),
+    objectAngle = $bindable(),
+    objectScaleX = $bindable(),
+    objectScaleY = $bindable(),
     imageSrc = $bindable(),
     onLoadImage,
   } = $props();
+
+  const ORIGIN_PRESETS = [
+    { label: "left / top", x: "left", y: "top" },
+    { label: "center / center", x: "center", y: "center" },
+    { label: "right / bottom", x: "right", y: "bottom" },
+    { label: "right / top", x: "right", y: "top" },
+  ];
+
+  function applyOriginPreset(x, y) {
+    objectOriginX = x;
+    objectOriginY = y;
+    onLoadImage?.();
+  }
 
   let urlInput = $state("");
 
@@ -76,11 +96,71 @@
   <PositionControl label="Y" bind:type={posYType} bind:value={posYValue} />
 
   <fieldset>
-    <legend>Options</legend>
+    <legend>Object Transform</legend>
     <label>
       <input type="checkbox" bind:checked={useObjectTransform} />
       useObjectTransform
     </label>
+
+    <div class="sub-section">
+      <span class="sub-label">Origin presets:</span>
+      <div class="presets">
+        {#each ORIGIN_PRESETS as { label, x, y }}
+          <button
+            class:active={objectOriginX === x && objectOriginY === y}
+            onclick={() => applyOriginPreset(x, y)}
+          >{label}</button>
+        {/each}
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <span class="sub-label">Origin:</span>
+      <label>
+        originX:
+        <select bind:value={objectOriginX} onchange={() => onLoadImage?.()}>
+          <option value="left">left</option>
+          <option value="center">center</option>
+          <option value="right">right</option>
+        </select>
+      </label>
+      <label>
+        originY:
+        <select bind:value={objectOriginY} onchange={() => onLoadImage?.()}>
+          <option value="top">top</option>
+          <option value="center">center</option>
+          <option value="bottom">bottom</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="sub-section">
+      <span class="sub-label">Position:</span>
+      <label>
+        left:
+        <input type="number" bind:value={objectLeft} step="10" onchange={() => onLoadImage?.()} />
+      </label>
+      <label>
+        top:
+        <input type="number" bind:value={objectTop} step="10" onchange={() => onLoadImage?.()} />
+      </label>
+    </div>
+
+    <div class="sub-section">
+      <span class="sub-label">Scale &amp; Rotation:</span>
+      <label>
+        scaleX:
+        <input type="number" bind:value={objectScaleX} min="0.1" max="5" step="0.1" onchange={() => onLoadImage?.()} />
+      </label>
+      <label>
+        scaleY:
+        <input type="number" bind:value={objectScaleY} min="0.1" max="5" step="0.1" onchange={() => onLoadImage?.()} />
+      </label>
+      <label>
+        angle:
+        <input type="number" bind:value={objectAngle} min="0" max="360" step="5" onchange={() => onLoadImage?.()} />
+      </label>
+    </div>
   </fieldset>
 
   <fieldset>
@@ -141,5 +221,21 @@
     padding: 4px 8px;
     font-size: 12px;
     cursor: pointer;
+  }
+  .presets button.active {
+    background: #3b82f6;
+    color: white;
+    border-color: #2563eb;
+  }
+  .sub-section {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #e5e7eb;
+  }
+  .sub-label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
   }
 </style>

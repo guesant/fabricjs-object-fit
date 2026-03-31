@@ -144,6 +144,198 @@ describeFitSizeMatrix("Fit Modes (bottom-right)", "fit-br", {
   position: { x: X.RIGHT, y: Y.BOTTOM },
 });
 
+// ─── useObjectTransform: true (with custom transform) ─────────────────────
+
+describe("useObjectTransform: true with position", () => {
+  for (const { file, label } of SIZE_CASES) {
+    for (const { mode, name } of FIT_MODES) {
+      it(`${label} ${name} — positioned at (30, 20)`, async () => {
+        const img = await loadFabricImage(file);
+        img.set({ left: 30, top: 20 });
+        img.setCoords();
+
+        const container = new ObjectFit(img, {
+          mode,
+          width: CONTAINER_WIDTH,
+          height: CONTAINER_HEIGHT,
+          useObjectTransform: true,
+        });
+
+        const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+        expectToMatchSnapshot(
+          buffer,
+          `uot-true-pos-${label}-${name}.png`,
+        );
+      });
+    }
+  }
+});
+
+describe("useObjectTransform: true with center origin", () => {
+  for (const { mode, name } of FIT_MODES) {
+    it(`${name} — center origin at (250, 230)`, async () => {
+      const img = await loadFabricImage("600x400.png");
+      img.set({
+        left: 250,
+        top: 230,
+        originX: "center",
+        originY: "center",
+      });
+      img.setCoords();
+
+      const container = new ObjectFit(img, {
+        mode,
+        width: CONTAINER_WIDTH,
+        height: CONTAINER_HEIGHT,
+        useObjectTransform: true,
+      });
+
+      const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+      expectToMatchSnapshot(
+        buffer,
+        `uot-true-center-origin-${name}.png`,
+      );
+    });
+  }
+});
+
+describe("useObjectTransform: true with scale and angle", () => {
+  it("scaled 1.5x cover", async () => {
+    const img = await loadFabricImage("200x100.png");
+    img.set({ left: 10, top: 10, scaleX: 1.5, scaleY: 1.5 });
+    img.setCoords();
+
+    const container = new ObjectFit(img, {
+      mode: FitMode.COVER,
+      width: CONTAINER_WIDTH,
+      height: CONTAINER_HEIGHT,
+      useObjectTransform: true,
+    });
+
+    const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+    expectToMatchSnapshot(buffer, `uot-true-scaled-cover.png`);
+  });
+
+  it("rotated 45deg contain", async () => {
+    const img = await loadFabricImage("200x100.png");
+    img.set({ left: 10, top: 10, angle: 45 });
+    img.setCoords();
+
+    const container = new ObjectFit(img, {
+      mode: FitMode.CONTAIN,
+      width: CONTAINER_WIDTH,
+      height: CONTAINER_HEIGHT,
+      useObjectTransform: true,
+    });
+
+    const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+    expectToMatchSnapshot(buffer, `uot-true-rotated-contain.png`);
+  });
+
+  it("center origin + scaled + rotated fill", async () => {
+    const img = await loadFabricImage("200x100.png");
+    img.set({
+      left: 200,
+      top: 150,
+      originX: "center",
+      originY: "center",
+      scaleX: 1.5,
+      scaleY: 1.5,
+      angle: 30,
+    });
+    img.setCoords();
+
+    const container = new ObjectFit(img, {
+      mode: FitMode.FILL,
+      width: CONTAINER_WIDTH,
+      height: CONTAINER_HEIGHT,
+      useObjectTransform: true,
+    });
+
+    const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+    expectToMatchSnapshot(buffer, `uot-true-center-scaled-rotated-fill.png`);
+  });
+});
+
+// ─── useObjectTransform: false ────────────────────────────────────────────
+
+describe("useObjectTransform: false ignores object transform", () => {
+  for (const { mode, name } of FIT_MODES) {
+    it(`${name} — object at (80, 60) should render at origin`, async () => {
+      const img = await loadFabricImage("600x400.png");
+      img.set({ left: 80, top: 60 });
+      img.setCoords();
+
+      const container = new ObjectFit(img, {
+        mode,
+        width: CONTAINER_WIDTH,
+        height: CONTAINER_HEIGHT,
+        useObjectTransform: false,
+      });
+
+      const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+      expectToMatchSnapshot(
+        buffer,
+        `uot-false-${name}.png`,
+      );
+    });
+  }
+
+  it("ignores center origin + scale + angle", async () => {
+    const img = await loadFabricImage("200x100.png");
+    img.set({
+      left: 200,
+      top: 150,
+      originX: "center",
+      originY: "center",
+      scaleX: 2,
+      scaleY: 2,
+      angle: 45,
+    });
+    img.setCoords();
+
+    const container = new ObjectFit(img, {
+      mode: FitMode.COVER,
+      width: CONTAINER_WIDTH,
+      height: CONTAINER_HEIGHT,
+      useObjectTransform: false,
+    });
+
+    const buffer = renderToBuffer(container, CANVAS_WIDTH, CANVAS_HEIGHT);
+    expectToMatchSnapshot(buffer, `uot-false-complex-transform.png`);
+  });
+});
+
+// ─── useObjectTransform: true vs false visual consistency ─────────────────
+
+describe("useObjectTransform: true with identity transform matches false", () => {
+  for (const { mode, name } of FIT_MODES) {
+    it(`${name} — identity transform produces same result`, async () => {
+      const imgTrue = await loadFabricImage("600x400.png");
+      const imgFalse = await loadFabricImage("600x400.png");
+
+      const containerTrue = new ObjectFit(imgTrue, {
+        mode,
+        width: CONTAINER_WIDTH,
+        height: CONTAINER_HEIGHT,
+        useObjectTransform: true,
+      });
+
+      const containerFalse = new ObjectFit(imgFalse, {
+        mode,
+        width: CONTAINER_WIDTH,
+        height: CONTAINER_HEIGHT,
+        useObjectTransform: false,
+      });
+
+      const bufferTrue = renderToBuffer(containerTrue, CANVAS_WIDTH, CANVAS_HEIGHT);
+      const bufferFalse = renderToBuffer(containerFalse, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+      expect(bufferTrue.equals(bufferFalse)).toBe(true);
+    });
+  }
+});
+
 // ─── Position Modes ─────────────────────────────────────────────────────────
 
 describe("Position Modes", () => {
