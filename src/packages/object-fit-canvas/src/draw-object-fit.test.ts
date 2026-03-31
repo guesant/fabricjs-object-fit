@@ -65,7 +65,7 @@ function snapshotCanvas(canvas: ReturnType<typeof createCanvas>, name: string) {
 }
 
 function draw(
-  opts: Parameters<typeof drawObjectFit>[0],
+  opts: Omit<Parameters<typeof drawObjectFit>[0], "ctx">,
   canvasW?: number,
   canvasH?: number,
 ) {
@@ -99,8 +99,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(640, 360);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 640,
-        sourceHeight: 360,
         containerWidth: 400,
         containerHeight: 400,
         mode: FitMode.COVER,
@@ -121,8 +119,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 400);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 400,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.COVER,
@@ -139,8 +135,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(300, 300);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 300,
-        sourceHeight: 300,
         containerWidth: 500,
         containerHeight: 200,
         mode: FitMode.COVER,
@@ -159,8 +153,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 100);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 100,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
@@ -180,8 +172,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(100, 300);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 100,
-        sourceHeight: 300,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.CONTAIN,
@@ -199,8 +189,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(50, 50);
       const { layout } = draw({
         source: source,
-        sourceWidth: 50,
-        sourceHeight: 50,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
@@ -218,8 +206,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(150, 100);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 150,
-        sourceHeight: 100,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.FILL,
@@ -241,8 +227,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(80, 60);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 80,
-        sourceHeight: 60,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.NONE,
@@ -262,8 +246,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(400, 400);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 400,
-        sourceHeight: 400,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.NONE,
@@ -286,8 +268,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(600, 400);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 600,
-        sourceHeight: 400,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.SCALE_DOWN,
@@ -304,8 +284,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(100, 80);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 100,
-        sourceHeight: 80,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.SCALE_DOWN,
@@ -325,8 +303,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 100);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 100,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
@@ -343,8 +319,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 100);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 100,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
@@ -361,8 +335,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 100);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 100,
         containerWidth: 300,
         containerHeight: 300,
         mode: FitMode.CONTAIN,
@@ -379,8 +351,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(640, 360);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 640,
-        sourceHeight: 360,
         containerWidth: 400,
         containerHeight: 400,
         mode: FitMode.COVER,
@@ -401,8 +371,6 @@ describe("drawObjectFit", () => {
       const { canvas, layout } = draw(
         {
           source: source,
-          sourceWidth: 100,
-          sourceHeight: 100,
           containerWidth: 200,
           containerHeight: 200,
           mode: FitMode.FILL,
@@ -424,8 +392,6 @@ describe("drawObjectFit", () => {
       const { canvas } = draw(
         {
           source: source,
-          sourceWidth: 640,
-          sourceHeight: 360,
           containerWidth: 200,
           containerHeight: 200,
           mode: FitMode.COVER,
@@ -512,8 +478,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(200, 200);
       const { layout } = draw({
         source: source,
-        sourceWidth: 200,
-        sourceHeight: 200,
         containerWidth: 200,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
@@ -529,8 +493,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(1000, 50);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 1000,
-        sourceHeight: 50,
         containerWidth: 200,
         containerHeight: 400,
         mode: FitMode.CONTAIN,
@@ -548,8 +510,6 @@ describe("drawObjectFit", () => {
       const source = createGradientSource(50, 1000);
       const { canvas, layout } = draw({
         source: source,
-        sourceWidth: 50,
-        sourceHeight: 1000,
         containerWidth: 400,
         containerHeight: 200,
         mode: FitMode.CONTAIN,
