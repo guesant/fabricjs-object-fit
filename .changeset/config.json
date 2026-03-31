@@ -6,11 +6,12 @@
   "linked": [],
   "access": "public",
   "baseBranch": "dev",
-  "updateInternalDependencies": "patch",
+  "updateInternalDependencies": "minor",
   "ignore": [
     "object-fit-canvas",
     "@guesant/object-fit.core",
     "@fabricjs-object-fit/demo-*",
+    "@fabricjs-object-fit/playground",
     "@guesant/fabricjs-object-fit.repo.docs",
     "@guesant/fabricjs-object-fit.repo.src"
   ]

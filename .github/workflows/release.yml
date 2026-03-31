@@ -42,7 +42,7 @@ jobs:
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
-          version: pnpm exec changeset version
+          version: pnpm exec changeset version && pnpm install --no-frozen-lockfile
           publish: pnpm exec changeset publish
           title: "chore: version packages"
           commit: "chore: version packages"
