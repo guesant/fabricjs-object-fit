@@ -8,6 +8,8 @@
   "baseBranch": "dev",
   "updateInternalDependencies": "patch",
   "ignore": [
+    "object-fit-canvas",
+    "@guesant/object-fit.core",
     "@fabricjs-object-fit/demo-*",
     "@guesant/fabricjs-object-fit.repo.docs",
     "@guesant/fabricjs-object-fit.repo.src"
