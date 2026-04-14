@@ -39,7 +39,7 @@ jobs:
           BASE: /fabricjs-object-fit/
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: src/docs/docs/.vitepress/dist
 
