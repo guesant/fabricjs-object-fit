@@ -14,7 +14,7 @@
     "docs:preview": "pnpm exec nx run docs:preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
+    "@biomejs/biome": "^2.5.0",
     "@types/node": "^25.5.0"
   }
 }
